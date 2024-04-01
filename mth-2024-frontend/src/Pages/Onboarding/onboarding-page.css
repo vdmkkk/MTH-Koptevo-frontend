@@ -25,6 +25,7 @@
 
 .main-part {
   margin-inline: 108px;
+  
 }
 
 .icons-routes {
@@ -59,13 +60,45 @@
   border-radius: 28px;
   display: flex;
   overflow: hidden;
+  /* padding-right: 78px; */
+  /* background-image: url("../../assets/img/frame1.png"); */
+  background-repeat: no-repeat;
 }
 
-.link-div img {
-  opacity: .8;
+.link-div p, h2, h1 {
   position: relative;
-  left: -20px;
-  bottom: 200px;
+  z-index: 2;
+}
+
+.link-div p {
+  font-weight: 300;
+}
+
+.link-div h2 {
+  font-weight: 300;
+  margin-top: 0px;
+  font-size: 24px;
+}
+
+.link-div h1 {
+  margin-bottom: 0px;
+}
+
+.train-part {
+  padding-left: 78px;
+  width: 160%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap:15px;
+}
+
+.non-train-part {
+  margin-top: 64px;
+  margin-inline: 78px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 .footer {
