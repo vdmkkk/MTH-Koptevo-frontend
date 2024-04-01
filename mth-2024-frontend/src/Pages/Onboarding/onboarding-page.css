@@ -1,0 +1,75 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+
+.banner {
+  width: 100%;
+}
+
+.bottom-of-banner {
+  background-color: white;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.border-div {
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border-radius: 80px;
+  /* position: absolute; */
+  transform: translateY(-20px);
+}
+
+.main-part {
+  margin-inline: 108px;
+}
+
+.icons-routes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.icons-routes-1 {
+  display: flex;
+  justify-content: space-between;
+  /* gap: 20px; */
+}
+
+.icon-route {
+  height: 256px;
+}
+
+.links {
+  margin-top: 75px;
+  margin-bottom: 75px;
+  /* background-color: rgb(255, 255, 0); */
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+.link-div {
+  width: 100%;
+  height: 423px;
+  background-color: #F5F5F5;
+  border-radius: 28px;
+  display: flex;
+  overflow: hidden;
+}
+
+.link-div img {
+  opacity: .8;
+  position: relative;
+  left: -20px;
+  bottom: 200px;
+}
+
+.footer {
+  background-color: #1D1D1D;
+  width: 100%;
+  height: 300px;
+}

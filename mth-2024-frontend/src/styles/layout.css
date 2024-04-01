@@ -6,30 +6,50 @@ p {
 }
 
 
-img {
+.icons {
   width: 28px;
 }
 
 
 .layout-header {
+  
+  /* width: 100%; */
+  height: 72px;
+  padding-inline: 108px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
 }
 
 .left-half {
-
+  display: flex;
+  flex-direction: row;
+  /* margin-left: 100px; */
+  gap: 20px;
 }
 
 .left-part-header {
-
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap:8px;
 }
 
 .centre-part-header {
-
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .right-part-header {
+  display: flex;
+  flex-direction: row;
+  /* margin-right: 100px; */
+  gap: 20px;
+}
 
+.logo-rus {
+  height: 28px;
 }

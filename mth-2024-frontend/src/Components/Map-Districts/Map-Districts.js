@@ -38,7 +38,7 @@ function MapDistricts({ districts, currDistrict, setDistrict}) {
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
         >
             <GoogleMap
-                mapContainerStyle={containerStyle}
+                // mapContainerStyle={containerStyle}
                 center={center}
                 zoom={15}
                 options={{
@@ -52,7 +52,7 @@ function MapDistricts({ districts, currDistrict, setDistrict}) {
                 }}
                 onLoad={map => {
                     mapRef.current = map;
-                    draw();
+                    // draw();
                 }}
                 onClick={() => setDistrict(-1)}
             >
