@@ -24,7 +24,7 @@ class LoadScriptOnlyIfNeeded extends LoadScript {
 }
 
 function MapDistricts({ districts, currDistrict, setDistrict}) {
-
+    const [loaded, setLoaded] = useState(false);
     const mapRef = useRef(null);
 
 
@@ -32,6 +32,28 @@ function MapDistricts({ districts, currDistrict, setDistrict}) {
         lat: 55.751576, 
         lng: 37.618755
     };
+
+    const containerStyle = {
+        width: '100vw',
+        height: '100vh',
+    };
+
+    const draw = async () => {
+        districts.forEach(coordSet => {
+            if (mapRef.current) {
+                const polygon = new window.google.maps.Polygon({
+                    path: coordSet["coords"],
+                    geodesic: true,
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                });
+                polygon.addListener("click",  () => setDistrict(coordSet["id"]));
+                setLoaded(true); // ! EVIL SHIT
+                polygon.setMap(mapRef.current);
+            }
+        });
+    }
 
     return (
         <LoadScriptOnlyIfNeeded
