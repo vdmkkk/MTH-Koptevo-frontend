@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={ <Home/> } />
         <Route path="login" element={ <Login/> } />
         <Route path='map' element={<MapDistrictsPage/>}/>
-        <Route path="*" element={<Navigate to="/" replace />}/> 
+        <Route path="*" element={<Navigate to="/" replace />}/>
         {/* это для потеряшек */}
       </Routes>
     </div>
