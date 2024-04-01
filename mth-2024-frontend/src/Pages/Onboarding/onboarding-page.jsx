@@ -1,14 +1,11 @@
 import '../styles/onboarding-page.css';
-import Layout from '../components/reusable/layout.jsx';
+import Layout from '../../Components/reusable/layout.js';
 
 function OnboardingPage() {
   return (
     <div className="App">
         <Layout>
           
-
-
-
         </Layout>
     </div>
   );
