@@ -17,18 +17,18 @@ function Layout() {
     <div className="layout-header">
       <div className='left-half'>
         <div className='left-part-header'>
-          <img src={Logo_russpass} className='icons'></img>
+          <img src={Logo_russpass} className='icons' style={{cursor:"pointer"}}></img>
           <img src={Separator} style={{height:"28px"}}></img>
-          <img src={LogoRussia} className='logo-rus'></img>
-          <img src={arrow} style={{marginLeft:"8px"}}  className='icons'></img>
+          <img src={LogoRussia} className='logo-rus' style={{cursor:"pointer"}}></img>
+          <img src={arrow} style={{marginLeft:"8px", cursor:"pointer"}}  className='icons'></img>
         </div>
         
         <div className='centre-part-header'>
-          <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+          <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
             <img src={burgerMenu} className='icons'></img>
             <p>Меню</p>
           </div>
-          <div  style={{display:"flex", alignItems:"center", gap:"8px"}}>
+          <div  style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
             <img src={bonus} className='icons'></img>
             <p>Бонусы</p>
           </div>
@@ -36,19 +36,19 @@ function Layout() {
       </div>
 
       <div className='right-part-header'>
-        <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
           <img src={mosturizm} className='icons'></img>
           <p>Проекты Мостуризма</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
           <img src={heart} className='icons'></img>
           <p>Мои планы</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
           <img src={user} className='icons'></img>
           <p>Войти</p>
         </div>
-        <img src={flag} className='icons'></img>
+        <img src={flag} className='icons' style={{cursor:"pointer"}}></img>
       </div>
     </div>
   );
