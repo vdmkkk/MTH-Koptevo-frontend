@@ -17,8 +17,9 @@ import coin from "../../assets/icons/black-coin.svg"
 import bruh from "../../data/places.json"
 import {useNavigate} from "react-router"
 import Dropdown from '../../Components/reusable/dropdown.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import labels1 from "../../data/sort.json"
+import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-Districts-Popup';
 
 
 const tags = [
@@ -46,11 +47,24 @@ function PlacesPage() {
   const [sortOption, setSortOption] = useState(labels1[0]);
   const [tagOption, setTagOption] = useState();
   const [isOpen, setIsOpen] = useState();
+  const [districtsOpen, setDistrictsOpen] = useState(false);
+  const [currDistrict, setCurrDistrict] = useState(-1);
+
+  useEffect(() => {
+    if (districtsOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [districtsOpen]);
   
   return (
-    <div className="App">
-        <Layout>
-        </Layout>
+    <div style={{"overflow": districtsOpen ? "hidden" : "auto"}} className="App">
+        <MapDistrictsPopup isOpen={districtsOpen} setIsOpen={setDistrictsOpen} currDistrict={currDistrict} setCurrDistrict={setCurrDistrict}/>
+        <Layout/>
         <div className='main-part'>
           <div>
             <div style={{display:"flex", justifyContent:"flex-start"}}>
@@ -76,7 +90,7 @@ function PlacesPage() {
             <Dropdown id={1} label={"Рекомендованные"} labels={labels1} selectedOption={sortOption} setSelectedOption={setSortOption} />
             <Dropdown id={2} label={"Теги"} labels={tags} selectedOption={tagOption} setSelectedOption={setTagOption}  />
             
-            <div className='dropdown'>
+            <div onClick={() => setDistrictsOpen(true)} className='dropdown'>
               <img></img>
               <p>Выбрать район</p>
             </div>

@@ -9,7 +9,6 @@ import ProfilePage from './Pages/Profile/profile-page';
 import PlacesPage from './Pages/Places/places-page';
 import PlacePage from './Pages/Place/place-page';
 
-
 const router = createBrowserRouter([
   {
     path: "/login",
