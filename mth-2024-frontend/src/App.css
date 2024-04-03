@@ -1,5 +1,18 @@
+:root {
+  --main-white-color: #FFFFFF;
+  --gray-f5: #F5F5F5;
+  --gray-a7: #A7A7A7;
+  --gray-75: #757575;
+  --yellow: #FFCF08;
+  --green: #007470;
+  --black: #1D1D1D;
+  --sand: #FAEDD6;
+}
+
+
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -36,3 +49,33 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Proto Grotesk';
+  src: local('Proto Grotesk'), url(./fonts/ProtoGrotesk-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Proto Grotesk';
+    font-weight: 900;
+    src: local('Proto Grotesk'), url(./fonts/ProtoGrotesk-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Proto Grotesk';
+    font-weight: 100;
+    src: local('Proto Grotesk'), url(./fonts/ProtoGrotesk-ExtraLight.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Proto Grotesk';
+  font-weight: 300;
+  src: local('Proto Grotesk'), url(./fonts/ProtoGrotesk-Light.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse-Intl';
+  font-weight: 500;
+  src: local('Suisse-Intl'), url(./fonts/SuisseIntl-Regular.otf) format('opentype');
+}
+

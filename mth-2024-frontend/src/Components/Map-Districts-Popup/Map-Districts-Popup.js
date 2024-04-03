@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import MapDistricts from "../Map-Districts/Map-Districts";
 import MapDistrictsSidebar from "../Map-Districts-Sidebar/Map-Districts-Sidebar";
+import './Map-Districts-Popup.scss'
+import close from '../../assets/icons/close.svg'
 
-function MapDistrictsPopup({open}) {
+function MapDistrictsPopup({isOpen, setIsOpen, currDistrict, setCurrDistrict}) {
 
     const districts = [
         {id: 0, name: "Коптево", colorMain: "#F69E7B", colorActive: "#FC6832", description: "Исторический центр на минималках: уже не так людно, как рядом с Дворцовой и Невским, но всё так же близко к достопримечательностям. В этом районе много современных и креативных мест, которые неизменно притягивают модную тусовку.", tags: ["шоппинг", "культурный", "рестораны"], "localComment": {name: "Заман", time: "6 мес.", text: "Чтобы насладиться вайбом купеческой Москвы без толп, сверните с Малой Бронной в Трёхпрудный переулок или погуляйте по Спиридоновке."}, coords: [{lat: 55.819224, lng: 37.517778}, {lat: 55.831852, lng: 37.509491}, {lat: 55.848192, lng: 37.554631}, {lat: 55.845008, lng: 37.560492}, {lat: 55.833597, lng: 37.534352}], markerCoords: {lat: 55.831575, lng: 37.526178}},
@@ -19,15 +21,19 @@ function MapDistrictsPopup({open}) {
         {id: 11, name: "Молодёжь", colorMain: "#FF005C", colorActive: "#cc004a", description: "", tags: [], "localComment": {name: "Заман", time: "6 мес.", text: ""}, coords: [{'lat': 55.759584802282, 'lng': 37.628024933283}, {'lat': 55.75924674236, 'lng': 37.628346798365}, {'lat': 55.758727573202, 'lng': 37.629076359217}, {'lat': 55.758220471072, 'lng': 37.629870293085}, {'lat': 55.757858251228, 'lng': 37.630514023249}, {'lat': 55.757254544013, 'lng': 37.631608364527}, {'lat': 55.756578380836, 'lng': 37.632295010035}, {'lat': 55.756022952315, 'lng': 37.633003113215}, {'lat': 55.755274318749, 'lng': 37.6338614201}, {'lat': 55.754718871657, 'lng': 37.634505150263}, {'lat': 55.75432039387, 'lng': 37.634762642329}, {'lat': 55.75397021306, 'lng': 37.635020134394}, {'lat': 55.753889861189, 'lng': 37.635299084132}, {'lat': 55.753974388054, 'lng': 37.635749695246}, {'lat': 55.754179666819, 'lng': 37.636715290491}, {'lat': 55.754022689037, 'lng': 37.637037155573}, {'lat': 55.753744957567, 'lng': 37.637444851343}, {'lat': 55.753261941606, 'lng': 37.638431904261}, {'lat': 55.753092884606, 'lng': 37.639247295801}, {'lat': 55.752489103626, 'lng': 37.639805195277}, {'lat': 55.751575936362, 'lng': 37.641050509259}, {'lat': 55.75087552232, 'lng': 37.641930273816}, {'lat': 55.750549463218, 'lng': 37.642359427258}, {'lat': 55.750525310584, 'lng': 37.642745665356}, {'lat': 55.750658149888, 'lng': 37.643582514569}, {'lat': 55.750766836256, 'lng': 37.644161871716}, {'lat': 55.7507306075, 'lng': 37.644934347912}, {'lat': 55.750947979529, 'lng': 37.645642451092}, {'lat': 55.751418948101, 'lng': 37.646393469616}, {'lat': 55.752191807283, 'lng': 37.646951369091}, {'lat': 55.753012953387, 'lng': 37.647509268567}, {'lat': 55.752964651153, 'lng': 37.648410490796}, {'lat': 55.752964651153, 'lng': 37.649440459057}, {'lat': 55.753085406625, 'lng': 37.650384596631}, {'lat': 55.753278614601, 'lng': 37.651414564892}, {'lat': 55.753616726258, 'lng': 37.652959517285}, {'lat': 55.754027286472, 'lng': 37.65392511253}, {'lat': 55.75437746677, 'lng': 37.654483012005}, {'lat': 55.754920843766, 'lng': 37.654161146924}, {'lat': 55.755524587106, 'lng': 37.653903654858}, {'lat': 55.756224917672, 'lng': 37.653367213055}, {'lat': 55.756297364943, 'lng': 37.653689078137}, {'lat': 55.756732045749, 'lng': 37.65351741676}, {'lat': 55.758023985099, 'lng': 37.652787855908}, {'lat': 55.758832934679, 'lng': 37.652380160138}, {'lat': 55.759738455349, 'lng': 37.651886633679}, {'lat': 55.7608249635, 'lng': 37.651225213061}, {'lat': 55.76123544784, 'lng': 37.650495652209}, {'lat': 55.761682146477, 'lng': 37.649830464373}, {'lat': 55.762346148508, 'lng': 37.648950699816}, {'lat': 55.763058429025, 'lng': 37.647813443194}, {'lat': 55.76360168508, 'lng': 37.646976593981}, {'lat': 55.764277726489, 'lng': 37.645860795031}, {'lat': 55.764808893659, 'lng': 37.645131234179}, {'lat': 55.764567454934, 'lng': 37.64433730031}, {'lat': 55.764301870609, 'lng': 37.643822316179}, {'lat': 55.76393970725, 'lng': 37.643157128344}, {'lat': 55.763432672896, 'lng': 37.642384652147}, {'lat': 55.764434662997, 'lng': 37.640367630968}, {'lat': 55.764965828029, 'lng': 37.638994339953}, {'lat': 55.765509057509, 'lng': 37.637921456347}, {'lat': 55.765074474531, 'lng': 37.637127522478}, {'lat': 55.764495023024, 'lng': 37.636548165331}, {'lat': 55.763456817539, 'lng': 37.635604027758}, {'lat': 55.762829051974, 'lng': 37.634981755266}, {'lat': 55.762201276302, 'lng': 37.63410199071}, {'lat': 55.761428615446, 'lng': 37.632599953661}, {'lat': 55.76093362154, 'lng': 37.631870392809}, {'lat': 55.76043862135, 'lng': 37.631398324022}, {'lat': 55.760197155563, 'lng': 37.630904797564}, {'lat': 55.760028128622, 'lng': 37.630025033007}, {'lat': 55.759919468059, 'lng': 37.629037980089}, {'lat': 55.759738366448, 'lng': 37.628201130877}], markerCoords: {'lat': 55.75803735221215, 'lng': 37.64227112622102}}
     ]
 
-    const [currDistrict, setCurrDistrict] = useState(-1);
     const open = useMemo(() => {return districts.filter(district => district.id == currDistrict)[0] === undefined ? false : true}, [currDistrict]);
     // console.log(districts.filter(district => district.id == currDistrict)[0]);
     console.log(currDistrict, open);
-    if (open)
+    if (isOpen)
     return (
-        <div>
-            <MapDistricts districts={districts} currDistrict={currDistrict} setDistrict={setCurrDistrict}/>
-            <MapDistrictsSidebar open={open} district={districts.filter(district => district.id == currDistrict)[0]} />
+        <div className="overlay">
+            <div className="popup">
+                <MapDistricts districts={districts} currDistrict={currDistrict} setDistrict={setCurrDistrict} isOpen={isOpen}/>
+                <MapDistrictsSidebar open={open} district={districts.filter(district => district.id == currDistrict)[0]} />
+                <div className="close" onClick={() => setIsOpen(false)}>
+                    <img src={close}/>
+                </div>
+            </div>
         </div>
         
     )

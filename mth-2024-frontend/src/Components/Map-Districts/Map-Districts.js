@@ -3,18 +3,18 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { useRef, useState, useEffect } from 'react';
 
 // * DISTRICTS LABELS
-import main0 from '../../Assets/Images/Districts/main0.png'
-import main1 from '../../Assets/Images/Districts/main1.png'
-import main2 from '../../Assets/Images/Districts/main2.png'
-import main3 from '../../Assets/Images/Districts/main3.png'
-import main4 from '../../Assets/Images/Districts/main4.png'
-import main5 from '../../Assets/Images/Districts/main5.png'
-import main6 from '../../Assets/Images/Districts/main6.png'
-import main7 from '../../Assets/Images/Districts/main7.png'
-import main8 from '../../Assets/Images/Districts/main8.png'
-import main9 from '../../Assets/Images/Districts/main9.png'
-import main10 from '../../Assets/Images/Districts/main10.png'
-import main11 from '../../Assets/Images/Districts/main11.png'
+import main0 from '../../assets/Images/Districts/main0.png'
+import main1 from '../../assets/Images/Districts/main1.png'
+import main2 from '../../assets/Images/Districts/main2.png'
+import main3 from '../../assets/Images/Districts/main3.png'
+import main4 from '../../assets/Images/Districts/main4.png'
+import main5 from '../../assets/Images/Districts/main5.png'
+import main6 from '../../assets/Images/Districts/main6.png'
+import main7 from '../../assets/Images/Districts/main7.png'
+import main8 from '../../assets/Images/Districts/main8.png'
+import main9 from '../../assets/Images/Districts/main9.png'
+import main10 from '../../assets/Images/Districts/main10.png'
+import main11 from '../../assets/Images/Districts/main11.png'
 
 
 
@@ -32,6 +32,10 @@ const districtLabels = {
     10: main10,
     11: main11,
 }
+
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
 
 
 class LoadScriptOnlyIfNeeded extends LoadScript {
@@ -55,7 +59,7 @@ class LoadScriptOnlyIfNeeded extends LoadScript {
     }
 }
 
-function MapDistricts({ districts, currDistrict, setDistrict }) {
+function MapDistricts({ districts, currDistrict, setDistrict, isOpen }) {
     const [loaded, setLoaded] = useState(false);
     const mapRef = useRef(null);
     const districtRef = useRef([]);
@@ -70,8 +74,9 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
     };
 
     const containerStyle = {
-        width: '100vw',
-        height: '100vh',
+        width: '100%',
+        height: '100%',
+        borderRadius: "30px"
     };
 
     const checkBounds = () => {
@@ -150,41 +155,51 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
 
 
     useEffect(() => {
-        if (mapRef.current) {
-            const map = mapRef.current;
-            const newMarkers = markersRef.current;
-
-            const styles = [
-                {
-                    url: 'https://4x4photo.ru/wp-content/uploads/2023/05/4df0de19-e32a-491c-bcab-0d849f3cff9a.jpg',
-                    height: 60,
-                    width: 60,
-                    textColor: '#ffffff',
-                    textSize: 10,
-                },
-            ];
-
-            if (markerClustererRef.current) {
-                markerClustererRef.current.clearMarkers();
-            }
-            markerClustererRef.current = new MarkerClusterer({ map, newMarkers, styles });
-            districts.forEach(marker => {
-                const newMarker = new window.google.maps.Marker({
-                    map: mapRef.current,
-                    position: new window.google.maps.LatLng(marker["markerCoords"]["lat"], marker["markerCoords"]["lng"]),
-                    icon: {
-                        url: districtLabels[marker["id"]],
-                        scaledSize: new window.google.maps.Size(140, 40),
-                    }
-                });
-                newMarker.addListener("click", (e) => {
-                    e.stop()
-                    setDistrict(marker["id"])
+        
+        const func = async () => {
+            await sleep(2000);
+            if (mapRef.current) {
+                const map = mapRef.current;
+                const newMarkers = markersRef.current;
+    
+                const styles = [
+                    {
+                        url: 'https://4x4photo.ru/wp-content/uploads/2023/05/4df0de19-e32a-491c-bcab-0d849f3cff9a.jpg',
+                        height: 60,
+                        width: 60,
+                        textColor: '#ffffff',
+                        textSize: 10,
+                    },
+                ];
+    
+                if (markerClustererRef.current) {
+                    markerClustererRef.current.clearMarkers();
+                }
+                markerClustererRef.current = new MarkerClusterer({ map, newMarkers, styles });
+                districts.forEach(marker => {
+                    const newMarker = new window.google.maps.Marker({
+                        map: mapRef.current,
+                        position: new window.google.maps.LatLng(marker["markerCoords"]["lat"], marker["markerCoords"]["lng"]),
+                        icon: {
+                            url: districtLabels[marker["id"]],
+                            scaledSize: new window.google.maps.Size(140, 40),
+                        }
+                    });
+                    newMarker.addListener("click", (e) => {
+                        e.stop()
+                        setDistrict(marker["id"])
+                    })
+                    console.log("loaded", markerClustererRef)
+                    markerClustererRef.current.addMarker(newMarker);
                 })
-                markerClustererRef.current.addMarker(newMarker);
-            })
-            markerClustererRef.current.render();
+                markerClustererRef.current.render();
+            }
         }
+
+        func();
+        return () => {
+        };
+        
     }, [mapRef.current, loaded, currDistrict]);
 
 
@@ -193,7 +208,7 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
         >
             <GoogleMap
-                mapContainerStyle={containerStyle}
+                // mapContainerStyle={containerStyle}
                 center={center}
                 zoom={15}
                 options={{
@@ -205,8 +220,10 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
                     fullscreenControl: false,
                     mapId: "7ec5d822bd262c80",
                     minZoom: 13,
-                    maxZoom: 14
+                    maxZoom: 14,
                 }}
+                mapContainerStyle={containerStyle}
+                
                 onLoad={map => {
                     mapRef.current = map;
                     allowedBoundsRef.current = new window.google.maps.LatLngBounds(
@@ -216,6 +233,7 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
                     map.addListener('center_changed', checkBounds);
                     draw();
                 }}
+                
                 onClick={() => {
                     setDistrict(-1);
                     if (districts.filter(dist => dist["id"] == currDistrict)[0] !== undefined) mapRef.current.panTo(districts.filter(dist => dist["id"] == currDistrict)[0]["markerCoords"]);

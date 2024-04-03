@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom"
 import Login from './Pages/Login/Login';
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from 'react';
-import MapDistrictsPage from './Pages/Map-Districts/Map-Districts-Page';
 
 
 function App() {
@@ -13,8 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Home/> } />
         <Route path="login" element={ <Login/> } />
-        <Route path='map' element={<MapDistrictsPage/>}/>
-        <Route path="*" element={<Navigate to="/" replace />}/> 
+        <Route path="*" element={<Navigate to="/" replace />}/>
         {/* это для потеряшек */}
       </Routes>
     </div>
