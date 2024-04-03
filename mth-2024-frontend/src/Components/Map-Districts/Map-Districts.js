@@ -4,9 +4,12 @@ import { useRef, useState, useEffect } from 'react';
 
 // * DISTRICTS LABELS
 import main0 from '../../Assets/Images/Districts/main0.png'
+import main1 from '../../Assets/Images/Districts/main1.png'
 
 const districtLabels = {
-    0: main0
+    0: main0,
+    1: main1,
+
 }
 
 
@@ -80,6 +83,7 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
                     path: coordSet["coords"],
                     geodesic: true,
                     strokeOpacity: 0,
+                    fillOpacity: .65,
                     fillColor: coordSet["colorMain"],
                 });
                 polygon.addListener("click", (e) => {
@@ -149,7 +153,7 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
                     position: new window.google.maps.LatLng(marker["markerCoords"]["lat"], marker["markerCoords"]["lng"]),
                     icon: {
                         url: districtLabels[marker["id"]],
-                        // scaledSize: new window.google.maps.Size(40, 40),
+                        scaledSize: new window.google.maps.Size(140, 40),
                     }
                 });
                 newMarker.addListener("click", (e) => {
@@ -179,7 +183,8 @@ function MapDistricts({ districts, currDistrict, setDistrict }) {
                     rotateControl: false,
                     fullscreenControl: false,
                     mapId: "7ec5d822bd262c80",
-                    minZoom: 13
+                    minZoom: 13,
+                    maxZoom: 14
                 }}
                 onLoad={map => {
                     mapRef.current = map;
