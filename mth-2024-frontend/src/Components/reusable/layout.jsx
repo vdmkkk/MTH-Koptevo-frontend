@@ -15,6 +15,7 @@ import flag from '../../assets/icons/Flags.svg'
 function Layout() {
   return (
     <div className="layout-header">
+      <div className='header-content'>
       <div className='left-half'>
         <div className='left-part-header'>
           <img src={Logo_russpass} className='icons' style={{cursor:"pointer"}}></img>
@@ -49,6 +50,7 @@ function Layout() {
           <p>Войти</p>
         </div>
         <img src={flag} className='icons' style={{cursor:"pointer"}}></img>
+      </div>
       </div>
     </div>
   );

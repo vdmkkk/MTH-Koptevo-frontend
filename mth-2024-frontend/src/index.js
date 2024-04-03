@@ -6,6 +6,8 @@ import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router
 import Login from './Pages/Login/Login';
 import OnboardingPage from './Pages/Onboarding/onboarding-page';
 import ProfilePage from './Pages/Profile/profile-page';
+import PlacesPage from './Pages/Places/places-page';
+import PlacePage from './Pages/Place/place-page';
 
 
 const router = createBrowserRouter([
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfilePage/>
+  },
+  {
+    path: "/places",
+    element: <PlacesPage/>
+  },
+  {
+    path: "/places/:placeID",
+    element: <PlacePage/>
   }
 ]);
 

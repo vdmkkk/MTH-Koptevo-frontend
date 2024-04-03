@@ -1,3 +1,15 @@
+:root {
+  --main-white-color: #FFFFFF;
+  --gray-f5: #F5F5F5;
+  --gray-a7: #A7A7A7;
+  --gray-75: #757575;
+  --yellow: #FFCF08;
+  --green: #007470;
+  --black: #1D1D1D;
+  --sand: #FAEDD6;
+}
+
+
 .App {
   text-align: center;
 }
@@ -65,3 +77,4 @@
   font-weight: 500;
   src: local('Suisse-Intl'), url(./fonts/SuisseIntl-Regular.otf) format('opentype');
 }
+

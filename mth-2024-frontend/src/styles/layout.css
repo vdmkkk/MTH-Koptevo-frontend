@@ -13,14 +13,23 @@ p {
 
 .layout-header {
   
-  /* width: 100%; */
+  width: 100%;
   height: 72px;
+  /* padding-inline: 108px; */
+ 
+  
+  background-color: white;
+  position: sticky;
+  top:0;
+  z-index: 10;
+}
+
+.header-content {
   padding-inline: 108px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: white;
 }
 
 .left-half {
@@ -48,8 +57,14 @@ p {
   flex-direction: row;
   /* margin-right: 100px; */
   gap: 20px;
+  right: 108px;
 }
 
 .logo-rus {
   height: 28px;
+}
+
+.bgimg {
+  background-size: cover;
+  padding-bottom: 5px;
 }
