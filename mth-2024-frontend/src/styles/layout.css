@@ -1,0 +1,35 @@
+p {
+  font-family: "Suisse Intl";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+
+img {
+  width: 28px;
+}
+
+
+.layout-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-half {
+
+}
+
+.left-part-header {
+
+}
+
+.centre-part-header {
+
+}
+
+.right-part-header {
+
+}

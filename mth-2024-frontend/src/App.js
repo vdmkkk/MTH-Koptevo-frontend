@@ -7,9 +7,6 @@ import MapDistrictsPage from './Pages/Map-Districts/Map-Districts-Page';
 
 
 function App() {
-
-
-
   return (
     <div className="App">
       {/* не забудь изменить index.js !!! */}
