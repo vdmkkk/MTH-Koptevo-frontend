@@ -5,11 +5,32 @@ import { useRef, useState, useEffect } from 'react';
 // * DISTRICTS LABELS
 import main0 from '../../Assets/Images/Districts/main0.png'
 import main1 from '../../Assets/Images/Districts/main1.png'
+import main2 from '../../Assets/Images/Districts/main2.png'
+import main3 from '../../Assets/Images/Districts/main3.png'
+import main4 from '../../Assets/Images/Districts/main4.png'
+import main5 from '../../Assets/Images/Districts/main5.png'
+import main6 from '../../Assets/Images/Districts/main6.png'
+import main7 from '../../Assets/Images/Districts/main7.png'
+import main8 from '../../Assets/Images/Districts/main8.png'
+import main9 from '../../Assets/Images/Districts/main9.png'
+import main10 from '../../Assets/Images/Districts/main10.png'
+import main11 from '../../Assets/Images/Districts/main11.png'
+
+
 
 const districtLabels = {
     0: main0,
     1: main1,
-
+    2: main2,
+    3: main3,
+    4: main4,
+    5: main5,
+    6: main6,
+    7: main7,
+    8: main8,
+    9: main9,
+    10: main10,
+    11: main11,
 }
 
 
