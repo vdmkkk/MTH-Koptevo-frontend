@@ -29,7 +29,7 @@ function MapDistrictsPopup({isOpen, setIsOpen, currDistrict, setCurrDistrict}) {
         <div className="overlay">
             <div className="popup">
                 <MapDistricts districts={districts} currDistrict={currDistrict} setDistrict={setCurrDistrict} isOpen={isOpen}/>
-                <MapDistrictsSidebar open={open} district={districts.filter(district => district.id == currDistrict)[0]} />
+                <MapDistrictsSidebar open={open} district={districts.filter(district => district.id == currDistrict)[0]} setOpen={setCurrDistrict} />
                 <div className="close" onClick={() => setIsOpen(false)}>
                     <img src={close}/>
                 </div>
