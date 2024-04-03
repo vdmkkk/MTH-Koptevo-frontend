@@ -1,6 +1,6 @@
 .App {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: white;
 }
 
@@ -194,4 +194,11 @@
   background-color: #1D1D1D;
   width: 100%;
   height: 300px;
+}
+
+@media (max-width: 459px) {
+  .main-part {
+    margin-inline: 16px;
+  }
+
 }
