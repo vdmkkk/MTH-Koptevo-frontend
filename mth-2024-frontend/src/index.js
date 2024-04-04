@@ -8,6 +8,8 @@ import OnboardingPage from './Pages/Onboarding/onboarding-page';
 import ProfilePage from './Pages/Profile/profile-page';
 import PlacesPage from './Pages/Places/places-page';
 import PlacePage from './Pages/Place/place-page';
+import RoutesPage from './Pages/Routes/routes-page';
+import RoutePage from './Pages/Route/route-page';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
   {
     path: "/places/:placeID",
     element: <PlacePage/>
+  },
+  {
+    path: "/routes",
+    element: <RoutesPage/>
+  },
+  {
+    path: "/routes/:pouteID",
+    element: <RoutePage/>
   }
 ]);
 

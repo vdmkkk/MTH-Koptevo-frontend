@@ -1,11 +1,8 @@
 import Footer from '../../Components/reusable/footer';
 import Layout from '../../Components/reusable/layout';
-import './profile-page.css';
-import {useNavigate} from "react-router"
+import './routes-page.css';
 
-function ProfilePage() {
-  const navigate = useNavigate();
-
+function RoutesPage() {
   return (
     <div className="App">
       <Layout/>
@@ -14,4 +11,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+export default RoutesPage;

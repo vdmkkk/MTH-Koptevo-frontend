@@ -42,7 +42,7 @@ function OnboardingPage() {
           <div className='main-part'>
             <div className='icons-routes'>
               <div className='icons-routes-1'>
-                <div className='icon-route' style={{backgroundImage:`url("${marshruti}")`, width:"496px", backgroundSize:"cover"}}>
+                <div className='icon-route' style={{backgroundImage:`url("${marshruti}")`, width:"496px", backgroundSize:"cover"}} onClick={() => navigate("/routes")}>
                   {/* <img src={marshruti}></img> */}
                   <p className='icons-bit-text'>Маршруты</p>
                   <p className='icons-small-text'>популярные и уединенные</p>
@@ -92,7 +92,7 @@ function OnboardingPage() {
                 </div>
               </div>
 
-              <div className='link-div' style={{backgroundImage: `url('${frame2}')`, backgroundPositionX:"right", backgroundSize:"cover"  }}>
+              <div className='link-div' style={{backgroundImage: `url('${frame2}')`, backgroundPositionX:"right", backgroundSize:"cover"  }} onClick={() => navigate("/routes")}>
                   
                     <div className='non-train-part-reverse' style={{alignItems:"start"}}>
                       <h2>СОСТАВИЛИ МАРШРУТЫ ЗА ВАС</h2>

@@ -9,16 +9,18 @@ import mosturizm from '../../assets/icons/Mosturizm.svg'
 import heart from '../../assets/icons/heart.svg'
 import user from '../../assets/icons/user-01.svg'
 import flag from '../../assets/icons/Flags.svg'
+import {useNavigate} from "react-router"
 
 
 
 function Layout() {
+  const navigate = useNavigate();
   return (
     <div className="layout-header">
       <div className='header-content'>
       <div className='left-half'>
         <div className='left-part-header'>
-          <img src={Logo_russpass} className='icons' style={{cursor:"pointer"}}></img>
+          <img src={Logo_russpass} className='icons' style={{cursor:"pointer"}} onClick={() => navigate("/")}></img>
           <img src={Separator} style={{height:"28px"}}></img>
           <img src={LogoRussia} className='logo-rus' style={{cursor:"pointer"}}></img>
           <img src={arrow} style={{marginLeft:"8px", cursor:"pointer"}}  className='icons'></img>
@@ -45,7 +47,7 @@ function Layout() {
           <img src={heart} className='icons'></img>
           <p>Мои планы</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => navigate("/profile")}>
           <img src={user} className='icons'></img>
           <p>Войти</p>
         </div>
