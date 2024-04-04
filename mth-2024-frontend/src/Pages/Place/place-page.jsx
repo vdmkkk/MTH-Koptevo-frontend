@@ -11,6 +11,25 @@ import { useState } from 'react';
 import Dropdown from '../../Components/reusable/dropdown.jsx';
 import sort from "../../data/sort.json"
 import {useNavigate} from "react-router"
+import loopa from "../../assets/icons/loopa.svg"
+import calendar from "../../assets/icons/calendar.svg"
+import arrowDown from "../../assets/icons/arrow-down.svg"
+import plus from "../../assets/icons/+.svg"
+import burgerDD from "../../assets/icons/burger-dd.svg"
+import food from "../../assets/icons/food.svg"
+import check from "../../assets/icons/coins-03.svg"
+import kitchen from "../../assets/icons/kitchen.svg"
+import cardImg from "../../assets/img/card-img.png"
+import whiteheart from "../../assets/icons/white-heart.svg"
+import heart from "../../assets/icons/heart.svg"
+import coin from "../../assets/icons/black-coin.svg"
+
+
+
+
+import labels1 from "../../data/sort.json"
+import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-Districts-Popup';
+import close from '../../assets/icons/close.svg'
 
 
 function PlacePage() {
@@ -67,7 +86,7 @@ function PlacePage() {
             <div className='big-place-photo'> <img src={place.photos[place.photos.length - 5]}></img></div>
             <div style={{display:"flex", gap:"10px", flexDirection:"column"}}>
                 <div className='small-place-photo'> <img src={place.photos[place.photos.length - 6]}></img></div>
-                <div className='small-place-photo' style={{backgroundImage:`url("${place.photos[place.photos.length - 7]}")`}}><div className='more-photo'>
+                <div className='small-place-photo' style={{backgroundImage:`url("${place.photos[place.photos.length - 7]}")`, cursor:"pointer"}}><div className='more-photo'>
                   <p style={{fontSize:"24px", fontWeight:"600", marginBottom:"0px"}}>{place.photos.length}</p>
                   <p>фото</p>
                   </div></div>
@@ -104,7 +123,75 @@ function PlacePage() {
 
           <div className='tickets-cont'>
             <h2 style={{textAlign:"left"}}>Жилье рядом</h2>
-            <div className='recommended-cards'></div>
+
+            <div className='recommended-cards' style={{marginBottom:"25px"}}>
+
+
+            <div className='card-cont'onClick={async event => {navigate(`/places/1`)}} >
+              <div className='card-img' style={{backgroundImage:'url("../../assets/img/card-img.png")'}}>
+                  <div className='img-tags'>
+                      <div className='left-img-tags'>
+                        <div className='img-tag' style={{backgroundColor:"var(--green)"}}>
+                          <p>8.8</p>
+                        </div>
+                        <div className='img-tag'>
+                          <img src={coin}></img>
+                        </div>
+                        <div className='img-tag'>
+                          <img className='tag-bg-icon' src={heart}></img>
+                          <p style={{color:"var(--black)"}}>Скидка</p>
+                        </div>
+                      </div>
+                      <div className='like-tag'>
+                        <img src={whiteheart}></img>
+                      </div>
+                  </div>
+                  <div className='img-slider'>
+                    <div className='img-slide-chosen'></div>
+                    <div className='img-slide'></div>
+                    <div className='img-slide'></div>
+                    <div className='img-slide'></div>
+                  </div>
+
+              </div>
+              <div className='card-info'>
+                <p className='card-place-name' >Отель</p>
+                <div style={{height:"8px"}}></div>
+                <div className='card-desrciption'>
+                  <div className='card-tag'>
+                    <img src={mapMarker}></img>
+                    <p>Пушкина, 35</p>
+                  </div>
+
+                  <div style={{display:"flex", gap:"10px"}}>
+                  <div className='card-tag'>
+                    <img src={food}></img>
+                    <p> Отель</p>
+                  </div>
+                  <div className='card-tag'>
+                    <img src={check}></img>
+                    <p> Средний чек 3000</p>
+                  </div>
+
+                  </div>
+                  <div className='card-tag'>
+                  <img src={kitchen}></img>
+                    <p>Русская</p>
+                  </div>
+                </div>
+                
+              </div>
+
+              
+              <div className='button' style={{margin:"15px"}}>
+                <p>Забронировать столик</p>
+              </div>
+
+            </div>
+
+
+
+            </div>
           </div>
 
         </div>
