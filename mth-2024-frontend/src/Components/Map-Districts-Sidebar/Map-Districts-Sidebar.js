@@ -1,6 +1,6 @@
 import './Map-Districts-Sidebar.scss'
 
-function MapDistrictsSidebar({district, open, setOpen}) {
+function MapDistrictsSidebar({district, open, setOpen, setPopupOpen}) {
 
     if (district !== undefined)
     return(
@@ -22,7 +22,7 @@ function MapDistrictsSidebar({district, open, setOpen}) {
                 <h2>{district["localComment"]["text"]}</h2>
                 <div className='line'/>
             </div>
-            <div onClick={() => {setOpen(district["id"])}} className='button'>
+            <div onClick={() => {setOpen(district["id"]); setPopupOpen(false);}} className='button'>
                 <p>Выбрать район</p>
             </div>
         </div>
