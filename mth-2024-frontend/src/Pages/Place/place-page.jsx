@@ -2,7 +2,7 @@ import './place-page.css';
 import Layout from '../../Components/reusable/layout.jsx';
 import Footer from '../../Components/reusable/footer.jsx';
 import {useParams} from 'react-router-dom';
-// import bruh from "../../data/places.json"
+import bruh from "../../data/places.json"
 import mapMarker from "../../assets/icons/marker-pin-01.svg"
 import redHeart from "../../assets/icons/red-heart.svg"
 import clock from "../../assets/icons/clock.svg"
