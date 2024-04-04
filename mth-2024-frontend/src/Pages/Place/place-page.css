@@ -47,6 +47,7 @@
   height: 408px;
   border-radius: 16px;
   overflow: hidden;
+  object-fit: cover;
 }
 
 .small-place-photo {
@@ -54,6 +55,18 @@
   height: 198px;
   border-radius: 16px;
   overflow: hidden;
+}
+
+.big-place-photo img {
+  object-fit: cover;
+  width: inherit;
+  height: inherit;
+}
+
+.small-place-photo img {
+  object-fit: cover;
+  width: inherit;
+  height: inherit;
 }
 
 .more-photo {
