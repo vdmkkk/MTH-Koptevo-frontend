@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Dropdown from '../../Components/reusable/dropdown.jsx';
 import sort from "../../data/sort.json"
 import {useNavigate} from "react-router"
+import MapPlace from '../../Components/Map-Place/Map-Place.js'
 
 
 function PlacePage() {
@@ -78,6 +79,10 @@ function PlacePage() {
           </div>
           <div className='place-description'>
             <p className='text-descriptioin'>{place.description}</p>
+          </div>
+
+          <div style={{"marginLeft": "15vw", "marginTop": "70px", "borderRadius": "20px"}}>
+            <MapPlace coords={{lat: 55.735583, lng: 37.576132}}/>
           </div>
 
           <div style={{height:"25px"}}></div>
