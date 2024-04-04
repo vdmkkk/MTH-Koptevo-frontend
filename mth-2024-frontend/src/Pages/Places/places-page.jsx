@@ -14,13 +14,14 @@ import cardImg from "../../assets/img/card-img.png"
 import whiteheart from "../../assets/icons/white-heart.svg"
 import heart from "../../assets/icons/heart.svg"
 import coin from "../../assets/icons/black-coin.svg"
-import bruh from "../../data/places.json"
+// import bruh from "../../data/places.json"
 import {useNavigate} from "react-router"
 import Dropdown from '../../Components/reusable/dropdown.jsx';
 import { useState, useEffect } from 'react';
 import labels1 from "../../data/sort.json"
 import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-Districts-Popup';
 import close from '../../assets/icons/close.svg'
+import axios from 'axios';
 
 
 const tags = [
@@ -66,6 +67,18 @@ function PlacesPage() {
   const [isOpen, setIsOpen] = useState();
   const [districtsOpen, setDistrictsOpen] = useState(false);
   const [currDistrict, setCurrDistrict] = useState(-1);
+  const [bruh, setBruh] = useState([]); // NAMING XDDD
+
+  const getPlaces = async () => {
+    await axios.put("http://217.18.63.245:8080/place/get_all_with_filter", {pagination_page: 1}).then((res) => {
+      console.log("lol", res.data);
+      setBruh(res.data);
+    })
+  }
+
+  useEffect(() => {
+    getPlaces();
+  }, []);
 
   useEffect(() => {
     if (districtsOpen) {
@@ -120,9 +133,10 @@ function PlacesPage() {
 
           <div className='cards-places'>
 
-            {bruh.map((card, index) => (
-            <div className='card-cont'onClick={async event => {navigate(`/places/${index}`)}} >
-              <div className='card-img' style={{backgroundImage:`url("${card["photos"][card["photos"].length - 2]}")`}}>
+            {bruh.length > 0 ? bruh.map((card, index) => (
+            <div className='card-cont'onClick={async event => {navigate(`/places/${card["id"]}`)}} >
+              {console.log("bruh", card)}
+              <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][card["properties"]["photos"].length - 1]}")`}}>
                   <div className='img-tags'>
                       <div className='left-img-tags'>
                         <div className='img-tag' style={{backgroundColor:"var(--green)"}}>
@@ -154,25 +168,25 @@ function PlacesPage() {
                 <div className='card-desrciption'>
                   <div className='card-tag'>
                     <img src={mapMarker}></img>
-                    <p>{card["address"]}</p>
+                    <p>{card["properties"]["address"]}</p>
                   </div>
 
                   <div style={{display:"flex", gap:"10px"}}>
                   <div className='card-tag'>
                     <img src={food}></img>
-                    <p> {card["type"]}</p>
+                    <p> {card["variety"]}</p>
                   </div>
-                  {(card["features"]["Средний счет"] == undefined) ? <div></div> : 
+                  {(card["properties"]["features"]["Средний счет"] == undefined) ? <div></div> : 
                   <div className='card-tag'>
                     <img src={check}></img>
-                    <p> Средний чек {card["features"]["Средний счет"]}</p>
-                  </div>
+                    <p> Средний чек {card["properties"]["features"]["Средний счет"]}</p>
+                  </div> 
                   }
                   </div>
-                  {(card["features"]["Тип кухни"] == undefined) ? <div></div> : 
+                  {(card["properties"]["features"]["Тип кухни"] == undefined) ? <div></div> : 
                   <div className='card-tag'>
                   <img src={kitchen}></img>
-                    <p>{card["features"]["Тип кухни"].slice(0, 50)}{(card["features"]["Тип кухни"].length > 50) ? "..." : ""}</p>
+                    <p>{card["properties"]["features"]["Тип кухни"].slice(0, 50)}{(card["properties"]["features"]["Тип кухни"].length > 50) ? "..." : ""}</p>
                   </div>
                   }
                 </div>
@@ -188,7 +202,7 @@ function PlacesPage() {
 
 
 
-          ))}
+          )) : <div/>}
 
           </div>
 
