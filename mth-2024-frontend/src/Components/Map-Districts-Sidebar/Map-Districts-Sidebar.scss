@@ -2,8 +2,8 @@
     --main-width: 15vw;
     position: fixed;
     left: 10vw;
-    top: 15vh;
-    height: 70vh;
+    top: 10vh;
+    height: 80vh;
     width: var(--main-width);
     padding-left: 10px;
     padding-right: 10px;
@@ -11,12 +11,125 @@
     z-index: 10;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
-
+    font-family: Proto Grotesk;
     h1 {
-        font-size: 30px;
+        font-size: 32px;
         font-weight: 400;
         text-align: center;
     }
+
+    h2 {
+        width: 80%;
+        font-size: 14px;
+        font-weight: 300;
+        text-align: start;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+
+    h3 {
+        font-size: 26px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .tag-container {
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        flex-wrap: wrap;
+        gap: 4px;
+        row-gap: 8px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        .tag {
+            cursor: pointer;
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            border-radius: 8px;
+            width: fit-content;
+            height: min-content;
+            border: solid 2px #007470;
+            p {
+                color: #007470;
+                font-size: 12px;
+                font-weight: 500;
+                margin: 0;
+            }
+        }
+    }
+
+    .localComment {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: start;
+        background-color: #F5F5F5;
+        border-radius: 14px;
+        padding: 18px;
+        h2 {
+            margin: 0;
+            margin-top: 18px;
+        }
+        .top {
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            h1 {
+                margin-top: 2px;
+                font-size: 20px;
+                font-weight: 400;
+                margin-bottom: 2px;
+            }
+            h2 {
+                margin: 0;
+            }
+            img {
+                cursor: pointer;
+                width: 50px;
+                height: 50px;
+                border-radius: 100px;
+                object-fit: cover;
+            }
+        }
+        .line {
+            height: 3px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #FFCF08;
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+        
+    }
+
+    .button {
+        background-color: #FFCF08;
+        border-radius: 20px;
+        width: 200px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 16px;
+        p {
+            color: #000;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+
+    .button:hover {
+        background-color: #daaf07;
+    }
+    
 }
 
 .sidebar-open {
@@ -56,3 +169,4 @@
         opacity: 1;
     }
 }
+
