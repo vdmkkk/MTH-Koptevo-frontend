@@ -106,21 +106,21 @@ function MapDistricts({ districts, currDistrict, setDistrict, isOpen }) {
         districts.forEach(coordSet => {
             if (mapRef.current) {
                 const polygon = new window.google.maps.Polygon({
-                    path: coordSet["coords"],
+                    path: coordSet["properties"]["coords"],
                     geodesic: true,
                     strokeOpacity: 0,
                     fillOpacity: .65,
-                    fillColor: coordSet["colorMain"],
+                    fillColor: coordSet["properties"]["colorMain"],
                 });
                 polygon.addListener("click", (e) => {
                     e.stop(); // Prevent the event from propagating to the map
                     setDistrict(coordSet["id"]);
-                    mapRef.current.panTo(coordSet["markerCoords"]);
+                    mapRef.current.panTo(coordSet["properties"]["markerCoords"]);
                 });
-                addHoverListeners(polygon, coordSet["colorActive"], coordSet["colorMain"]);
+                addHoverListeners(polygon, coordSet["properties"]["colorActive"], coordSet["properties"]["colorMain"]);
                 polygon.set("id", coordSet["id"]);
-                polygon.set("colorMain", coordSet["colorMain"]);
-                polygon.set("colorActive", coordSet["colorActive"])
+                polygon.set("colorMain", coordSet["properties"]["colorMain"]);
+                polygon.set("colorActive", coordSet["properties"]["colorActive"])
                 setLoaded(true); // ! EVIL SHIT
                 polygon.setMap(mapRef.current);
                 districtRef.current.push(polygon);
@@ -179,7 +179,7 @@ function MapDistricts({ districts, currDistrict, setDistrict, isOpen }) {
                 districts.forEach(marker => {
                     const newMarker = new window.google.maps.Marker({
                         map: mapRef.current,
-                        position: new window.google.maps.LatLng(marker["markerCoords"]["lat"], marker["markerCoords"]["lng"]),
+                        position: new window.google.maps.LatLng(marker["properties"]["markerCoords"]["lat"], marker["properties"]["markerCoords"]["lng"]),
                         icon: {
                             url: districtLabels[marker["id"]],
                             scaledSize: new window.google.maps.Size(140, 40),
@@ -236,7 +236,7 @@ function MapDistricts({ districts, currDistrict, setDistrict, isOpen }) {
                 
                 onClick={() => {
                     setDistrict(-1);
-                    if (districts.filter(dist => dist["id"] == currDistrict)[0] !== undefined) mapRef.current.panTo(districts.filter(dist => dist["id"] == currDistrict)[0]["markerCoords"]);
+                    if (districts.filter(dist => dist["id"] == currDistrict)[0] !== undefined) mapRef.current.panTo(districts.filter(dist => dist["id"] == currDistrict)[0]["properties"]["markerCoords"]);
                 }}
             >
             </GoogleMap>
