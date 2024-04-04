@@ -2,12 +2,12 @@ import './place-page.css';
 import Layout from '../../Components/reusable/layout.jsx';
 import Footer from '../../Components/reusable/footer.jsx';
 import {useParams} from 'react-router-dom';
-import bruh from "../../data/places.json"
+// import bruh from "../../data/places.json"
 import mapMarker from "../../assets/icons/marker-pin-01.svg"
 import redHeart from "../../assets/icons/red-heart.svg"
 import clock from "../../assets/icons/clock.svg"
 import Spacer from "../../assets/icons/Spacer.svg"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Dropdown from '../../Components/reusable/dropdown.jsx';
 import sort from "../../data/sort.json"
 import {useNavigate} from "react-router"
@@ -31,12 +31,13 @@ import labels1 from "../../data/sort.json"
 import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-Districts-Popup';
 import close from '../../assets/icons/close.svg'
 import MapPlace from '../../Components/Map-Place/Map-Place.js'
+import axios from 'axios';
 
 
 function PlacePage() {
   const id  = useParams();
   
-  const [place, setPlace] = useState(bruh[id.placeID]);
+  const [place, setPlace] = useState({});
   console.log(place)
 
   const navigate = useNavigate();
@@ -45,6 +46,17 @@ function PlacePage() {
   const [tagOption, setTagOption] = useState();
   const [isOpen, setIsOpen] = useState();
 
+  const getPlace = async () => {
+    await axios.get(`http://217.18.63.245:8080/place/by_id?id=${id.placeID}`).then((res) => {
+      console.log("lol", res.data);
+      setPlace(res.data);
+    })
+  }
+
+  useEffect(() => {
+    getPlace();
+  }, []);
+  if (Object.keys(place).length > 0)
   return (
     <div className="App">
         <Layout>
@@ -56,12 +68,12 @@ function PlacePage() {
                 <div style={{display:"flex", gap:"15px", alignItems:"center"}}>
                   <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
                     <img src={mapMarker} width={"20px"}></img>
-                    <p>{place.address}</p>
+                    <p>{place["properties"].address}</p>
                   </div>
 
                   <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
                     <img src={clock} width={"20px"}></img>
-                    <p>Сегодня: {place.work_hours["Понедельник"]}</p>
+                    <p>Сегодня: {place["properties"].work_hours["Понедельник"]}</p>
                   </div>
                 </div>
 
@@ -83,12 +95,12 @@ function PlacePage() {
           </div>
 
           <div className='place-photos'>
-            <div className='big-place-photo'> <img src={place.photos[place.photos.length - 4]}></img></div>
-            <div className='big-place-photo'> <img src={place.photos[place.photos.length - 5]}></img></div>
+            <div className='big-place-photo'> <img src={place["properties"].photos[place["properties"].photos.length - 4]}></img></div>
+            <div className='big-place-photo'> <img src={place["properties"].photos[place["properties"].photos.length - 5]}></img></div>
             <div style={{display:"flex", gap:"10px", flexDirection:"column"}}>
-                <div className='small-place-photo'> <img src={place.photos[place.photos.length - 6]}></img></div>
-                <div className='small-place-photo' style={{backgroundImage:`url("${place.photos[place.photos.length - 7]}")`, cursor:"pointer"}}><div className='more-photo'>
-                  <p style={{fontSize:"24px", fontWeight:"600", marginBottom:"0px"}}>{place.photos.length}</p>
+                <div className='small-place-photo'> <img src={place["properties"].photos[place["properties"].photos.length - 6]}></img></div>
+                <div className='small-place-photo' style={{backgroundImage:`url("${place["properties"].photos[place["properties"].photos.length - 7]}")`}}><div className='more-photo'>
+                  <p style={{fontSize:"24px", fontWeight:"600", marginBottom:"0px"}}>{place["properties"].photos.length}</p>
                   <p>фото</p>
                   </div></div>
             </div>
@@ -97,11 +109,11 @@ function PlacePage() {
             <div style={{width:"100%", height:"1px", backgroundColor:"var(--gray-f5)"}}></div>
           </div>
           <div className='place-description'>
-            <p className='text-descriptioin'>{place.description}</p>
+            <p className='text-descriptioin'>{place["properties"].description}</p>
           </div>
 
           <div style={{"marginLeft": "15vw", "marginTop": "70px", "borderRadius": "20px"}}>
-            <MapPlace coords={{lat: 55.735583, lng: 37.576132}}/>
+            <MapPlace coords={place["properties"]["coords"]}/>
           </div>
 
           <div style={{height:"25px"}}></div>
