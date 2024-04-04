@@ -55,3 +55,44 @@
   flex-direction: row;
   gap: 20px;
 }
+
+@media (max-width: 495px) {
+  .footer-content {
+    display: grid;
+    margin-inline: 16px;
+  }
+
+  .footer-top {
+    display: grid;
+    gap: 10px;
+  }
+  .footer-top-left {
+    display: grid;
+    gap:25px;
+  }
+
+  .footer {
+    height: fit-content;
+  }
+  .bottom-footer {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  .footer-policy {
+    display: grid;
+
+  }
+
+  .footer-policy p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: left;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: flex-start;
+  }
+}

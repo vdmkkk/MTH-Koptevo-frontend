@@ -75,6 +75,10 @@ p {
   }
 
   .centre-part-header {
-    width: 0px;
+    display: none;
   }
+  .right-part-header {
+    display: none;
+  }
+
 }
