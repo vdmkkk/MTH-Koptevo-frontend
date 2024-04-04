@@ -36,8 +36,8 @@ function MapPlace({coords}) {
     const markerClustererRef = useRef(null);
 
     const containerStyle = {
-        width: '70vw',
-        height: '50vh',
+        width: '100%',
+        height: '440px',
         // borderRadius: "30px"
     };
 
@@ -88,7 +88,7 @@ function MapPlace({coords}) {
         };
         
     }, [mapRef.current]);
-
+        console.log("API", process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
     return(
         <LoadScriptOnlyIfNeeded
             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}

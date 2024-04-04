@@ -109,7 +109,7 @@ function PlacesPage() {
             
             <div onClick={() => setDistrictsOpen(true)} className='dropdown' style={districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? {} : {"backgroundColor": "#FFCF08"}}>
               <p>{districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? "Выбрать район" : districts.filter(dist => dist["id"] == currDistrict)[0]["name"]}</p>
-              {districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? <></> : <div style={{"zIndex": 997}} onClick={() => {setCurrDistrict(-1); setDistrictsOpen(false);}}><img src={close} style={{"marginLeft": "110px", "width": '14px'}} /></div>}
+              {districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? <></> : <div style={{"zIndex": 997, display:"flex", alignItems:"center"}} onClick={() => {setCurrDistrict(-1); setDistrictsOpen(false);}}><img src={close} style={{"marginLeft": "110px", "width": '14px'}} /></div>}
             </div>
             <div className='button' style={{width:"25%", justifyContent:"flex-start"}}> 
               <img src={plus}></img>

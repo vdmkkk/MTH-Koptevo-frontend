@@ -27,6 +27,7 @@ import coin from "../../assets/icons/black-coin.svg"
 
 
 
+
 import labels1 from "../../data/sort.json"
 import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-Districts-Popup';
 import close from '../../assets/icons/close.svg'
@@ -100,12 +101,12 @@ function PlacePage() {
             <p className='text-descriptioin'>{place.description}</p>
           </div>
 
-          <div style={{"marginLeft": "15vw", "marginTop": "70px", "borderRadius": "20px"}}>
-            <MapPlace coords={{lat: 55.735583, lng: 37.576132}}/>
-          </div>
 
           <div style={{height:"25px"}}></div>
           <div className='place-address-cont'>
+          <div style={{"borderRadius": "20px"}}>
+            <MapPlace coords={{lat: 55.735583, lng: 37.576132}}/>
+          </div>
 
           </div>
           <div style={{height:"25px"}}></div>
@@ -133,7 +134,7 @@ function PlacePage() {
 
 
             <div className='card-cont'onClick={async event => {navigate(`/places/1`)}} >
-              <div className='card-img' style={{backgroundImage:'url("../../assets/img/card-img.png")'}}>
+              <div className='card-img' style={{backgroundImage:`url("${bruh[0]["photos"][bruh[0]["photos"].length - 2]}")`}}>
                   <div className='img-tags'>
                       <div className='left-img-tags'>
                         <div className='img-tag' style={{backgroundColor:"var(--green)"}}>
