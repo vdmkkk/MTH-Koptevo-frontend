@@ -128,7 +128,7 @@ function RoutesPage() {
             {routes.length > 0 ? routes.map((card, index) => (
             <div className='card-cont'onClick={async event => {navigate(`/routes/${card["id"]}`)}} >
               <div className='card-img' 
-              // style={{backgroundImage:`url("${card["properties"]["photos"][card["properties"]["photos"].length - 2]}")`}}
+              style={{backgroundImage:`url("${card["properties"]["photos"][card["properties"]["photos"].length - 2]}")`}}
               >
                   <div className='img-tags'>
                       <div className='left-img-tags'>

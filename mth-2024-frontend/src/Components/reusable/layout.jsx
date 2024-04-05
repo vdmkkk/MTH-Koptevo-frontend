@@ -10,18 +10,37 @@ import heart from '../../assets/icons/heart.svg'
 import user from '../../assets/icons/user-01.svg'
 import flag from '../../assets/icons/Flags.svg'
 import {useNavigate} from "react-router"
+import { useCookies } from "react-cookie";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+
+
+function checkCookie(navigate, cookies) {
+  if (cookies.JWT == null) {
+    navigate('/login')
+  } else navigate('/profile')
+}
 
 
 
 function Layout() {
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["JWT"]);
+  const [user, setUser] = useState("Войти")
+
+  // useEffect(() => {
+  //   if (cookies.JWT != null) {
+  //     axios.put("")
+  //   }
+  // }, [])
   
   return (
     <div className="layout-header">
       <div className='header-content'>
       <div className='left-half'>
         <div className='left-part-header'>
-          <img src={Logo_russpass} className='icons' style={{cursor:"pointer"}} onClick={() => navigate("/")}></img>
+          <img src={Logo_russpass} className='icons' style={{cursor:"pointer"}} onClick={() => navigate('/')}></img>
           <img src={Separator} style={{height:"28px"}}></img>
           <img src={LogoRussia} className='logo-rus' style={{cursor:"pointer"}}></img>
           <img src={arrow} style={{marginLeft:"8px", cursor:"pointer"}}  className='icons'></img>
@@ -48,9 +67,9 @@ function Layout() {
           <img src={heart} className='icons'></img>
           <p>Мои планы</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => navigate("/profile")}>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => checkCookie(navigate, cookies)}>
           <img src={user} className='icons'></img>
-          <p>Войти</p>
+          <p>{user}</p>
         </div>
         <img src={flag} className='icons' style={{cursor:"pointer"}}></img>
       </div>
