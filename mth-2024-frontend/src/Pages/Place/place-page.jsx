@@ -33,6 +33,7 @@ import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-District
 import close from '../../assets/icons/close.svg'
 import MapPlace from '../../Components/Map-Place/Map-Place.js'
 import axios from 'axios';
+import Notes from '../../Components/Notes/Notes';
 
 
 function PlacePage() {
@@ -47,6 +48,8 @@ function PlacePage() {
   const [tagOption, setTagOption] = useState();
   const [isOpen, setIsOpen] = useState();
 
+  const [notesOpen, setNotesOpen] = useState(false);
+
   const getPlace = async () => {
     await axios.get(`http://217.18.63.245:8080/place/by_id?id=${id.placeID}`).then((res) => {
       console.log("lol", res.data);
@@ -57,11 +60,24 @@ function PlacePage() {
   useEffect(() => {
     getPlace();
   }, []);
+
+  useEffect(() => {
+    if (notesOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [notesOpen]);
+
   if (Object.keys(place).length > 0)
   return (
     <div className="App">
         <Layout>
         </Layout>
+        <Notes open={notesOpen} setOpen={setNotesOpen}/>
         <div className='main-part'>
           <div style={{display:"flex", justifyContent:"space-between", marginBottom:"25px", alignItems:"baseline"}}>
               <div className='place-info'>
@@ -87,7 +103,7 @@ function PlacePage() {
               </div>
 
               <div className='place-buttons'>
-                <div className='button' style={{backgroundColor:"var(--gray-f5)"}}><p>Открыть заметки</p></div>
+                <div onClick={() => {setNotesOpen(true)}} className='button' style={{backgroundColor:"var(--gray-f5)"}}><p>Открыть заметки</p></div>
                 <div className='button'><p>Перейти к билетам</p></div>
                 <div className='button' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
                 <div className='button' style={{backgroundColor:"var(--green)", color:"white"}}><p>8.8</p></div>
