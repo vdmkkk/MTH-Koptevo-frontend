@@ -123,19 +123,21 @@
 
 
 .about-filed-cont {
-
   /* background-color: var(--gray-f5); */
   padding-top: 12px;
-  
   /* padding-inline: 108px; */
   width: 100%;
 }
 
 .about-filed {
   background-color: white;
-  border: 2px solid var(--yellow);
+  border: none;
   border-radius: 28px;
   height: 334px;
+  width: 100%;
+  box-shadow: 2px 4px 15px rgba(0,0,0,.2);
+  outline:none;
+  padding-left: 10px;
 }
 
 .line {
@@ -151,6 +153,13 @@
   border: 1px solid var(--green);
   border-radius: 6px;
   padding-inline: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag img {
+  cursor: pointer;
 }
 
 .tag p {
@@ -158,6 +167,18 @@
   font-size: 12px;
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.tag-arrow {
+  transform: rotate(-90deg);
+  transition: .3s ease;
+  cursor: pointer;
+}
+
+.tag-arrow-opened {
+  transform: rotate(0deg);
+  cursor: pointer;
+  transition: .3s ease;
 }
 
 .profile-tags {

@@ -15,6 +15,7 @@ import kitchen from "../../assets/icons/kitchen.svg"
 import {useNavigate} from "react-router"
 import moscow from "../../assets/img/moscow.jpg"
 import calendar from "../../assets/icons/calendar.svg"
+import bonus from "../../assets/icons/Bonus-icon.svg"
 
 import { useState } from 'react';
 
@@ -144,11 +145,11 @@ function TripPage() {
                     </div>
 
                     <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px"}}>4/6 мест пройдено</h2>
-                    <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px", marginTop:"0px"}}>120 получено</h2>
+                    <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px", marginTop:"0px"}}>120<img src={bonus}></img> получено</h2>
                     <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px", marginTop:"0px"}}>4 км пройдено</h2>
                     <div style={{height:"50px"}}></div>
 
-                    <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px", marginTop:"0px", color:"var(--gray-a7)"}}> + 50 за весь маршрут</h2>
+                    <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px", marginTop:"0px", color:"var(--gray-a7)"}}> + 50<img src={bonus}></img> за весь маршрут</h2>
                     <div className='gray-button' style={{border:"1px solid var(--gray-a7)", color:"var(--gray-a7)", marginTop:"16px"}}> <p className='quiz-label'>Пройти квиз</p> </div>
                   </div>
 

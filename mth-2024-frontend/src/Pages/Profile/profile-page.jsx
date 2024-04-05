@@ -16,6 +16,10 @@ import Dropdown from '../../Components/reusable/dropdown';
 import sea from "../../assets/img/sea.jpg"
 import sibir from "../../assets/img/sibir.jpg"
 import surgut from "../../assets/img/surgut.jpg"
+import greenClose from "../../assets/icons/green-close.svg"
+import arrowDown from "../../assets/icons/arrow-down.svg"
+
+
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -23,6 +27,7 @@ function ProfilePage() {
   const [sortCity, setSortCity] = useState(cities[0]);
 
   const [isOpenDiv, setIsOpenDiv] = useState(1);
+  const [isTagsOpen, setIsTagsOpen] = useState(false)
   return (
     <div className="App">
       <Layout/>
@@ -176,28 +181,43 @@ function ProfilePage() {
           </div>
         </div>
         : <div></div>}
-
-        {(isOpenDiv == 4) ?
-        <div className='about-profile'>
-            <div className='about-filed-cont'>
-              <h2 style={{textAlign:"left"}}>О себе</h2>
-              <div className='about-filed'></div>
-              
-            </div>
-
-            <div className='line'></div>
-
-            <div className='about-filed-cont'>
-              <h2 style={{textAlign:"left"}}>Выберите 3 подходящих вам тега</h2>
-              <div className='tags-filed'></div>
-            </div>
-
-        </div>
-        : <div></div>}
         
-
         <div style={{height:"25px"}}></div>
       </div>
+
+      {(isOpenDiv == 4) ?
+      <div className='main-part' style={{backgroundColor:"var(--gray-f5)", marginInline:"0px", paddingInline:"108px", paddingTop:"8px", paddingBottom:"8px"}}>
+        <div className='two-blocks-flex' style={{gap:"40px"}}>
+            <div className='about-filed-cont'>
+              <h2 style={{textAlign:"left"}}>О себе</h2>
+              <input type='text' className='about-filed' placeholder='Меня зовут Вася, я из города Пермь. Люблю гулять в большой компании и активный отдых'></input>
+            </div>
+            <div className='about-filed-cont'>
+              <h2 style={{textAlign:"left"}}>Теги</h2>
+              <div className='tags-filed'>
+                <p style={{textAlign:"left"}}>Добавьте подходящие вам категории</p>
+                <div className='profile-tags' style={{marginTop:"8px", backgroundColor:"#EBEBEB", padding:"10px", borderRadius:"12px"}}>
+                          <img className={(isTagsOpen == true) ? 'tag-arrow-opened' : 'tag-arrow'}  src={arrowDown} onClick={() => setIsTagsOpen(!isTagsOpen)}></img>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Пермь</p> <img src={greenClose}></img></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Местный</p><img src={greenClose}></img></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Вечерние прогулки</p><img src={greenClose}></img></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Путешествия</p><img src={greenClose}></img></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Выставки</p><img src={greenClose}></img></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Активный отдых</p><img src={greenClose}></img></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>Большие компании</p><img src={greenClose}></img></div>
+                  </div>
+                  <div style={{display:"flex", gap:"4px"}}>
+                    <p style={{textAlign:"left"}}>Например:</p>
+                    <p style={{textAlign:"left", color:"var(--green)"}}>Москва, Большие компании, Музеи</p>
+                  </div>
+              </div>
+            </div>
+            <div style={{height:"25px"}}></div>
+        </div>
+        </div>
+        
+        : <div></div>}
+
       <Footer/>
     </div>
   );
