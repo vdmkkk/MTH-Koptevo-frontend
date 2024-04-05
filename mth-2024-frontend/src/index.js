@@ -10,6 +10,7 @@ import PlacesPage from './Pages/Places/places-page';
 import PlacePage from './Pages/Place/place-page';
 import RoutesPage from './Pages/Routes/routes-page';
 import RoutePage from './Pages/Route/route-page';
+import TripPage from './Pages/Trip/trip-page';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/routes/:pouteID",
     element: <RoutePage/>
+  },
+  {
+    path: "/trip",
+    element: <TripPage/>
   }
 ]);
 

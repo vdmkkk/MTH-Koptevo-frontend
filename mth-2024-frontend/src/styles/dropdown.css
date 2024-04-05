@@ -2,15 +2,20 @@
   border: 1px solid var(--gray-a7);
   border-radius: 12px;
   height: 48px;
-  padding-left: 50px;
+  /* padding-left: 50px; */
   transition: 0.3s ease;
   cursor: pointer;
   display: flex;
   align-items: center;
   width: 25%;
   font-weight: 500;
+  width: 100%;
   position: relative;
-  min-width: 200px;
+  min-width: 250px;
+}
+
+.dropdown p {
+  margin-left: 50px;
 }
 
 .dropdown img {
@@ -42,7 +47,7 @@
   background-color: white;
   position: absolute;
   z-index: 3;
-  margin-top: 10px;
+  margin-top: 56px;
   width: 100%;
   transition: .3s ease;
   animation-duration: .3s;

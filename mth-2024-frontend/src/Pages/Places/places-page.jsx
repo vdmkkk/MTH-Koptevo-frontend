@@ -91,7 +91,7 @@ function PlacesPage() {
         <div className='main-part'>
           <div>
             <div style={{display:"flex", justifyContent:"flex-start"}}>
-              <p style={{fontSize:"32px", fontFamily:"Proto Grotesk"}}>Рестораны и кафе</p>
+              <p style={{fontSize:"32px", fontFamily:"Proto Grotesk"}}>Места</p>
             </div>
             <div className='search-cont'>
               <div style={{width:"60%", display:"flex", alignItems:"center"}} className='input-cont'>

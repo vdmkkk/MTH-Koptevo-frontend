@@ -77,7 +77,7 @@ function OnboardingPage() {
             </div>
 
             <div className='links' style={{backgroundImage:{bgimage}}}>
-              <div className='link-div' style={{backgroundImage: `url('${linkTrain}')` , backgroundSize:"cover" }}>
+              <div className='link-div' style={{backgroundImage: `url('${linkTrain}')` , backgroundSize:"cover" }} onClick={() => navigate("/trip")}>
                 <div className='train-part' >
                   <h1>Планирование поездок</h1>
                   <div style={{display:"flex", gap:"14px", alignItems:"baseline"}}>

@@ -22,7 +22,7 @@ function Dropdown({id, label, selectedOption, setSelectedOption, labels}) {
   console.log("selectedOption", selectedOption)
 
   return (
-    <div className='dropdown-cont'>
+    <div style={{width:"100%"}} className='dropdown-cont'>
       <div className='dropdown' onClick={() => setIsOpenMenu(!isOpenMenu)}>
               <img src={burgerDD} style={{left:"15px"}}></img>
               <p>{(selectedOption == undefined ? label :selectedOption.label)}</p>
