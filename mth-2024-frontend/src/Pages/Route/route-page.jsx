@@ -224,7 +224,7 @@ function RoutePage() {
 
             <div className='card-cont'onClick={async event => {navigate(`/places/1`)}} >
               <div className='card-img'
-              //  style={{backgroundImage:`url("${route["photos"][route["photos"].length - 2]}")`}}
+               style={{backgroundImage:`url("${route["properties"]["photos"][route["properties"]["photos"].length - 1]}")`}}
                >
                   <div className='img-tags'>
                       <div className='left-img-tags'>

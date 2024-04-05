@@ -1,7 +1,7 @@
 import Footer from '../../Components/reusable/footer';
 import Layout from '../../Components/reusable/layout';
 import './profile-page.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useNavigate} from "react-router"
 import medal1 from "../../assets/img/kandinsky-download-0.png"
 import medal2 from "../../assets/img/kandinsky-download-1.png"
@@ -18,20 +18,41 @@ import sibir from "../../assets/img/sibir.jpg"
 import surgut from "../../assets/img/surgut.jpg"
 import greenClose from "../../assets/icons/green-close.svg"
 import arrowDown from "../../assets/icons/arrow-down.svg"
+import { useCookies } from "react-cookie";
+import { Navigate } from 'react-router-dom';
 
 
 
 function ProfilePage() {
+
+  function handleLogOut() {
+    document.cookie = "JWT=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setRedirectMain(true);
+  }
+
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState(labels1[0]);
   const [sortCity, setSortCity] = useState(cities[0]);
 
   const [isOpenDiv, setIsOpenDiv] = useState(1);
   const [isTagsOpen, setIsTagsOpen] = useState(false)
+  const [redirectMain, setRedirectMain] = useState(false)
+  const [redirectLogin, setRedirectLogin] = useState(false)
+  const [cookies, setCookie] = useCookies(["JWT"]);
+
+  useEffect(() => {
+    if (cookies.JWT == null) {
+      navigate('/login');
+    }
+  }, [])
+
   return (
     <div className="App">
+      {redirectMain && <Navigate replace to="/" />}
+      {redirectLogin && <Navigate replace to="/login" />}
       <Layout/>
       <div className='main-part'>
+        <button onClick={() => handleLogOut()}>ВЫЙТИ</button>
         <h2 style={{textAlign:"left", fontWeight:"500"}}>Профиль</h2>
         <div className='two-blocks-flex'>
             <div className='user-info'>

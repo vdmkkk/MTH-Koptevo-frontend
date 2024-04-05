@@ -54,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "/checkin/show/:hash",
     element: <CheckinFinal/>
+  },
+  {
+    path: "*",
+    element: <OnboardingPage/> // для потеряшек
   }
 ]);
 

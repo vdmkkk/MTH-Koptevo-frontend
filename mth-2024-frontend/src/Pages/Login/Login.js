@@ -11,12 +11,12 @@ function Login() {
     const [errPassword, setErrPassword] = useState("");
     const [errBelow, setErrBelow] = useState("");
 
-    const [cookies, setCookie] = useCookies(["JWT", "Session"]); // как я понял, указываем интересующие нас куки (?)
+    const [cookies, setCookie] = useCookies(["JWT"]); // как я понял, указываем интересующие нас куки (?)
     const [redirect, setRedirect] = useState(false);
     const [guest, setGuest] = useState(true);
 
     useEffect(() => {
-        if (cookies.JWT != null || cookies.Session != null) {
+        if (cookies.JWT != null) {
             setGuest(false);
         }
     }, []);
@@ -35,11 +35,10 @@ function Login() {
                 password: password
             };
 
-            await axios.post('http://147.45.109.149:8080/public/mobile_login', data, { headers })
+            await axios.put('http://217.18.63.245:8080/user/login', data, { headers })
             .then(response => {
                 if (response.status == 200){
-                    setCookie("JWT", response.data["JWT"], {path: "/"});
-                    setCookie("Session", response.data["Session"], {path: "/"});
+                    setCookie("JWT", response.data, {path: "/"});
                     setRedirect(true);
                 }
             })
