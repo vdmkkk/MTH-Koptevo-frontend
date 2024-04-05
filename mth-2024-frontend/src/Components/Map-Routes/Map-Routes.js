@@ -38,20 +38,37 @@ function MapRoutes({ places }) {
     const [loaded, setLoaded] = useState(false)
 
     const containerStyle = {
-        width: '100%',
-        height: '440px',
+        width: '40%',
+        // height: '100vh',
         // borderRadius: "30px"
     };
 
 
     useEffect(() => {
         const func = async () => {
+            const lineSymbol = {
+                path: "M 0,-1 0,1",
+                strokeOpacity: 1,
+                scale: 4,
+            };
             if (mapRef.current) {
                 await sleep(2000);
                 const directionsService = new window.google.maps.DirectionsService();
-                const directionsRenderer = new window.google.maps.DirectionsRenderer();
+                const directionsRenderer = new window.google.maps.DirectionsRenderer({
+                    polylineOptions: {
+                        strokeColor: '#00ff00',
+                        strokeOpacity: 1,
+                        strokeWeight: 2,
+                        zIndex: 1,
+                        idcons: [{
+                            icon: lineSymbol,
+                            offset: '0',
+                            repeat: '20px'
+                        }],
+                    },
+                });
                 directionsRenderer.setMap(mapRef.current)
-    
+
                 const waypoints = [
                     { location: { lat: 55.735583, lng: 37.576132 }, stopover: true, mode: 'DRIVING' },
                     { location: { lat: 55.760243, lng: 37.589239 }, stopover: true, mode: 'DRIVING' }, // Example waypoint
@@ -65,7 +82,7 @@ function MapRoutes({ places }) {
                         travelMode: "DRIVING",
                         waypoints: waypoints.slice(1, waypoints.length - 1).map(waypoint => ({ location: waypoint.location, stopover: waypoint.stopover })),
                     },
-                    function(result, status) {
+                    function (result, status) {
                         if (status === window.google.maps.DirectionsStatus.OK) {
                             console.log("result", result.routes)
                             directionsRenderer.setDirections(result);
@@ -94,7 +111,7 @@ function MapRoutes({ places }) {
                     streetViewControl: false,
                     rotateControl: false,
                     fullscreenControl: false,
-                    mapId: "7ec5d822bd262c80",
+                    mapId: "fae79854d0939c40",
                 }}
                 mapContainerStyle={containerStyle}
 
