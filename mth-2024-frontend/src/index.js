@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     element: <RoutesPage/>
   },
   {
-    path: "/routes/:pouteID",
+    path: "/routes/:routeID",
     element: <RoutePage/>
   },
   {

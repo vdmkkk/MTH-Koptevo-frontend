@@ -69,7 +69,6 @@ function PlacesPage() {
     useEffect(() => {
         axios.get('http://217.18.63.245:8080/district/by_city_id?id=1').then((res) => {
             setDistricts(res.data);
-            console.log("hey", res.data)
         })
     }, [])
 

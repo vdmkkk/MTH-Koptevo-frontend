@@ -13,9 +13,25 @@ import coin from "../../assets/icons/black-coin.svg"
 import whiteheart from "../../assets/icons/white-heart.svg"
 import kitchen from "../../assets/icons/kitchen.svg"
 import {useNavigate} from "react-router"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import {useParams} from 'react-router-dom';
+import MapRoutesComponent from '../../Components/Map-Routes-Component/Map-Routes-Component';
+
 
 function RoutePage() {
+  const id  = useParams();
   const navigate = useNavigate();
+
+  const [route, setRoute] = useState([])
+
+  useEffect(() => {
+      axios.get(`http://217.18.63.245:8080/route/by_id?id=${id.routeID}`).then((res) => {
+          setRoute(res.data);
+          console.log("hey", res.data)
+      })
+  }, [])
+  if (Object.keys(route).length > 0)
   return (
     
 
@@ -23,9 +39,11 @@ function RoutePage() {
       <Layout/>
 
       
-        <div className='banner' style={{backgroundImage:`url("${bruh[0].photos[18]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}>
+        <div className='banner' 
+        // style={{backgroundImage:`url("${route["properties"].photos[18]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}
+        >
               <div style={{width:"100%", backgroundColor:"rgba(0,0,0,.5)", height:"100%"}}>
-                  <h1 style={{color:'#FFFFFF', fontSize:"64px", fontWeight:"400", width:"60%", marginLeft:"108px", textAlign:"left"}}>{bruh[0].name}</h1>
+                  <h1 style={{color:'#FFFFFF', fontSize:"64px", fontWeight:"400", width:"60%", marginLeft:"108px", textAlign:"left"}}>{route["properties"].name}</h1>
                   <div style={{width:"20%", display:"flex", alignItems:"center", gap:"8px", marginLeft:"108px", cursor:"pointer"}}>
                     <div className='white-button'> <p>Прикрепить к поездке</p></div>
                     <div className='white-like-button'><img src={heart}></img></div>
@@ -53,19 +71,19 @@ function RoutePage() {
                           <p style={{fontSize:"24px"}}>Москва</p>
                         </div>
 
-                        {(bruh[0]["features"]["Средний счет"] == undefined) ? <div></div> : 
+                        {/* {(route["features"]["Средний счет"] == undefined) ? <div></div> : 
                         <div className='card-tag'>
                           <img style={{width:"24px"}} src={coinBl}></img>
                           <p style={{fontSize:"24px"}}> 50</p>
                         </div>
-                        }
+                        } */}
                   </div>
-                  {(bruh[0]["features"]["Тип кухни"] == undefined) ? <div></div> : 
+                  {/* {(route["features"]["Тип кухни"] == undefined) ? <div></div> : 
                   <div className='card-tag'>
                   <img style={{width:"24px"}} src={book}></img>
                     <p style={{fontSize:"24px"}}>Пешеходные, авторские, необычные</p>
                   </div>
-                  }
+                  } */}
           </div>
 
           <div className='buttons-raw'>
@@ -96,9 +114,7 @@ function RoutePage() {
 
         </div>
 
-        <div className='two-blocks-flex'>
-          {/* TODO: карта маршрута */}
-        </div>
+        <MapRoutesComponent places={route["places"]}/>
 
         <div className='reviews'>
           <h2 style={{textAlign:"left", fontSize:"32px", fontFamily:"Proto Grotesk", fontWeight:"500", marginTop:"0px"}}>Отзывы</h2>
@@ -207,7 +223,9 @@ function RoutePage() {
 
 
             <div className='card-cont'onClick={async event => {navigate(`/places/1`)}} >
-              <div className='card-img' style={{backgroundImage:`url("${bruh[0]["photos"][bruh[0]["photos"].length - 2]}")`}}>
+              <div className='card-img'
+              //  style={{backgroundImage:`url("${route["photos"][route["photos"].length - 2]}")`}}
+               >
                   <div className='img-tags'>
                       <div className='left-img-tags'>
                         <div className='img-tag' style={{backgroundColor:"var(--green)"}}>
