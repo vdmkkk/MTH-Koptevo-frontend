@@ -30,18 +30,27 @@ class LoadScriptOnlyIfNeeded extends LoadScript {
     }
 }
 
-function MapRoutes({ places }) {
+function MapRoutes({ places, placesOptions }) {
     const mapRef = useRef(null);
     const markersRef = useRef([]);
+    const serviceRef = useRef([]);
+    const rendererRef = useRef([]);
     const markerClustererRef = useRef(null);
     const [directionsResponse, setDirectionsResponse] = useState(null);
     const [loaded, setLoaded] = useState(false)
-
+    console.log(placesOptions)
     const containerStyle = {
         width: '40%',
         // height: '100vh',
         // borderRadius: "30px"
     };
+
+    const translate = {
+        "Пешком": "WALKING",
+        "На машине": "DRIVING",
+        "На велосипеде": "BICYCLING",
+        "Общественным транспортом": "TRANSIT"
+    }
 
 
     useEffect(() => {
@@ -53,48 +62,48 @@ function MapRoutes({ places }) {
             };
             if (mapRef.current) {
                 await sleep(2000);
-                const directionsService = new window.google.maps.DirectionsService();
-                const directionsRenderer = new window.google.maps.DirectionsRenderer({
-                    polylineOptions: {
-                        strokeColor: '#00ff00',
-                        strokeOpacity: 1,
-                        strokeWeight: 2,
-                        zIndex: 1,
-                        idcons: [{
-                            icon: lineSymbol,
-                            offset: '0',
-                            repeat: '20px'
-                        }],
-                    },
-                });
-                directionsRenderer.setMap(mapRef.current)
-
-                const waypoints = [
-                    { location: { lat: 55.735583, lng: 37.576132 }, stopover: true, mode: 'DRIVING' },
-                    { location: { lat: 55.760243, lng: 37.589239 }, stopover: true, mode: 'DRIVING' }, // Example waypoint
-                    { location: { lat: 55.772318, lng: 37.636242 }, stopover: true, mode: 'DRIVING' }
-                ];
-                console.log('bruh', waypoints.slice(1, waypoints.length - 1).map(waypoint => ({ location: waypoint.location, stopover: waypoint.stopover })))
-                directionsService.route(
-                    {
-                        origin: waypoints[0]["location"],
-                        destination: waypoints[waypoints.length - 1]["location"],
-                        travelMode: "DRIVING",
-                        waypoints: waypoints.slice(1, waypoints.length - 1).map(waypoint => ({ location: waypoint.location, stopover: waypoint.stopover })),
-                    },
-                    function (result, status) {
-                        if (status === window.google.maps.DirectionsStatus.OK) {
-                            console.log("result", result.routes)
-                            directionsRenderer.setDirections(result);
-                        } else {
-                            console.error(`error fetching directions ${result}`);
-                        }
+                for (let j = 0; j < rendererRef.current.length; j++) {
+                    if (rendererRef.current[j]) {
+                        rendererRef.current[j].setMap(null);
                     }
-                );
+                }
+                for (let k = 0; k < Object.keys(placesOptions).length; k++) {
+                    const directionsService = new window.google.maps.DirectionsService();
+                    const directionsRenderer = new window.google.maps.DirectionsRenderer({
+                        polylineOptions: {
+                            strokeColor: '#00ff00',
+                            strokeOpacity: 1,
+                            strokeWeight: 2,
+                            zIndex: 1,
+                            idcons: [{
+                                icon: lineSymbol,
+                                offset: '0',
+                                repeat: '20px'
+                            }],
+                        },
+                    });
+                    directionsRenderer.setMap(mapRef.current)
+                    directionsService.route(
+                        {
+                            origin: places[k]["place"]["properties"]["coords"],
+                            destination: places[k + 1]["place"]["properties"]["coords"],
+                            travelMode: translate[placesOptions[k]["label"]],
+                        },
+                        function (result, status) {
+                            if (status === window.google.maps.DirectionsStatus.OK) {
+                                directionsRenderer.setDirections(result);
+                            } else {
+                                console.error(`error fetching directions ${result}`);
+                            }
+                        }
+                    );
+                    rendererRef.current.push(directionsRenderer);
+                }
+                
             }
         }
         func();
-    }, [mapRef.current, loaded]);
+    }, [mapRef.current, loaded, placesOptions]);
 
     return (
         <LoadScriptOnlyIfNeeded

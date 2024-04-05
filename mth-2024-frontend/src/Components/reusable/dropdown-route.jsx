@@ -14,9 +14,7 @@ function DropdownRoute({id, label, selectedOption, setSelectedOption, labels}) {
 
   
   const handleSelectOption = (option) => {
-    var oldOptions = selectedOption;
-    oldOptions[id] = option;
-    setSelectedOption(oldOptions);
+    setSelectedOption(id, option);
     setIsOpenMenu(false);
 };
 

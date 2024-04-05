@@ -8,11 +8,22 @@ import axios from "axios";
 
 
 
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    if (hours > 0) {
+        return minutes > 0 ? `${hours} 'ч.' ${minutes} 'мин.'` : hours + ' ч.';
+    } else if (minutes > 0) {
+        return `${minutes} 'мин.'`;
+    } else {
+        return 'Меньше минуты.'
+    }
+}
+
 
 function MapRoutesComponent({ places }) {
 
-    const [bruh, setBruh] = useState()
-
+    const [ETATable, setETATable] = useState({})
     const translate = {
         "Пешком": "WALKING",
         "На машине": "DRIVING",
@@ -20,19 +31,25 @@ function MapRoutesComponent({ places }) {
         "Общественным транспортом": "TRANSIT"
     }
 
-    const labels = [{ id: 1, label: "Пешком" }, { id: 2, label: "На машине" }, { id: 3, label: "На велосипеде" }, { id: 4, label: "Общественным транспортом" }]
-
+    const [allLabels, setAllLabels] = useState(Array.from({ length: places.length - 1 }).reduce((acc, _, index) => {
+        acc[index] =  [{ id: 1, label: "Пешком" }, { id: 2, label: "На машине" }, { id: 3, label: "На велосипеде" }, { id: 4, label: "Общественным транспортом" }]; // Customize the value as needed
+        return acc;
+    }, {}))
     const [allOptions, setAllOptions] = useState(Array.from({ length: places.length - 1 }).reduce((acc, _, index) => {
         acc[index] = { id: 1, label: "Пешком" }; // Customize the value as needed
         return acc;
     }, {}))
 
-    const [ETA, setETA] = useState(Array.from({ length: places.length - 1 }).reduce((acc, _, index) => {
-        acc[index] = { "mode": "WALKING", "time": 0, "distance": 0 }; // Customize the value as needed
-        return acc;
-    }, {}));
+
+
 
     useEffect(() => {
+        const translate1 = {
+            "Пешком": "WALK",
+            "На машине": "DRIVE",
+            "На велосипеде": "BICYCLE",
+            "Общественным транспортом": "TRANSIT"
+        }
         async function getDistanceAndTime(i, origin, destination, travelMode) {
             const data = {
                 origin: {
@@ -51,7 +68,7 @@ function MapRoutesComponent({ places }) {
                         },
                     },
                 },
-                travelMode: "WALK",
+                travelMode: translate1[travelMode],
                 computeAlternativeRoutes: false,
                 routeModifiers: {
                     avoidTolls: false,
@@ -78,15 +95,17 @@ function MapRoutesComponent({ places }) {
                     throw new Error('Failed to fetch directions or no routes found');
                 }
             } catch (e) {
-                console.error(e);
-                return { distance: -1, duration: -1 };
+                // console.error(e);
+                var resObject = new Object;
+                resObject[i] = { distance: -1, duration: -1, travelMode: travelMode };
+                return resObject;
             }
         }
 
         async function fetchAllDistances() {
             const promises = [];
             for (let i = 0; i < places.length - 1; i++) {
-                Object.values(translate).forEach(mode => {
+                Object.keys(translate).forEach(mode => {
                     const promise = getDistanceAndTime(i, places[i]["place"]["properties"]["coords"], places[i + 1]["place"]["properties"]["coords"], mode);
                     promises.push(promise);
                 });
@@ -98,24 +117,36 @@ function MapRoutesComponent({ places }) {
                 if (!Object.keys(newResults).includes(Object.keys(res)[0])) newResults[Object.keys(res)[0]] = [Object.values(res)[0]];
                 else newResults[Object.keys(res)[0]].push(Object.values(res)[0]);
             })
-            setBruh(newResults); // Assuming you want to store all results in the state
+            // console.log('table', newResults)
+            setETATable(newResults);
+            var newLabels = {}
+            var mockLabel = [{ id: 1, label: "Пешком" }, { id: 2, label: "На машине" }, { id: 3, label: "На велосипеде" }, { id: 4, label: "Общественным транспортом" }];
+            Object.keys(newResults).forEach(res => {
+                let newLabels1 = []
+                mockLabel.forEach(label => {
+                    if (newResults[res].filter(obj => obj["travelMode"] == label.label)[0]["distance"] != -1) newLabels1.push(label);
+                })
+                newLabels[res] = newLabels1;
+            })
+            setAllLabels(newLabels);
+            
         }
 
         fetchAllDistances();
-    }, []); // Make sure to include all external variables in the dependency array
+    }, []);
 
-    useEffect(() => { console.log(bruh) }, [bruh])
+    const updateOption = (optionId, obj) => {
+        setAllOptions(prevOptions => ({
+          ...prevOptions,
+          [optionId]: {
+            ...prevOptions[optionId],
+            id: obj.id,
+            label: obj.label,
+          },
+        }));
+      };
 
-    useEffect(() => {
-        var newETA = ETA;
-        for (let i = 0; i < places.length - 1; i++) {
-            newETA[i]["mode"] = translate[allOptions[i]["label"]];
-
-        }
-        setETA(newETA);
-
-    }, [...Object.values(allOptions).map(obj => { return obj["id"] })]) // ! Я НЕНАВИЖУ ДЖАВАСКРИПТ DDDDDDDD;
-
+    if (Object.keys(ETATable).length > 0)
     return (
         <div className="container">
             <div className="details">
@@ -137,10 +168,10 @@ function MapRoutesComponent({ places }) {
                             {places.indexOf(place) != places.length - 1 ? <div className="transport">
                                 <img src={walkingIcon} />
                                 <div className="info">
-                                    <p>1 км</p>
+                                    <p>{(ETATable[places.indexOf(place)].filter(obj => obj["travelMode"] == allOptions[places.indexOf(place)]["label"])[0]["distance"] / 1000).toFixed(2)} км</p>
                                     •
-                                    <p>10 мин</p>
-                                    <DropdownRoute id={places.indexOf(place)} label={""} labels={labels} selectedOption={allOptions} setSelectedOption={setAllOptions} />
+                                    <p>{formatTime(ETATable[places.indexOf(place)].filter(obj => obj["travelMode"] == allOptions[places.indexOf(place)]["label"])[0]["duration"].slice(0, -1))}</p>
+                                    <DropdownRoute id={places.indexOf(place)} label={""} labels={allLabels[places.indexOf(place)]} selectedOption={allOptions} setSelectedOption={updateOption} />
                                 </div>
                             </div> : <></>}
                         </div>
@@ -148,7 +179,7 @@ function MapRoutesComponent({ places }) {
                 })}
             </div>
 
-            <MapRoutes places={places} />
+            <MapRoutes places={places} placesOptions={allOptions}/>
         </div>
     )
 }
