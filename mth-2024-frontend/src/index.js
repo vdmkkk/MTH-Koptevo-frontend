@@ -11,6 +11,8 @@ import PlacePage from './Pages/Place/place-page';
 import RoutesPage from './Pages/Routes/routes-page';
 import RoutePage from './Pages/Route/route-page';
 import TripPage from './Pages/Trip/trip-page';
+import Checkin from './Components/Checkin/Checkin';
+import CheckinFinal from './Components/CheckinFinal/CheckinFinal';
 
 const router = createBrowserRouter([
   {
@@ -38,12 +40,20 @@ const router = createBrowserRouter([
     element: <RoutesPage/>
   },
   {
-    path: "/routes/:pouteID",
+    path: "/routes/:routeID",
     element: <RoutePage/>
   },
   {
     path: "/trip",
     element: <TripPage/>
+  },
+  {
+    path: "/checkin/:cipher",
+    element: <Checkin/>
+  },
+  {
+    path: "/checkin/show/:hash",
+    element: <CheckinFinal/>
   }
 ]);
 

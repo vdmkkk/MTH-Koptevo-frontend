@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: max-content;
+    min-height: 600px;
+    font-family: Suisse Intl;
+
+    .details {
+        width: 50%;
+
+        .card {
+            display: flex;
+            img {
+                width: 80px;
+                height: 80px;
+                border-radius: 15px;
+                object-fit: fill;
+            }
+
+            .info {
+                .features {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 15px;
+                    p {
+                        margin: 0;
+                        font-weight: 300;
+                        font-size: 14px;
+                    }
+                }
+
+                h1 {
+                    font-weight: 400;
+                    font-size: 20px;
+                    text-align: start;
+                }
+
+                h2 {
+                    font-weight: 300;
+                    font-size: 14px;
+                    text-align: start;
+                }
+            }
+        }
+        .transport {
+            display: flex;
+            align-items: center;
+
+            .info {
+                display: flex;
+                p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

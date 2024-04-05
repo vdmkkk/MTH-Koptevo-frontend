@@ -218,7 +218,7 @@ function MapDistricts({ districts, currDistrict, setDistrict, isOpen }) {
                     streetViewControl: false,
                     rotateControl: false,
                     fullscreenControl: false,
-                    mapId: "7ec5d822bd262c80",
+                    mapId: "fae79854d0939c40",
                     minZoom: 13,
                     maxZoom: 14,
                 }}
