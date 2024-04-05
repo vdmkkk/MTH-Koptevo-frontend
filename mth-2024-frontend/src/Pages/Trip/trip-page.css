@@ -1,0 +1,60 @@
+.trip-image {
+  overflow: hidden;
+  /* max-width: 30%; */
+  height: 269px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.trip-image img {
+  object-fit: cover;
+  width: inherit;
+  height: inherit;
+}
+
+.progress-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+}
+
+.back-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--gray-a7);
+  display: flex;
+  border-radius: 25px;
+  overflow: hidden;
+  justify-content: flex-start;
+  transition: .3s ease;
+}
+
+.progress {
+  border-radius: 25px;
+  height: 8px;
+  background-color: var(--green);
+  transition: .3s ease;
+}
+
+.progress-bar:hover .back-bar {
+  height: 16px;
+  border-radius: 20px;
+}
+
+.progress-bar:hover .progress {
+  height: 16px;
+
+  border-radius: 20px;
+}
+
+.quiz-label {
+  font-weight: 600;
+  transition: .3s ease;
+}
+
+.gray-button:hover .quiz-label {
+  color: white;
+}

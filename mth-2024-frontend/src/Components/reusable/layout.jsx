@@ -15,6 +15,7 @@ import {useNavigate} from "react-router"
 
 function Layout() {
   const navigate = useNavigate();
+  
   return (
     <div className="layout-header">
       <div className='header-content'>

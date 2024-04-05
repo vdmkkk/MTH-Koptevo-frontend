@@ -87,8 +87,8 @@ function RoutePage() {
           </div>
 
           <div className='buttons-raw'>
-            <div className='button'> <p>Найти попутчика</p></div>
-            <div className='gray-button'> <p>Открыть заметки</p></div>
+            <div className='button' style={{width:"100%"}}> <p>Найти попутчика</p></div>
+            <div className='gray-button' style={{width:"100%"}}> <p>Открыть заметки</p></div>
           </div>
         </div>
 
