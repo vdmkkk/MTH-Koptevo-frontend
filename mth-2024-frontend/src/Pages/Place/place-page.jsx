@@ -91,16 +91,19 @@ function PlacePage() {
                 <div className='button'><p>Перейти к билетам</p></div>
                 <div className='button' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
                 <div className='button' style={{backgroundColor:"var(--green)", color:"white"}}><p>8.8</p></div>
-                <div><p>На основе 40 оценок</p></div>
+                <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-start", minWidth:"100px"}}>
+                  <p style={{marginBottom:"0px"}}>На основе</p>
+                  <p style={{marginTop:"0px"}}>40 оценок</p>
+                </div>
               </div>
           </div>
 
           <div className='place-photos'>
-            <div className='big-place-photo'> <img src={place["properties"].photos[place["properties"].photos.length - 4]}></img></div>
-            <div className='big-place-photo'> <img src={place["properties"].photos[place["properties"].photos.length - 5]}></img></div>
+            <div className='big-place-photo'> <img src={place["properties"].photos[0]}></img></div>
+            <div className='big-place-photo'> <img src={place["properties"].photos[1]}></img></div>
             <div style={{display:"flex", gap:"10px", flexDirection:"column"}}>
-                <div className='small-place-photo'> <img src={place["properties"].photos[place["properties"].photos.length - 6]}></img></div>
-                <div className='small-place-photo' style={{backgroundImage:`url("${place["properties"].photos[place["properties"].photos.length - 7]}")`}}><div className='more-photo'>
+                <div className='small-place-photo'> <img src={place["properties"].photos[2]}></img></div>
+                <div className='small-place-photo' style={{backgroundImage:`url("${place["properties"].photos[3]}")`}}><div className='more-photo'>
                   <p style={{fontSize:"24px", fontWeight:"600", marginBottom:"0px"}}>{place["properties"].photos.length}</p>
                   <p>фото</p>
                   </div></div>
@@ -113,14 +116,14 @@ function PlacePage() {
             <p className='text-descriptioin'>{place["properties"].description}</p>
           </div>
 
-          <div style={{"marginLeft": "15vw", "marginTop": "70px", "borderRadius": "20px"}}>
+          {/* <div style={{"marginLeft": "15vw", "marginTop": "70px", "borderRadius": "20px"}}>
             <MapPlace coords={place["properties"]["coords"]}/>
-          </div>
+          </div> */}
 
           <div style={{height:"25px"}}></div>
           <div className='place-address-cont'>
           <div style={{"borderRadius": "20px"}}>
-            <MapPlace coords={{lat: 55.735583, lng: 37.576132}}/>
+            <MapPlace coords={place["properties"]["coords"]}/>
           </div>
 
           </div>

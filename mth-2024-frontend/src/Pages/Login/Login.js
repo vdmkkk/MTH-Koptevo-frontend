@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useCookies } from "react-cookie";
 import {Navigate} from 'react-router-dom';
+import loginPhoto from "../../assets/img/login.jpg"
+import Layout from "../../Components/reusable/layout";
+import Footer from "../../Components/reusable/footer";
 
 function Login() {
 
@@ -63,6 +66,7 @@ function Login() {
 
     return(
         <div className="App">
+            <Layout/>
             {guest ? 
                 <div>
                     {redirect && <Navigate replace to="/" />}
@@ -85,7 +89,7 @@ function Login() {
                     }}>На главную</button>
                 </div>
             }
-            
+        <Footer/>
         </div>
     )
 }

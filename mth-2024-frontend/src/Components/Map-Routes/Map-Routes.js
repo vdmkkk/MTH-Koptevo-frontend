@@ -41,8 +41,8 @@ function MapRoutes({ places, placesOptions }) {
     console.log(placesOptions)
     const containerStyle = {
         width: '40%',
-        // height: '100vh',
-        // borderRadius: "30px"
+        height: '80vh',
+        borderRadius: "12px",
     };
 
     const translate = {

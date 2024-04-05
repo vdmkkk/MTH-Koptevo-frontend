@@ -20,18 +20,18 @@ function DropdownRoute({id, label, selectedOption, setSelectedOption, labels}) {
 
 
   return (
-    <div className='dropdown-cont'>
-      <div className='dropdown' onClick={() => setIsOpenMenu(!isOpenMenu)}>
-        <img src={arrowDown} className={(isOpenMenu == true) ? "opened-img" : "closed-img"} ></img>
+    <div className='dropdown-cont-route'>
+      <div className='dropdown-route' onClick={() => setIsOpenMenu(!isOpenMenu)}>
+        <img src={arrowDown} className={(isOpenMenu == true) ? "opened-img-r" : "closed-img-r"} ></img>
 
       </div>
 
     {isOpenMenu &&(
-        <div className='menu'>
+        <div className='menu-route'>
           {options.map((option) => (
-            <div className='option' onClick={() => handleSelectOption(option)}>
+            <div className='option-route' onClick={() => handleSelectOption(option)}>
                 <img src={(option.id == ((selectedOption[id] == undefined ? -1 : selectedOption[id].id))) ? checkboxActive : checkbox}></img>
-                <p className='option-text'>{option.label}</p>
+                <p className='option-text-route'>{option.label}</p>
             </div>
           ))}
         </div>
