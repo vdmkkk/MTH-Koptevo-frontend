@@ -6,6 +6,7 @@ import DropdownRoute from "../reusable/dropdown-route";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ticket from "../../assets/icons/ticket.svg"
+import food from "../../assets/icons/food.svg"
 
 
 
@@ -169,9 +170,18 @@ function MapRoutesComponent({ places }) {
                                 </div>
                             </div>
                             
+                            {(place["place"]["variety"] == "Музеи" || place["place"]["variety"] == "Театры" || place["place"]["variety"] == "Развлечения" ) ?
                             <div className="ticket-button">
                                 <img src={ticket}></img>
                             </div>
+                            : (place["place"]["variety"] == "Ресторан") ? 
+                            <div className="ticket-button">
+                                <img style={{width:"20px"}} src={food}></img>
+                            </div>
+                        : <div/>
+                }
+
+                
                         </div>
                             {places.indexOf(place) != places.length - 1 ? <div className="transport">
                                 <img src={walkingIcon} />

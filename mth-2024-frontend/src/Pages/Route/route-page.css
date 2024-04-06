@@ -63,8 +63,20 @@
   cursor: pointer;
 }
 
+.gray-button-disabled {
+  background-color: var(--gray-f5);
+  border-radius: 12px;
+  padding-inline: 16px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  transition: .3s ease;
+
+}
+
 .gray-button:hover {
-  background-color: var(--gray-a7);
+  background-color: #EBEBEB;
 }
 
 .route-tags {
