@@ -4,6 +4,7 @@ import close from '../../assets/icons/close.svg'
 import { useCookies } from "react-cookie";
 import {useNavigate} from "react-router"
 import axios from "axios";
+import lock from "../../assets/icons/lock.svg"
 
 function Notes({open, setOpen, placeId}) {
     const [note, setNote] = useState("");
@@ -97,10 +98,32 @@ function Notes({open, setOpen, placeId}) {
                 </div>
                 
                 <textarea value={note} onChange={(e) => handleNote(e)}></textarea>
-                <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px", color: isLocked ? "#ccc" : "#000"}}>Ожидания</h1>
-                <textarea disabled={isLocked} value={expectation} onChange={(e) => handleExpectation(e)}></textarea>
-                <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px", color: isLocked ? "#fff" : "#ccc"}}>Впечатления</h1>
-                <textarea disabled={!isLocked} value={reality} onChange={(e) => handleReality(e)}></textarea> 
+                {(isLocked) ? 
+                <div style={{position:"relative"}}>
+                    <img src={lock} style={{position:"absolute", top:"60%", left:"50%", transform:"translate(-50%, -50%)"}}></img>
+                    <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px", color: isLocked ? "#ccc" : "#000"}}>Ожидания</h1>
+                    <textarea disabled={isLocked} value={expectation} onChange={(e) => handleExpectation(e)}></textarea>
+                </div> : 
+                <div>
+                    <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px", color: isLocked ? "#ccc" : "#000"}}>Ожидания</h1>
+                    <textarea disabled={isLocked} value={expectation} onChange={(e) => handleExpectation(e)}></textarea>
+                </div> 
+                }
+                
+                {(isLocked) ? 
+                <div>
+                    <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px", color: isLocked ? "#000" : "#ccc"}}>Впечатления</h1>
+                    <textarea disabled={!isLocked} value={reality} onChange={(e) => handleReality(e)}></textarea> 
+                </div> :
+                <div style={{position:"relative"}}>
+                    <img src={lock} style={{position:"absolute", top:"60%", left:"50%", transform:"translate(-50%, -50%)"}}></img>
+                    <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px", color: isLocked ? "#fff" : "#ccc"}}>Впечатления</h1>
+                    <textarea disabled={!isLocked} value={reality} onChange={(e) => handleReality(e)}></textarea> 
+                </div>
+                }
+
+                
+                
             </div> }
         </div>
         
