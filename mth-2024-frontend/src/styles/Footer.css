@@ -74,6 +74,7 @@
   .footer {
     height: fit-content;
   }
+  
   .bottom-footer {
     display: grid;
     gap: 20px;

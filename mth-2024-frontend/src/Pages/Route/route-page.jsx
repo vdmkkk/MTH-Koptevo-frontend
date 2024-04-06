@@ -17,13 +17,19 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import MapRoutesComponent from '../../Components/Map-Routes-Component/Map-Routes-Component';
+import Notes from '../../Components/Notes/Notes';
+import Companions from '../../Components/Companions/Companions.js';
 
 
 function RoutePage() {
   const id  = useParams();
+  console.log("id", id)
   const navigate = useNavigate();
 
   const [route, setRoute] = useState([])
+
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [companionsOpen, setCompanionsOpen] = useState(false);
 
   useEffect(() => {
       axios.get(`${process.env.REACT_APP_ZAMAN_API}/route/by_id?id=${id.routeID}`).then((res) => {
@@ -31,14 +37,26 @@ function RoutePage() {
           console.log("hey", res.data)
       })
   }, [])
+
+  useEffect(() => {
+    if (notesOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [notesOpen]);
+
   if (Object.keys(route).length > 0)
   return (
     
 
     <div className="App">
       <Layout/>
-
-      
+      <Notes open={notesOpen} setOpen={setNotesOpen} mode={"place"}/>
+      <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"place"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
         <div className='banner' 
           style={{backgroundImage:`url("${route["properties"].photos[2]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}
         >
@@ -75,8 +93,8 @@ function RoutePage() {
           </div>
 
           <div className='buttons-raw' style={{flexWrap:"wrap"}}>
-            <div className='button' style={{width:"40%"}}> <p>Найти попутчика</p></div>
-            <div className='gray-button' style={{width:"40%"}}> <p>Открыть заметки</p></div>
+            <div className='button' style={{width:"40%"}} onClick={() => {setCompanionsOpen(true)}}> <p>Найти попутчика</p></div>
+            <div className='gray-button' style={{width:"40%"}} onClick={() => {setNotesOpen(true)}}> <p>Открыть заметки</p></div>
           </div>
         </div>
 

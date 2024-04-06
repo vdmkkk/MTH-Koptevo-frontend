@@ -28,11 +28,11 @@ function OnboardingPage() {
         </Layout>
         <div className='bgimg' style={{backgroundImage:`url("${bgimage}")`}}>
         <div className='banner' style={{backgroundImage:`url("${banner}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}>
-              <h1 style={{color:'#FFFFFF', fontSize:"64px", fontWeight:"400", width:"60%", marginLeft:"108px", textAlign:"left"}}>Спланируйте иделальное путешествие с RUSSPASS</h1>
-              <div style={{display:"flex", alignItems:"baseline", gap:"8px", marginLeft:"108px", cursor:"pointer"}}>
+              <h1 style={{color:'#FFFFFF', fontWeight:"400", textAlign:"left"}}>Спланируйте иделальное путешествие с RUSSPASS</h1>
+              <div className='moskva-text' style={{display:"flex", alignItems:"baseline", gap:"8px", cursor:"pointer"}}>
                 <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start"}}>
-                  <h1 style={{color:'#FFC300', fontSize:"64px", fontWeight:"400", marginTop:"0px", marginBottom:"0px"}}>Москва</h1>
-                  <img src={underline} style={{width:"101%"}} />
+                  <h1 style={{color:'#FFC300', fontWeight:"400", marginTop:"0px", marginBottom:"0px", textDecoration:"underline dashed", textDecorationSkip:"5px"}}>Москва</h1>
+                  {/* <img src={underline} style={{width:"101%"}} /> */}
                 </div>
                 <img src={yellowArrow}></img>
               </div>
@@ -42,34 +42,35 @@ function OnboardingPage() {
           <div className='main-part'>
             <div className='icons-routes'>
               <div className='icons-routes-1'>
-                <div className='icon-route' style={{backgroundImage:`url("${marshruti}")`, width:"496px", backgroundSize:"cover"}} onClick={() => navigate("/routes")}>
+                <div className='icon-route-1' style={{backgroundImage:`url("${marshruti}")`}} onClick={() => navigate("/routes")}>
                   {/* <img src={marshruti}></img> */}
                   <p className='icons-bit-text'>Маршруты</p>
                   <p className='icons-small-text'>популярные и уединенные</p>
                 </div>
-                <div className='icon-route' style={{backgroundImage:`url("${places}")`, width:"288px", backgroundSize:"cover"}} onClick={() => navigate("/places")}>
+                <div className='icon-route' style={{backgroundImage:`url("${places}")`,backgroundSize:"cover"}} onClick={() => navigate("/places")}>
                   <p className='icons-bit-text'>Места</p>
                   <p className='icons-small-text'>посетить всё</p>
                 </div>
-                <div className='icon-route' style={{backgroundImage:`url("${guides}")`, width:"392px", backgroundSize:"cover"}}>
+                <div className='icon-route-1' style={{backgroundImage:`url("${guides}")`}}>
                   <p className='icons-bit-text'>Экскурсии</p>
                   <p className='icons-small-text'>интересно послушать</p>
                 </div>
               </div>
               <div className='icons-routes-1'>
-                <div className='icon-route' style={{backgroundImage:`url("${room}")`, width:"289px", backgroundSize:"cover"}}>
+                <div className='icon-route' style={{backgroundImage:`url("${room}")`, backgroundSize:"cover"}}>
                   <p className='icons-bit-text'>Жилье</p>
                   <p className='icons-small-text'>милый дом</p>
                 </div>
-                <div className='icon-route' style={{backgroundImage:`url("${airplane}")`, width:"312px", backgroundSize:"cover"}}>
+                <div className='icon-route' style={{backgroundImage:`url("${airplane}")`, backgroundSize:"cover"}} onClick={() => window.open("https://russpass.ru/avia-tickets")}>
                   <p className='icons-bit-text'>Авиабилеты</p>
                   <p className='icons-small-text'>как можно быстрее</p>
                 </div>
-                <div className='icon-route' style={{backgroundImage:`url("${train}")`, width:"264px", backgroundSize:"cover"}}>
+
+                <div className='icon-route' style={{backgroundImage:`url("${train}")`, backgroundSize:"cover"}} onClick={() => window.open("https://russpass.ru/railways-tickets")}>
                   <p className='icons-bit-text'>ЖД билеты</p>
                   <p className='icons-small-text'>все в одном месте</p>
                 </div>
-                <div className='icon-route' style={{backgroundImage:`url("${restoran}")`, width:"289px", backgroundSize:"cover"}}>
+                <div className='icon-route-1' style={{backgroundImage:`url("${restoran}")`}}>
                   <p className='icons-bit-text'>Рестораны</p>
                   <p className='icons-small-text'>вкусно - и точно</p>
                 </div>
@@ -77,7 +78,7 @@ function OnboardingPage() {
             </div>
 
             <div className='links' style={{backgroundImage:{bgimage}}}>
-              <div className='link-div' style={{backgroundImage: `url('${linkTrain}')` , backgroundSize:"cover" }} onClick={() => navigate("/trip")}>
+              <div className='link-div' style={{backgroundImage: `url('${linkTrain}')` }} onClick={() => navigate("/trip")}>
                 <div className='train-part' >
                   <h1>Планирование поездок</h1>
                   <div style={{display:"flex", gap:"14px", alignItems:"baseline"}}>
@@ -108,7 +109,7 @@ function OnboardingPage() {
                     </div>
               </div>
 
-              <div className='link-div' style={{backgroundImage: `url('${frame3}')`, backgroundSize:"cover" }} onClick={() => navigate("/places")}>
+              <div className='link-div' style={{backgroundImage: `url('${frame3}')`}} onClick={() => navigate("/places")}>
                   <div className='train-part'>
                       <h1>Места</h1>
                       <div style={{display:"flex", gap:"14px", alignItems:"baseline"}}>

@@ -1,0 +1,20 @@
+.filter-cont {
+  width: 500px;
+  height: fit-content;
+  background-color: var(--gray-f5);
+  border-radius: 28px;
+}
+
+.filter {
+  margin-top: 16px;
+  margin-inline: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+}
+

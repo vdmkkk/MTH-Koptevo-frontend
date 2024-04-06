@@ -29,6 +29,7 @@
   cursor: pointer;
   font-weight: 500;
   transition: .3s ease;
+  min-width: 150px;
 }
 
 .button:hover {
@@ -96,11 +97,13 @@
   flex-direction: column;
   justify-content: space-between;
   transition: .3s ease;
-  border: 2px solid rgba(255,255,255,0);
+
+  /* border: 2px solid rgba(255,255,255,0); */
 }
 
 .card-cont:hover {
-  border: 2px solid var(--yellow);
+  /* border: 2px solid var(--yellow); */
+  box-shadow: 1px 3px 20px rgba(0,0,0,.3);
 }
 
 .card-img {
@@ -224,7 +227,7 @@
 @media (max-width: 459px) {
   .search-cont {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     height: fit-content;
     background-color: #FFFFFF;
     padding-inline: 0px;
@@ -249,7 +252,7 @@
   }
 
   .button {
-    /* width: 100%; */
+    width: 100%;
     justify-content: center;
     padding-inline: 0px;
   }

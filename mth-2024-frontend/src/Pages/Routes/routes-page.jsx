@@ -159,40 +159,23 @@ function RoutesPage() {
                 <p className='card-place-name' >{card["name"]} </p>
                 <div style={{height:"8px"}}></div>
                 <div className='card-desrciption'>
-                  <div className='card-tag'>
-                    <img src={mapMarker}></img>
-                    <p>{card["address"]}</p>
+                  <div className='routes-tags'>
+                  {card["tags"] != null ? card["tags"].map((tag, index) => 
+                  (
+                  <div className='routes-card-tag'>
+                    <p>{card.tags[index].name}</p>
                   </div>
-
-                  <div style={{display:"flex", gap:"10px"}}>
-                  <div className='card-tag'>
-                    <img src={food}></img>
-                    <p> {card["properties"]["variety"]}</p>
-                  </div>
-                  {/* {(card["features"]["Средний счет"] == undefined) ? <div></div> : 
-                  <div className='card-tag'>
-                    <img src={check}></img>
-                    <p> Средний чек {card["features"]["Средний счет"]}</p>
-                  </div>
-                  } */}
-                  </div>
-                  {/* {(card["features"]["Тип кухни"] == undefined) ? <div></div> : 
-                  <div className='card-tag'>
-                  <img src={kitchen}></img>
-                    <p>{card["features"]["Тип кухни"].slice(0, 50)}{(card["features"]["Тип кухни"].length > 50) ? "..." : ""}</p>
-                  </div>
-                  } */}
+                   )) : <div/>}
+                   </div>
+       
                 </div>
-                
               </div>
-
               
               <div className='button' style={{margin:"15px"}}>
-                <p>Забронировать столик</p>
+                <p>Посмотреть</p>
               </div>
 
             </div>
-
 
 
           )) : <div/>}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import './Notes.scss'
-import close from '../../assets/icons/Arrow-1.svg'
+import close from '../../assets/icons/close.svg'
 import { useCookies } from "react-cookie";
 import {useNavigate} from "react-router"
 
@@ -27,15 +27,18 @@ function Notes({open, setOpen, mode}) {
             : // зареган
             <div className={open ? "notes notes-open" : "notes notes-closed"}>
                 <div>
-                    <div onClick={() => setOpen(false)} className="close"><img src={close} style={{"transform": "rotate(180deg)"}}/></div>
-                    <h1>Заметки</h1>
+                    <div onClick={() => setOpen(false)} className="close">
+                        <h1>Заметки</h1>
+                        <img src={close} style={{"transform": "rotate(180deg)"}}/>
+                        </div>
+                    
                 </div>
                 
-                <textarea/> 
-                <h1>Ожидания</h1>
-                <textarea/> 
-                <h1>Впечатления</h1>
-                <textarea/> 
+                <textarea></textarea>
+                <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px"}}>Ожидания</h1>
+                <textarea></textarea>
+                <h1 style={{textAlign:"left", fontWeight:"500", marginLeft:"36px"}}>Впечатления</h1>
+                <textarea></textarea> 
             </div> }
         </div>
         

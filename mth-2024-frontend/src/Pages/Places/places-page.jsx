@@ -21,6 +21,8 @@ import { useState, useEffect } from 'react';
 import labels1 from "../../data/sort.json"
 import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-Districts-Popup';
 import close from '../../assets/icons/close.svg'
+import book from "../../assets/icons/book.svg"
+import clock from "../../assets/icons/clock.svg"
 import axios from 'axios';
 
 
@@ -165,15 +167,15 @@ function PlacesPage() {
 
                   <div style={{display:"flex", gap:"10px"}}>
                   <div className='card-tag'>
-                    <img src={food}></img>
+                    <img src={book} style={{width:"16px"}}></img>
                     <p> {card["variety"]}</p>
                   </div>
-                  {(card["properties"]["features"]["Средний счет"] == undefined) ? <div></div> : 
+
                   <div className='card-tag'>
-                    <img src={check}></img>
-                    <p> Средний чек {card["properties"]["features"]["Средний счет"]}</p>
+                    <img src={clock} style={{width:"16px"}}></img>
+                    <p> Часы работы: {(card["properties"]["work_hours"] == "Круглосуточно") ? "Круглосуточно" : card["properties"]["work_hours"]["Воскресенье"]}</p>
                   </div> 
-                  }
+
                   </div>
                   {(card["properties"]["features"]["Тип кухни"] == undefined) ? <div></div> : 
                   <div className='card-tag'>
@@ -187,7 +189,7 @@ function PlacesPage() {
 
               
               <div className='button' style={{margin:"15px"}}>
-                <p>Забронировать столик</p>
+                <p>Посмотреть</p>
               </div>
 
             </div>
