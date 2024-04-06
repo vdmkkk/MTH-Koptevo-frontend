@@ -26,7 +26,7 @@ function RoutePage() {
   const [route, setRoute] = useState([])
 
   useEffect(() => {
-      axios.get(`http://217.18.63.245:8080/route/by_id?id=${id.routeID}`).then((res) => {
+      axios.get(`${process.env.REACT_APP_ZAMAN_API}/route/by_id?id=${id.routeID}`).then((res) => {
           setRoute(res.data);
           console.log("hey", res.data)
       })

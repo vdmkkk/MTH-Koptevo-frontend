@@ -7,7 +7,7 @@ import burgerMenu from '../../assets/icons/burger-menu.svg'
 import bonus from '../../assets/icons/Bonus-icon.svg'
 import mosturizm from '../../assets/icons/Mosturizm.svg'
 import heart from '../../assets/icons/heart.svg'
-import user from '../../assets/icons/user-01.svg'
+import userIcon from '../../assets/icons/user-01.svg'
 import flag from '../../assets/icons/Flags.svg'
 import {useNavigate} from "react-router"
 import { useCookies } from "react-cookie";
@@ -68,7 +68,7 @@ function Layout() {
           <p>Мои планы</p>
         </div>
         <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => checkCookie(navigate, cookies)}>
-          <img src={user} className='icons'></img>
+          <img src={userIcon} className='icons'></img>
           <p>{user}</p>
         </div>
         <img src={flag} className='icons' style={{cursor:"pointer"}}></img>
