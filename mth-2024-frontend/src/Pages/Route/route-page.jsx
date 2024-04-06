@@ -17,7 +17,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import MapRoutesComponent from '../../Components/Map-Routes-Component/Map-Routes-Component';
-import Notes from '../../Components/Notes/Notes';
 import Companions from '../../Components/Companions/Companions.js';
 
 
@@ -28,7 +27,6 @@ function RoutePage() {
 
   const [route, setRoute] = useState([])
 
-  const [notesOpen, setNotesOpen] = useState(false);
   const [companionsOpen, setCompanionsOpen] = useState(false);
 
   useEffect(() => {
@@ -39,7 +37,7 @@ function RoutePage() {
   }, [])
 
   useEffect(() => {
-    if (notesOpen) {
+    if (companionsOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -47,7 +45,7 @@ function RoutePage() {
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [notesOpen]);
+  }, [companionsOpen]);
 
   if (Object.keys(route).length > 0)
   return (
@@ -55,8 +53,7 @@ function RoutePage() {
 
     <div className="App">
       <Layout/>
-      <Notes open={notesOpen} setOpen={setNotesOpen} mode={"place"}/>
-      <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"place"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
+      <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"route"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
         <div className='banner' 
           style={{backgroundImage:`url("${route["properties"].photos[2]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}
         >
@@ -94,7 +91,6 @@ function RoutePage() {
 
           <div className='buttons-raw' style={{flexWrap:"wrap"}}>
             <div className='button' style={{width:"40%"}} onClick={() => {setCompanionsOpen(true)}}> <p>Найти попутчика</p></div>
-            <div className='gray-button' style={{width:"40%"}} onClick={() => {setNotesOpen(true)}}> <p>Открыть заметки</p></div>
           </div>
         </div>
 

@@ -97,6 +97,7 @@ function MapRoutesComponent({ places }) {
                 }
             } catch (e) {
                 // console.error(e);
+                
                 var resObject = new Object;
                 resObject[i] = { distance: -1, duration: -1, travelMode: travelMode };
                 return resObject;

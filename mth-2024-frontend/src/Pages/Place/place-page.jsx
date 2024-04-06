@@ -79,7 +79,7 @@ function PlacePage() {
     <div className="App">
         <Layout>
         </Layout>
-        <Notes open={notesOpen} setOpen={setNotesOpen} mode={"place"}/>
+        <Notes open={notesOpen} setOpen={setNotesOpen} placeId={id.placeID}/>
         <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"place"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
         <div className='main-part'>
           <div style={{display:"flex", justifyContent:"space-between", marginBottom:"25px", alignItems:"baseline"}}>
