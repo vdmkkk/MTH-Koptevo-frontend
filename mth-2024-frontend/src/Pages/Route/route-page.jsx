@@ -40,10 +40,10 @@ function RoutePage() {
 
       
         <div className='banner' 
-        // style={{backgroundImage:`url("${route["properties"].photos[18]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}
+          style={{backgroundImage:`url("${route["properties"].photos[2]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}
         >
               <div style={{width:"100%", backgroundColor:"rgba(0,0,0,.5)", height:"100%"}}>
-                  <h1 style={{color:'#FFFFFF', fontSize:"64px", fontWeight:"400", width:"60%", marginLeft:"108px", textAlign:"left"}}>{route["properties"].name}</h1>
+                  <h1 style={{color:'#FFFFFF', fontSize:"64px", fontWeight:"400", width:"60%", marginLeft:"108px", textAlign:"left"}}>{route.name}</h1>
                   <div style={{width:"20%", display:"flex", alignItems:"center", gap:"8px", marginLeft:"108px", cursor:"pointer"}}>
                     <div className='white-button'> <p>Прикрепить к поездке</p></div>
                     <div className='white-like-button'><img src={heart}></img></div>
@@ -53,9 +53,9 @@ function RoutePage() {
         <div className='border-div'></div>
 
       <div className='main-part'> 
-        <div className='two-blocks-flex'>
+        <div className='two-blocks-flex' style={{gap:"10px"}}>
           <div className='route-tags'>
-                  <div style={{display:"flex", gap:"10px"}}>
+                  <div style={{display:"flex", gap:"10px", flexWrap:"wrap"}}>
                         <div className='card-tag'>
                           <img style={{width:"24px"}} src={mapMarker}></img>
                           <p style={{fontSize:"24px"}}>Москва</p>
@@ -71,24 +71,12 @@ function RoutePage() {
                           <p style={{fontSize:"24px"}}>Москва</p>
                         </div>
 
-                        {/* {(route["features"]["Средний счет"] == undefined) ? <div></div> : 
-                        <div className='card-tag'>
-                          <img style={{width:"24px"}} src={coinBl}></img>
-                          <p style={{fontSize:"24px"}}> 50</p>
-                        </div>
-                        } */}
                   </div>
-                  {/* {(route["features"]["Тип кухни"] == undefined) ? <div></div> : 
-                  <div className='card-tag'>
-                  <img style={{width:"24px"}} src={book}></img>
-                    <p style={{fontSize:"24px"}}>Пешеходные, авторские, необычные</p>
-                  </div>
-                  } */}
           </div>
 
-          <div className='buttons-raw'>
-            <div className='button' style={{width:"100%"}}> <p>Найти попутчика</p></div>
-            <div className='gray-button' style={{width:"100%"}}> <p>Открыть заметки</p></div>
+          <div className='buttons-raw' style={{flexWrap:"wrap"}}>
+            <div className='button' style={{width:"40%"}}> <p>Найти попутчика</p></div>
+            <div className='gray-button' style={{width:"40%"}}> <p>Открыть заметки</p></div>
           </div>
         </div>
 

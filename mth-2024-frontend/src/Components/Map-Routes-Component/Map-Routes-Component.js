@@ -158,7 +158,7 @@ function MapRoutesComponent({ places }) {
                                 <div className="info">
                                     <div className="features">
                                         <p>30 мин.</p>
-                                        •
+                                        <p style={{fontSize:"32px", color:"var(--gray-a7)", marginBottom:"4px"}}>•</p>
                                         <p>{place["place"].variety}</p>
                                     </div>
                                     <h1>{place["place"].name}</h1>
@@ -169,8 +169,10 @@ function MapRoutesComponent({ places }) {
                                 <img src={walkingIcon} />
                                 <div className="info">
                                     <p>{(ETATable[places.indexOf(place)].filter(obj => obj["travelMode"] == allOptions[places.indexOf(place)]["label"])[0]["distance"] / 1000).toFixed(2)} км</p>
-                                    •
+                                    <p style={{fontSize:"18px", color:"var(--gray-a7)", marginBottom:"8px"}}>•</p>
+                                    {console.log(formatTime(ETATable[places.indexOf(place)].filter(obj => obj["travelMode"] == allOptions[places.indexOf(place)]["label"])[0]["duration"].slice(0, -1))) }
                                     <p>{formatTime(ETATable[places.indexOf(place)].filter(obj => obj["travelMode"] == allOptions[places.indexOf(place)]["label"])[0]["duration"].slice(0, -1))}</p>
+                                    
                                     <DropdownRoute id={places.indexOf(place)} label={""} labels={allLabels[places.indexOf(place)]} selectedOption={allOptions} setSelectedOption={updateOption} />
                                 </div>
                             </div> : <></>}
@@ -178,8 +180,10 @@ function MapRoutesComponent({ places }) {
                     )
                 })}
             </div>
+                
 
             <MapRoutes places={places} placesOptions={allOptions}/>
+
         </div>
     )
 }

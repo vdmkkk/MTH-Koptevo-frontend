@@ -1,33 +1,40 @@
-.dropdown {
-    border: 1px solid var(--gray-a7);
+.dropdown-cont-route {
+  width: 28px;
+}
+
+.dropdown-route {
+    /* border: 1px solid var(--gray-a7); */
     border-radius: 12px;
-    height: 48px;
-    padding-left: 50px;
+    height: 28px;
+    /* padding-left: 50px; */
     transition: 0.3s ease;
     cursor: pointer;
     display: flex;
     align-items: center;
-    width: 25%;
-    font-weight: 500;
+    /* width: 25%; */
+    /* font-weight: 500; */
     position: relative;
-    min-width: 200px;
+    min-width: 28px;
+  }
+
+  
+  .dropdown-route img {
+    position: absolute;
+    
   }
   
-  .dropdown img {
+  .closed-img-r{
     position: absolute;
-  
-  }
-  
-  .closed-img{
-    position: absolute;
-    right: 15px;
+    right: 0px;
+    top:0px;
     transition: .3s ease;
   }
   
-  .opened-img {
+  .opened-img-r {
     position: absolute;
-    right: 15px;
-    transform: rotate(180deg);
+    right: 0px;
+    top:0px;
+    transform: rotate(-180deg);
     transition: .3s ease;
   }
   
@@ -35,15 +42,18 @@
     position: relative;
   }
   
-  .menu {
+  .menu-route {
     /* border: 1px solid var(--yellow); */
     box-shadow: 1px 4px 20px rgba(0, 0, 0, .3);
     border-radius: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     background-color: white;
     position: absolute;
     z-index: 3;
     margin-top: 10px;
-    width: 100%;
+    width:fit-content;
+    padding-inline: 12px;
     transition: .3s ease;
     animation-duration: .3s;
     animation-name: slidein;
@@ -63,7 +73,7 @@
   }
   
   
-  .option {
+  .option-route {
     display: flex;
     margin-inline: 10px;
     gap:10px;
@@ -71,15 +81,16 @@
     cursor: pointer; 
   }
   
-  .option-text {
+  .option-text-route {
     transition: .3s ease;
+    /* font-family: Suisse-Intl; */
   }
   
   .option:hover .option-text {
     transform: translateX(5px);
   }
   
-  .dropdown-selected {
+  .dropdown-selected-route {
     padding: 10px;
     border: 2px solid #e0e0e0;
     cursor: pointer;
@@ -92,11 +103,11 @@
     color: #000;
   }
   
-  .dropdown-icon {
+  .dropdown-icon-route {
     font-size: 12px;
   }
   
-  .dropdown-list {
+  .dropdown-list-route {
     position: absolute;
     width: 100%;
     border: 1px solid #e0e0e0;
@@ -110,7 +121,7 @@
     border-radius: 20px;
   }
   
-  .dropdown-option {
+  .dropdown-option-route {
     padding: 10px;
     cursor: pointer;
     display: flex;
@@ -140,11 +151,11 @@
     }
   }
   
-  .dropdown-option:hover {
+  .dropdown-option-route:hover {
     animation: onFocus .3s forwards;
   }
   
-  .selected {
+  .selected-route {
     color: #000;
     font-weight: bold;
     border-left: 4px solid #000;

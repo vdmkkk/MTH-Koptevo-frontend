@@ -3,13 +3,18 @@
     flex-direction: row;
     height: max-content;
     min-height: 600px;
-    font-family: Suisse Intl;
+    gap:20px;
+    // font-family: Suisse Intl;
 
     .details {
         width: 50%;
 
         .card {
             display: flex;
+            gap:12px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            margin-top: 12px;
             img {
                 width: 80px;
                 height: 80px;
@@ -18,14 +23,20 @@
             }
 
             .info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 80px;
                 .features {
                     display: flex;
                     flex-direction: row;
-                    gap: 15px;
+                    gap: 12px;
+                    align-items:center;
                     p {
                         margin: 0;
                         font-weight: 300;
                         font-size: 14px;
+                        
                     }
                 }
 
@@ -33,23 +44,30 @@
                     font-weight: 400;
                     font-size: 20px;
                     text-align: start;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
                 }
 
                 h2 {
                     font-weight: 300;
                     font-size: 14px;
                     text-align: start;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
                 }
             }
         }
         .transport {
             display: flex;
             align-items: center;
-
+            margin-left: 28px;
             .info {
                 display: flex;
+                margin-left: 40px;
+                gap:8px;
                 p {
                     margin: 0;
+                    font-size: 14px;
                 }
             }
         }
