@@ -12,19 +12,22 @@ function Notes({open, setOpen, placeId}) {
     const [cookies, setCookie] = useCookies(["JWT"]);
     const [guest, setGuest] = useState(false); // кент не регнут
     const [isLocked, setIsLocked] = useState(false);
+    const [isNew, setIsNew] = useState(false);
     const navigate = useNavigate();
 
     const getNote = async () =>  {
         await axios.get(`${process.env.REACT_APP_ZAMAN_API}/note/by_user_and_place_ids?user_id=${cookies.JWT}&place_id=${placeId}`).then(res => {
-            if (res.data) {
+            if (res.data["properties"]) {
                 console.log(res.data)
                 setNote(res.data["properties"]["note"]);
                 setExpectation(res.data["properties"]["expectation"]);
                 setReality(res.data["properties"]["reality"]);
                 if (res.data["is_check_in"]) setIsLocked(true);
                 else setIsLocked(false);
+                setIsNew(false);
             } else {
                 setIsLocked(false);
+                setIsNew(true);
             }
         })
 
@@ -50,7 +53,13 @@ function Notes({open, setOpen, placeId}) {
                 "reality": reality
             }
         };
+        if (isNew)
         await axios.post(`${process.env.REACT_APP_ZAMAN_API}/note/create`, data).then(res => {
+            if (res.status != 200) {
+                console.log('unlucko');
+            }
+        })
+        else await axios.put(`${process.env.REACT_APP_ZAMAN_API}/note/update`, data).then(res => {
             if (res.status != 200) {
                 console.log('unlucko');
             }

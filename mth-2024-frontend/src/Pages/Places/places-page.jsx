@@ -24,6 +24,7 @@ import close from '../../assets/icons/close.svg'
 import book from "../../assets/icons/book.svg"
 import clock from "../../assets/icons/clock.svg"
 import axios from 'axios';
+import { useCookies } from "react-cookie";
 
 
 const tags = [
@@ -54,6 +55,8 @@ function PlacesPage() {
   const [districtsOpen, setDistrictsOpen] = useState(false);
   const [currDistrict, setCurrDistrict] = useState(-1);
   const [bruh, setBruh] = useState([]); // NAMING XDDD
+  const [liked, setLiked] = useState();
+  const [cookies, setCookie] = useCookies(["JWT"]);
 
   const getPlaces = async () => {
     await axios.put(`${process.env.REACT_APP_ZAMAN_API}/place/get_all_with_filter`, {pagination_page: 1}).then((res) => {
@@ -84,6 +87,22 @@ function PlacesPage() {
       document.body.style.overflow = 'auto';
     };
   }, [districtsOpen]);
+
+  useEffect(() => {
+    if (cookies.JWT) {
+      axios.get(`${process.env.REACT_APP_ZAMAN_API}/favourite/by_user_id?id=${cookies.JWT}`).then((res) => {
+        res.data["places"].forEach(place => {});
+      })
+    }
+  }, [])
+
+  const handleLike = async (placeId) => {
+    const data = {
+      "user_id": parseInt(cookies.JWT),
+      "entity_id": parseInt(placeId)
+    }
+    await axios.post(`${process.env.REACT_APP_ZAMAN_API}/favourite/like_place`, data).then(res => {if (res.status !== 200) console.log('unlucko')})
+  }
   
   return (
     <div style={{"overflow": districtsOpen ? "hidden" : "auto"}} className="App">
@@ -144,7 +163,7 @@ function PlacesPage() {
                           <p style={{color:"var(--black)"}}>Скидка</p>
                         </div>
                       </div>
-                      <div className='like-tag'>
+                      <div onClick={() => handleLike(card["id"])} className='like-tag'>
                         <img src={whiteheart}></img>
                       </div>
                   </div>

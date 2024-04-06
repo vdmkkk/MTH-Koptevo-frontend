@@ -29,11 +29,13 @@ function Layout() {
   const [cookies, setCookie] = useCookies(["JWT"]);
   const [user, setUser] = useState("Войти")
 
-  // useEffect(() => {
-  //   if (cookies.JWT != null) {
-  //     axios.put("")
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (cookies.JWT != null) {
+      axios.get(`${process.env.REACT_APP_ZAMAN_API}/user/properties?id=${cookies.JWT}`).then(res => {
+        setUser(res.data["login"]);
+      })
+    }
+  }, [])
   
   return (
     <div className="layout-header">
