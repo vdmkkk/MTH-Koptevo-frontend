@@ -4,6 +4,7 @@
     position: fixed;
     background-color: rgba($color: #fff, $alpha: .7);
     z-index: 998;
+    
 }
 
 .notes {
@@ -14,14 +15,34 @@
     top: 8vh;
     height: 92vh;
     width: var(--main-width);
-    padding-left: 10px;
-    padding-right: 10px;
+    // padding-left: 36px;
+    // padding-right: 36px;
+    padding-top: 16px;
+    // padding-bottom: 16px;
     background-color: #F5F5F5;
     z-index: 10;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     font-family: Proto Grotesk;
     overflow: scroll;
+
+    textarea {
+        padding: 20px;
+        width: 75%;
+        outline: none;
+        border-radius: 28px;
+        box-shadow: 0px 3px 10px rgba(0,0,0,.1);
+        border: none;
+        margin-inline: 36px;
+        min-height: 200px;
+        transition: .3s ease;
+        box-sizing: border-box;
+        resize: none;
+    }
+
+    textarea:focus {
+        box-shadow: 0px 3px 10px rgba(0,0,0,.3);
+    }
 }
 
 .notes-open {
@@ -30,6 +51,32 @@
 
 .notes-closed {
     animation: ease-in-out .2s sidebarClosed forwards;
+}
+
+textarea {
+    width: 90%;
+
+}
+
+.close {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 36px;
+
+    h1 {
+        font-weight: 500;
+    }
+}
+
+.close img {
+    cursor: pointer;
+    opacity: .3;
+    transition: .3s ease;
+}
+
+.close img:hover {
+    cursor: pointer;
+    opacity: 1;
 }
 
 

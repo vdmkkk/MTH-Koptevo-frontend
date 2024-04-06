@@ -1,0 +1,17 @@
+.routes-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.routes-card-tag {
+  border: 1px solid var(--green);
+  border-radius: 6px;
+}
+
+.routes-card-tag p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-inline: 8px;
+  color: var(--green);
+}
