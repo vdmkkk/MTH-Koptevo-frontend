@@ -54,7 +54,7 @@ function PlacesPage() {
   const [bruh, setBruh] = useState([]); // NAMING XDDD
 
   const getPlaces = async () => {
-    await axios.put("http://217.18.63.245:8080/place/get_all_with_filter", {pagination_page: 1}).then((res) => {
+    await axios.put(`${process.env.REACT_APP_ZAMAN_API}/place/get_all_with_filter`, {pagination_page: 1}).then((res) => {
       console.log("lol", res.data);
       setBruh(res.data);
     })
@@ -67,7 +67,7 @@ function PlacesPage() {
   const [districts, setDistricts] = useState([])
 
     useEffect(() => {
-        axios.get('http://217.18.63.245:8080/district/by_city_id?id=1').then((res) => {
+        axios.get(`${process.env.REACT_APP_ZAMAN_API}/district/by_city_id?id=1`).then((res) => {
             setDistricts(res.data);
         })
     }, [])

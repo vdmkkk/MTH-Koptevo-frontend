@@ -34,6 +34,7 @@ import close from '../../assets/icons/close.svg'
 import MapPlace from '../../Components/Map-Place/Map-Place.js'
 import axios from 'axios';
 import Notes from '../../Components/Notes/Notes';
+import Companions from '../../Components/Companions/Companions.js';
 
 
 function PlacePage() {
@@ -49,9 +50,10 @@ function PlacePage() {
   const [isOpen, setIsOpen] = useState();
 
   const [notesOpen, setNotesOpen] = useState(false);
+  const [companionsOpen, setCompanionsOpen] = useState(false);
 
   const getPlace = async () => {
-    await axios.get(`http://217.18.63.245:8080/place/by_id?id=${id.placeID}`).then((res) => {
+    await axios.get(`${process.env.REACT_APP_ZAMAN_API}/place/by_id?id=${id.placeID}`).then((res) => {
       console.log("lol", res.data);
       setPlace(res.data);
     })
@@ -77,7 +79,8 @@ function PlacePage() {
     <div className="App">
         <Layout>
         </Layout>
-        <Notes open={notesOpen} setOpen={setNotesOpen}/>
+        <Notes open={notesOpen} setOpen={setNotesOpen} mode={"place"}/>
+        <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"place"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
         <div className='main-part'>
           <div style={{display:"flex", justifyContent:"space-between", marginBottom:"25px", alignItems:"baseline"}}>
               <div className='place-info'>
@@ -105,6 +108,7 @@ function PlacePage() {
               <div className='place-buttons'>
                 <div onClick={() => {setNotesOpen(true)}} className='button' style={{backgroundColor:"var(--gray-f5)"}}><p>Открыть заметки</p></div>
                 <div className='button'><p>Перейти к билетам</p></div>
+                <div onClick={() => {setCompanionsOpen(true)}} className='button'> <p>Найти попутчика</p></div>
                 <div className='button' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
                 <div className='button' style={{backgroundColor:"var(--green)", color:"white"}}><p>8.8</p></div>
                 <div><p>На основе 40 оценок</p></div>

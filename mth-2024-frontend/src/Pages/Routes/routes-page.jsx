@@ -68,7 +68,7 @@ function RoutesPage() {
   const [routes, setRoutes] = useState([])
 
   useEffect(() => {
-      axios.get('http://217.18.63.245:8080/route/by_page?page=0').then((res) => {
+      axios.get(`${process.env.REACT_APP_ZAMAN_API}/route/by_page?page=0`).then((res) => {
           setRoutes(res.data);
           console.log("hey", res.data)
       })
@@ -77,7 +77,7 @@ function RoutesPage() {
   const [districts, setDistricts] = useState([])
 
     useEffect(() => {
-        axios.get('http://217.18.63.245:8080/district/by_city_id?id=1').then((res) => {
+        axios.get(`${process.env.REACT_APP_ZAMAN_API}/district/by_city_id?id=1`).then((res) => {
             setDistricts(res.data);
         })
     }, [])

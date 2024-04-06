@@ -35,7 +35,7 @@ function Login() {
                 password: password
             };
 
-            await axios.put('http://217.18.63.245:8080/user/login', data, { headers })
+            await axios.put(`${process.env.REACT_APP_ZAMAN_API}/user/login`, data, { headers })
             .then(response => {
                 if (response.status == 200){
                     setCookie("JWT", response.data, {path: "/"});
