@@ -33,6 +33,7 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
     const [tableId, setTableId] = useState(-1);
     const [dateFrom, setDateFrom] = useState(-1);
     const [dateTo, setDateTo] = useState(-1);
+    const [login, setLogin] = useState("");
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -54,7 +55,8 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
             "page": 0
         }
         await axios.put(`${process.env.REACT_APP_ZAMAN_API}/companions/get_by_${mode}`, data).then(res => {
-            setCompanions(res.data);
+            if (res.data == null) setCompanions([]);
+            else setCompanions(res.data);
         })
     }
 
@@ -82,6 +84,9 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
                     setTableId(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["id"]);
                     setDateFrom(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_from"]);
                     setDateTo(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_to"]);
+                    axios.get(`${process.env.REACT_APP_ZAMAN_API}/user/properties?id=${res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["id"]}`).then((res) => {
+                        setLogin(res.data["login"])
+                    })
                 }
                 setCompanions(res.data);
             }
@@ -129,7 +134,7 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
                         <div className="comp-info">
                             <img src={user["user_properties"]["photo"]}/>
                             <div>
-                                <p>{user["user_properties"]["login"]}</p>
+                                <p>{login}</p>
                                 <p>из г. {user["user_properties"]["city"]}</p>
                                 <p>{user["user_properties"]["form"]}</p>
                             </div>
