@@ -81,7 +81,7 @@ function ProfilePage() {
             </div>  
 
             <div className='achievements'>
-              <h2>Медали заслуженного туриста</h2>
+              <h2 style={{fontWeight:"500"}}>Медали заслуженного туриста</h2>
                 <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", overflow:"scroll"}}>
                     <div><div className='medal' style={{background:`url("${medal1}") no-repeat`}}></div> <h3 style={{margin:"0px", fontSize:"12px"}}>Главный культуролог</h3> </div>
                     <div><div className='medal' style={{background:`url("${medal2}") no-repeat`}}></div> <h3 style={{margin:"0px", fontSize:"12px"}}>Старший по музеям</h3> </div>
@@ -96,15 +96,15 @@ function ProfilePage() {
 
         </div>
         <div className='big-button' style={{backgroundImage:`url(${spb})`}} >
-          <div style={{margin:"20px", display:"flex", justifyContent:"space-between"}}>
+          <div style={{margin:"20px", display:"flex", justifyContent:"space-between", height:"-webkit-fill-available"}}>
               <div>
                 <h2>Отпуск 2024</h2>
                 <p>Москва</p>
                 <p>21 марта - 1 апреля</p>
+                <p>Текущая поездка</p>
               </div>
 
-              <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", gap:"200px", width:"30%", alignItems:"end"}}>
-                <p style={{textAlign:"right"}}>Текущая поездка</p>
+              <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", gap:"200px", width:"30%", alignItems:"end", justifyContent: "flex-end"}}>
                 <div className='white-button' style={{marginRight:"0px"}}><p>Перейти к поездке</p></div>
               </div>
           </div>
@@ -191,7 +191,7 @@ function ProfilePage() {
         <div className='history'>
           <div className='hisory-content'>
               <div className='two-blocks-flex' style={{marginBottom:"0px"}}>
-                <h2>Отпуск 2024</h2>
+                <h2 style={{fontWeight:"500"}}>Отпуск 2024</h2>
                 <p>Текущая поездка</p>
               </div>
 
@@ -210,11 +210,11 @@ function ProfilePage() {
       <div className='main-part' style={{backgroundColor:"var(--gray-f5)", marginInline:"0px", paddingInline:"108px", paddingTop:"8px", paddingBottom:"8px"}}>
         <div className='two-blocks-flex' style={{gap:"40px"}}>
             <div className='about-filed-cont'>
-              <h2 style={{textAlign:"left"}}>О себе</h2>
-              <input type='text' className='about-filed' placeholder='Меня зовут Вася, я из города Пермь. Люблю гулять в большой компании и активный отдых'></input>
+              <h2 style={{textAlign:"left", fontWeight:"500"}}>О себе</h2>
+              <textarea type='text' className='about-filed' placeholder='Меня зовут Вася, я из города Пермь. Люблю гулять в большой компании и активный отдых'></textarea>
             </div>
             <div className='about-filed-cont'>
-              <h2 style={{textAlign:"left"}}>Теги</h2>
+              <h2 style={{textAlign:"left", fontWeight:"500"}}>Теги</h2>
               <div className='tags-filed'>
                 <p style={{textAlign:"left"}}>Добавьте подходящие вам категории</p>
                 <div className='profile-tags' style={{marginTop:"8px", backgroundColor:"#EBEBEB", padding:"10px", borderRadius:"12px"}}>

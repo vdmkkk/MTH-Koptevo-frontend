@@ -150,7 +150,7 @@ function TripPage() {
                     <div style={{height:"50px"}}></div>
 
                     <h2 style={{textAlign:"left", fontWeight:"500", marginBottom:"0px", marginTop:"0px", color:"var(--gray-a7)"}}> + 50<img src={bonus}></img> за весь маршрут</h2>
-                    <div className='gray-button' style={{border:"1px solid var(--gray-a7)", color:"var(--gray-a7)", marginTop:"16px"}}> <p className='quiz-label'>Пройти квиз</p> </div>
+                    <div className='gray-button-disabled' style={{border:"1px solid var(--gray-a7)", color:"var(--gray-a7)", marginTop:"16px"}}> <p className='quiz-label'>Пройти квиз</p> </div>
                   </div>
 
 

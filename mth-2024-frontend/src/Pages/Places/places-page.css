@@ -103,7 +103,7 @@
 
 .card-cont:hover {
   /* border: 2px solid var(--yellow); */
-  box-shadow: 1px 3px 20px rgba(0,0,0,.3);
+  box-shadow: 0px 4px 10px rgba(0,0,0,.12);
 }
 
 .card-img {
