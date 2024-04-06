@@ -7,6 +7,19 @@ import { PrimeReactProvider } from 'primereact/api';
 import { Calendar } from 'primereact/calendar';
 import axios from "axios";
 
+function formatDate(date) {
+    // Get the day and month from the date object
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
+  
+    // Format day and month to ensure they are two digits
+    const formattedDay = day.toString().padStart(2, '0');
+    const formattedMonth = month.toString().padStart(2, '0');
+  
+    // Construct and return the formatted date string
+    return `${formattedDay}.${formattedMonth}`;
+  }
+
 function Companions({open, setOpen, mode, defaultDate, placeId}) {
     const [note, setnote] = useState("");
     const [expectation, setExpectation] = useState("");
@@ -17,6 +30,9 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
     const [seeActive, setSeeActive] = useState(true);
     const [companions, setCompanions] = useState(null);
     const [participating, setParticipating] = useState(false);
+    const [tableId, setTableId] = useState(-1);
+    const [dateFrom, setDateFrom] = useState(-1);
+    const [dateTo, setDateTo] = useState(-1);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -30,32 +46,46 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
         else setSeeActive(false)
     }, [dates])
 
-    const getCompanions = async () => {
+    const getCompanions = async (date1, date2) => {
         const data = {
-            "date_from": new Date(dates[0]).toJSON(),
-            "date_to": new Date(dates[1]).toJSON(),
+            "date_from": date1,
+            "date_to": date2,
             "entity_id": parseInt(placeId),
             "page": 0
         }
         await axios.put(`${process.env.REACT_APP_ZAMAN_API}/companions/get_by_${mode}`, data).then(res => {
-            console.log(`${process.env.REACT_APP_ZAMAN_API}/companions/get_by_${mode}`)
-            console.log("bruh", res.data.filter(obj => obj["user_id"] == cookies.JWT))
             setCompanions(res.data);
-            setParticipating(res.data.filter(obj => obj["user_id"] == cookies.JWT))
         })
+    }
+
+    const handleLogOut = async () => {
+        await axios.delete(`${process.env.REACT_APP_ZAMAN_API}/companions/${mode}?id=${tableId}`);
+        setCompanions(null);
+        setParticipating(false);
     }
 
     const amICompanion = async () => {
         const data = {
-            "date_from": new Date(1000, 0, 1, 0, 0, 0),
-            "date_to": new Date(5000, 0, 1, 0, 0, 0),
+            "date_from": new Date(1000, 0, 1, 0, 0, 0).toJSON(),
+            "date_to": new Date(5000, 0, 1, 0, 0, 0).toJSON(),
             "entity_id": parseInt(placeId),
             "page": 0
         }
         await axios.put(`${process.env.REACT_APP_ZAMAN_API}/companions/get_by_${mode}`, data).then(res => {
-            console.log("bruh", res.data.filter(obj => obj["user_id"] == cookies.JWT))
-            setCompanions(res.data);
-            setParticipating(res.data.filter(obj => obj["user_id"] == cookies.JWT))
+            if (res.data == null) {
+                setParticipating(false);
+                setCompanions([]);
+            } else {
+                if (res.data.filter(obj => obj["user_id"] == cookies.JWT).length > 0) {
+                    getCompanions(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_from"], res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_to"])
+                    setParticipating(true);
+                    setTableId(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["id"]);
+                    setDateFrom(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_from"]);
+                    setDateTo(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_to"]);
+                }
+                setCompanions(res.data);
+            }
+            
         })
     }
 
@@ -63,11 +93,13 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
         const data = {
             "date_from": new Date(dates[0]).toJSON(),
             "date_to": new Date(dates[1]).toJSON(),
-            "entity_id": parseInt(placeId),
-            "user_id": cookies.JWT
+            "place_id": parseInt(placeId),
+            "user_id": parseInt(cookies.JWT)
         }
-        await axios.post(`${process.env.REACT_APP_ZAMAN_API}/companions/create_${mode}_companion`).then(res => {
-            console.log(res.data)
+        await axios.post(`${process.env.REACT_APP_ZAMAN_API}/companions/create_${mode}_companion`, data).then(res => {
+            if (res.status == 200) {
+                amICompanion();
+            }
         })
     }
 
@@ -86,9 +118,12 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
             : // зареган
             <div className={open ? "notes notes-open" : "notes notes-closed"}>
                 <div onClick={() => setOpen(false)} className="close"><img src={close} style={{"transform": "rotate(180deg)"}}/></div>
-                <Calendar value={dates} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection />
-                <button className="comp-button" disabled={!seeActive} onClick={() => register()}/>
-                {companions ? (companions.length > 0 ? companions.map(user => {
+                {participating ? companions ? (companions.length > 0 ? 
+                <div>
+                <p>Ищем с {formatDate(new Date(dateFrom))} по {formatDate(new Date(dateTo))}</p>
+                <button onClick={() => {handleLogOut()}}>перестать поиск</button>
+                {companions.map(user => {
+                    if (user["id"] !== tableId)
                     return(
                     <div onClick={() => {navigate(`/profile/${user["user_id"]}`)}} className="comp-user"> 
                         <div className="comp-info">
@@ -108,7 +143,13 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
                         </div>
                     </div>
                     )
-                }) : <p>Никого не нашли :(</p>) : <></> }
+                })}
+                </div>
+                : <p>Никого не нашли :(</p>) : <></> : 
+                <div>
+                    <Calendar value={dates} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection />
+                    <button className="comp-button" disabled={!seeActive} onClick={() => register()}/>
+                </div> }
             </div> }
         </div>
         </PrimeReactProvider>
