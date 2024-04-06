@@ -5,6 +5,7 @@ import arrowDown from '../../assets/icons/arrow-down.svg'
 import DropdownRoute from "../reusable/dropdown-route";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import ticket from "../../assets/icons/ticket.svg"
 
 
 
@@ -153,6 +154,7 @@ function MapRoutesComponent({ places }) {
                 {places.map(place => {
                     return (
                         <div>
+                            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                             <div className="card">
                                 <img src={place["place"]["properties"].photos[0]} />
                                 <div className="info">
@@ -165,6 +167,11 @@ function MapRoutesComponent({ places }) {
                                     <h2>{place["place"]["properties"].address}</h2>
                                 </div>
                             </div>
+                            
+                            <div className="ticket-button">
+                                <img src={ticket}></img>
+                            </div>
+                        </div>
                             {places.indexOf(place) != places.length - 1 ? <div className="transport">
                                 <img src={walkingIcon} />
                                 <div className="info">

@@ -286,8 +286,8 @@ function RoutePage() {
               </div>
 
               
-              <div className='button' style={{margin:"15px"}}>
-                <p>Забронировать столик</p>
+              <div className='button' style={{margin:"15px"}} onClick={() => window.open("https://russpass.ru/housing-catalog")}>
+                <p>Посмотреть</p>
               </div>
 
             </div>

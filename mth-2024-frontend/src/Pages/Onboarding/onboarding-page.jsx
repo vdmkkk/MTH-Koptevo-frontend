@@ -57,7 +57,7 @@ function OnboardingPage() {
                 </div>
               </div>
               <div className='icons-routes-1'>
-                <div className='icon-route' style={{backgroundImage:`url("${room}")`, backgroundSize:"cover"}}>
+                <div className='icon-route' style={{backgroundImage:`url("${room}")`, backgroundSize:"cover"}} onClick={() => window.open("https://russpass.ru/housing-catalog")}>
                   <p className='icons-bit-text'>Жилье</p>
                   <p className='icons-small-text'>милый дом</p>
                 </div>
