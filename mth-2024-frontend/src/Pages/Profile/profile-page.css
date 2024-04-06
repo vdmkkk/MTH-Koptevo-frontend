@@ -1,9 +1,7 @@
 .user-info {
   width: 50%;
-  /* margin-left: auto; */
   margin-right: auto;
   text-align: start;
-  /* background-color: #F5F5F5; */
   border-radius: 14px;
   padding: 18px;
   h2 {
@@ -59,7 +57,7 @@
   overflow: hidden;
   background-size: cover;
   border-radius: 30px;
-  border: 3px solid var(--yellow);
+  /* border: 3px solid var(--yellow); */
   /* display: flex;
   justify-content: space-between; */
   margin-bottom: 25px;
@@ -72,6 +70,7 @@
     text-align: left;
     height: inherit;
     margin-top: 0px;
+    text-shadow: 1px 5px 2px var(--black);
   }
   p {
     color: white;
@@ -80,6 +79,13 @@
     text-align: left;
     margin-bottom: 0px;
     margin-top: 0px;
+    text-shadow: 2px 3px 2px var(--black);
+  }
+
+  .white-button {
+    p {
+      text-shadow: none;
+    }
   }
 
 }
@@ -187,4 +193,8 @@
   flex-wrap: wrap;
   width: 100%;
   gap: 4px;
+}
+
+.logout-button {
+  cursor: pointer;
 }

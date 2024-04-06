@@ -52,7 +52,7 @@ function ProfilePage() {
       {redirectLogin && <Navigate replace to="/login" />}
       <Layout/>
       <div className='main-part'>
-        <button onClick={() => handleLogOut()}>ВЫЙТИ</button>
+        <div onClick={() => handleLogOut()} className='logout-button'> <p>ВЫЙТИ</p></div>
         <h2 style={{textAlign:"left", fontWeight:"500"}}>Профиль</h2>
         <div className='two-blocks-flex'>
             <div className='user-info'>

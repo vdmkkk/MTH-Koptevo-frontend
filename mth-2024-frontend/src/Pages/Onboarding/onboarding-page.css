@@ -33,13 +33,12 @@
 .icons-routes {
   display: flex;
   flex-direction: column;
-
   gap: 10px;
 }
 
 .icon-route p {
   font-family: Proto Grotesk;
-  padding-left: 50px;
+  padding-left: 30px;
 }
 
 .icons-routes-1 {
@@ -51,6 +50,7 @@
 .icon-route {
   height: 256px;
   border-radius: 58px;
+  width: 288px;
   background-size: contain;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@
   border-radius: 28px;
   display: flex;
   overflow: hidden;
-  background-size:"cover";
+  background-size:cover;
   /* padding-right: 78px; */
   /* background-image: url("../../assets/img/frame1.png"); */
   background-repeat: no-repeat;
@@ -190,15 +190,152 @@
 }
 
 
-.footer {
-  background-color: #1D1D1D;
-  width: 100%;
-  height: 300px;
+.banner {
+  h1 {
+    font-size: 64px;
+    text-decoration-thickness: 4px;
+    margin-left: 108px;
+    width: 60%;
+  }
+
+}
+
+.icon-route-1 {
+  width: 455px;
+  background-size: cover;
+  height: 256px;
+  border-radius: 58px;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  padding-left: 30px;
+}
+
+.icon-route-1:hover .icons-bit-text{
+  font-size: 36px;
+}
+
+.icon-route-1:hover .icons-small-text{
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.icon-route-1 p {
+  font-family: Proto Grotesk;
+  padding-left: 0px;
+}
+
+.moskva-text {
+  /* margin-left: 108px; */
 }
 
 @media (max-width: 459px) {
   .main-part {
     margin-inline: 16px;
+    transform: translateY(-70px);
   }
+
+  .moskva-text {
+    margin-left: 0px;
+  }
+
+  .banner {
+    height: 350px;
+    padding-top: 50px;
+    h1 {
+      font-size: 24px;
+      text-decoration-thickness: 2px;
+      margin-left: 16px;
+      width: 80%;
+    }
+
+    img {
+      width: 20px;
+    }
+
+  }
+
+  .icon-route-1 {
+    width: 100%;
+    height: 158px;
+    border-radius: 40px;
+  }
+
+  .icon-route {
+    width: 48%;
+    height: 158px;
+    border-radius: 40px;
+  }
+
+  .icons-routes-1 {
+    display: flex;
+    flex-wrap: wrap;
+    
+  }
+
+  .icons-bit-text {
+    font-size: 22px;
+    
+  }
+  .icons-small-text {
+    font-size: 16px;
+  }
+
+  .link-div {
+    flex-wrap: wrap;
+    background-size: 740px;
+    height: 516px;
+    .train-part {
+      padding-left: 16px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+  
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    .train-part-reverse {
+      padding-left: 16px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+  
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    .non-train-part {
+      margin-inline: 16px;
+      h2 {
+        display: none;
+      }
+
+      p {
+        margin-left: 16px;
+      }
+    }
+
+    .non-train-part-reverse {
+      margin-inline: 16px;
+      margin-top: 16px;
+      h2 {
+        display: none;
+      }
+
+      p {
+        margin-left: 16px;
+      }
+    }
+  }
+
+  
 
 }
