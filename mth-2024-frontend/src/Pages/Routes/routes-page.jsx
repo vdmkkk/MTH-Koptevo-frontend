@@ -23,6 +23,7 @@ import close from '../../assets/icons/close.svg'
 import './routes-page.css';
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import Filter from '../../Components/filter.jsx';
 
 const tags = [
   {
@@ -56,6 +57,8 @@ function RoutesPage() {
   const [currDistrict, setCurrDistrict] = useState(-1);
   const [liked, setLiked] = useState([]);
   const [cookies, setCookie] = useCookies(["JWT"]);
+
+  const [isFiltersOpen, setIsFilterOpen] = useState(false);
 
 
   useEffect(() => {
@@ -161,7 +164,8 @@ function RoutesPage() {
           <div className='buttons-cont'>
             
             <Dropdown id={1} label={"Рекомендованные"} labels={labels1} selectedOption={sortOption} setSelectedOption={setSortOption} />
-            <Dropdown id={2} label={"Теги"} labels={tags} selectedOption={tagOption} setSelectedOption={setTagOption}  />
+            {/* <Dropdown id={2} label={"Теги"} labels={tags} selectedOption={tagOption} setSelectedOption={setTagOption}  /> */}
+            <div className={isFiltersOpen ? "filter-button-open" : "filter-button-closed"} onClick={() => setIsFilterOpen(!isFiltersOpen)}><p>Фильтр</p></div>
 
             <div onClick={() => setDistrictsOpen(true)} className='dropdown' style={districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? {} : {"backgroundColor": "#FFCF08"}}>
               <p>{districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? "Выбрать район" : districts.filter(dist => dist["id"] == currDistrict)[0]["name"]}</p>
@@ -174,6 +178,11 @@ function RoutesPage() {
             </div>
           </div>
 
+
+          <div >
+          {isFiltersOpen &&(
+            <Filter/>
+          )}
 
           <div className='cards-places'>
 
@@ -233,7 +242,7 @@ function RoutesPage() {
           )) : <div/>}
 
           </div>
-
+          </div>
         </div>
 
 
