@@ -21,7 +21,7 @@ function SimpleCarousel(photos) {
       <Slider {...settings}>
         {(photos["photos"] != undefined) ? photos["photos"].map((photo, index) => (
           <div>
-            <img style={{objectFit:"cover", width:"100%", borderRadius:"28px"}} src={photo} />
+            <img style={{objectFit:"cover", height:"500px", width:"100%", borderRadius:"28px"}} src={photo} />
             {console.log("yes photo",photo)}
           </div>
         )) : <div></div>
