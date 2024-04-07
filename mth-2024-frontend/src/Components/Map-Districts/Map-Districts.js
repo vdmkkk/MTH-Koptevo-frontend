@@ -151,6 +151,11 @@ function MapDistricts({ districts, currDistrict, setDistrict, isOpen }) {
                 addHoverListeners(polygon, polygon.get("colorActive"), polygon.get("colorMain"));
             }
         });
+        return () => {
+            if (mapRef.current) {
+                mapRef.current.innerHTML = '';
+            }
+        };
     }, [currDistrict]);
 
 

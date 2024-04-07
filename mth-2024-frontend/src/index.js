@@ -13,6 +13,7 @@ import RoutePage from './Pages/Route/route-page';
 import TripPage from './Pages/Trip/trip-page';
 import Checkin from './Components/Checkin/Checkin';
 import CheckinFinal from './Components/CheckinFinal/CheckinFinal';
+import CheckinUsed from './Components/CheckinUsed/CheckinUsed';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/checkin/:cipher",
     element: <Checkin/>
+  },
+  {
+    path: "/checkin/used",
+    element: <CheckinUsed/>
   },
   {
     path: "/checkin/show/:hash",

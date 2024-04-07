@@ -18,6 +18,7 @@ import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import MapRoutesComponent from '../../Components/Map-Routes-Component/Map-Routes-Component';
 import Companions from '../../Components/Companions/Companions.js';
+import LinkTrip from '../../Components/LinkTrip/LinkTrip.js';
 
 
 function RoutePage() {
@@ -47,20 +48,34 @@ function RoutePage() {
     };
   }, [companionsOpen]);
 
+  const [linkOpen, setLinkOpen] = useState(false);
+  const [tripName, setTripName] = useState(null);
+  useEffect(() => {
+    if (linkOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [linkOpen]);
+
   if (Object.keys(route).length > 0)
   return (
     
 
     <div className="App">
       <Layout/>
-      <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"route"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
+      <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"route"} defautDate={{from: -1, to: -1}} placeId={id.routeID}/>
+      <LinkTrip open={linkOpen} setOpen={setLinkOpen} mode={"route"} entityId={id.routeID}/>
         <div className='banner' 
           style={{backgroundImage:`url("${route["properties"].photos[2]}")`, display:"flex", flexDirection:"column", alignItems:"flex-start"}}
         >
               <div style={{width:"100%", backgroundColor:"rgba(0,0,0,.5)", height:"100%"}}>
                   <h1 style={{color:'#FFFFFF', fontSize:"64px", fontWeight:"400", width:"60%", marginLeft:"108px", textAlign:"left"}}>{route.name}</h1>
                   <div style={{width:"20%", display:"flex", alignItems:"center", gap:"8px", marginLeft:"108px", cursor:"pointer"}}>
-                    <div className='white-button'> <p>Прикрепить к поездке</p></div>
+                    <div className='white-button' onClick={() => setLinkOpen(true)}> <p>Прикрепить к поездке</p></div>
                     <div className='white-like-button'><img src={heart}></img></div>
                   </div>
               </div>

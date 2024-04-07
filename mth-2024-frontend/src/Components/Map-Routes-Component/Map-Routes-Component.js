@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ticket from "../../assets/icons/ticket.svg"
 import food from "../../assets/icons/food.svg"
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -24,7 +25,7 @@ function formatTime(seconds) {
 
 
 function MapRoutesComponent({ places }) {
-
+    const navigate = useNavigate();
     const [ETATable, setETATable] = useState({})
     const translate = {
         "Пешком": "WALKING",
@@ -149,13 +150,14 @@ function MapRoutesComponent({ places }) {
         }));
       };
 
+
     if (Object.keys(ETATable).length > 0)
     return (
         <div className="container">
             <div className="details">
                 {places.map(place => {
                     return (
-                        <div>
+                        <div style={{"cursor": "pointer"}} onClick={() => navigate(`/places/${place["place"]["id"]}`)}>
                             <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                             <div className="card">
                                 <img src={place["place"]["properties"].photos[0]} />

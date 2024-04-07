@@ -75,7 +75,7 @@ function MapRoutes({ places, placesOptions }) {
                             strokeOpacity: 1,
                             strokeWeight: 2,
                             zIndex: 1,
-                            idcons: [{
+                            icons: [{
                                 icon: lineSymbol,
                                 offset: '0',
                                 repeat: '20px'
@@ -103,6 +103,11 @@ function MapRoutes({ places, placesOptions }) {
             }
         }
         func();
+        return () => {
+            if (mapRef.current) {
+                mapRef.current.innerHTML = '';
+            }
+        };
     }, [mapRef.current, loaded, placesOptions]);
 
     return (
