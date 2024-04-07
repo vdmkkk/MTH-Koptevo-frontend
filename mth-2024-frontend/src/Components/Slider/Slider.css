@@ -1,0 +1,9 @@
+.slider-container {
+  width: 60%;
+  height: inherit;
+  justify-content: center;
+  border-radius: 28px;
+  /* margin-bottom: 25px; */
+  object-fit: contain;
+  /* overflow: hidden; */
+}

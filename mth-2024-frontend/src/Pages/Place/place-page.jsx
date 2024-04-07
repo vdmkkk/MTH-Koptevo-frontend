@@ -23,6 +23,7 @@ import cardImg from "../../assets/img/card-img.png"
 import whiteheart from "../../assets/icons/white-heart.svg"
 import heart from "../../assets/icons/heart.svg"
 import coin from "../../assets/icons/black-coin.svg"
+import SimpleCarousel from "../../Components/Slider/Slider.jsx"
 
 
 
@@ -154,8 +155,8 @@ function PlacePage() {
                 <div className='button'><p>Перейти к билетам</p></div>
                 <div onClick={() => tripName ? navigate(`/trip/${tripName["id"]}`) : setLinkOpen(true)} className='button'><p>{tripName ? tripName["name"] : "Добавить в поездку"}</p></div>
                 <div onClick={() => {setCompanionsOpen(true)}} className='button'> <p>Найти попутчика</p></div>
-                <div className='button' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
-                <div className='button' style={{backgroundColor:"var(--green)", color:"white"}}><p>8.8</p></div>
+                <div className='button-short' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
+                <div className='button-short' style={{backgroundColor:"var(--green)", color:"white", cursor:"default"}}><p>8.8</p></div>
                 <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-start", minWidth:"100px"}}>
                   <p style={{marginBottom:"0px"}}>На основе</p>
                   <p style={{marginTop:"0px"}}>40 оценок</p>
@@ -164,15 +165,17 @@ function PlacePage() {
           </div>
 
           <div className='place-photos'>
-            <div className='big-place-photo'> <img src={place["properties"].photos[0]}></img></div>
-            <div className='big-place-photo'> <img src={place["properties"].photos[1]}></img></div>
-            <div style={{display:"flex", gap:"10px", flexDirection:"column"}}>
+            {/* <div className='big-place-photo'> <img src={place["properties"].photos[0]}></img></div> */}
+            {/* <div className='big-place-photo'> <img src={place["properties"].photos[1]}></img></div> */}
+            {/* <div style={{display:"flex", gap:"10px", flexDirection:"column"}}>
                 <div className='small-place-photo'> <img src={place["properties"].photos[2]}></img></div>
                 <div className='small-place-photo' style={{backgroundImage:`url("${place["properties"].photos[3]}")`}}><div className='more-photo'>
                   <p style={{fontSize:"24px", fontWeight:"600", marginBottom:"0px"}}>{place["properties"].photos.length}</p>
                   <p>фото</p>
                   </div></div>
-            </div>
+            </div> */}
+
+            <SimpleCarousel photos={place["properties"]["photos"]}/>
           </div>
           <div style={{width:"100%", height:"1px", alignItems:"center"}}>
             <div style={{width:"100%", height:"1px", backgroundColor:"var(--gray-f5)"}}></div>

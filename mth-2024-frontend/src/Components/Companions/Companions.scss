@@ -4,11 +4,69 @@
 }
 
 .comp-user {
+    // width: 100%;
+    margin-top: 16px;
+    padding-inline: 48px;
+    cursor: pointer;
+    margin-bottom: 16px;
     .comp-info {
+        display: flex;
+        gap:16px;
+        align-items: flex-start;
         img {
-            width: 80px;
-            height: 80px;
+            min-width: 100px;
+            height: 100px;
+            border-radius: 100px;
             object-fit: cover;
         }
     }
+}
+
+.p-datepicker td > span {
+    font-weight: 100;
+}
+
+.p-link {
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.p-datepicker-next {
+    border: none;
+    background-color: var(--gray-f5);
+}
+
+.p-datepicker-prev {
+    border: none;
+    background-color: var(--gray-f5);
+}
+
+.p-component, .p-component * {
+    font-weight: 400;
+    line-height: 42px;
+    
+}
+
+.p-datepicker-header {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.p-datepicker-today {
+    background-color: white;
+    // border: 1px solid var(--yellow);
+    border-radius: 8px;
+    height: 38px;
+}
+
+.p-datepicker-current-day{
+    background-color: var(--yellow);
+}
+
+span[aria-selected="true"] {
+    background-color: var(--yellow);
+    border-radius: 8px;
+    height: 38px;
+    // width: 38px;
 }
