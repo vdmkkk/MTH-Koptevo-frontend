@@ -376,7 +376,7 @@ function TripPage() {
           <div className='cards-places'>
               {places.filter(obj => obj["day"] == isOpenDiv && obj["check_in"] == false).length > 0 ? places.filter(obj => obj["day"] == isOpenDiv && obj["check_in"] == false).map((obj) => {const card = obj["obj"]; return (
                   <div className='card-cont'onClick={async event => {navigate(`/routes/`)}} >
-                  <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][card["properties"]["photos"].length - 2]}")`}}>
+                  <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][0]}")`}}>
                     <div className='img-tags'>
                       <div className='left-img-tags'>
                       <div className='img-tag'>
@@ -400,32 +400,20 @@ function TripPage() {
                   <div className='card-desrciption'>
                     <div className='card-tag'>
                       <img src={mapMarker}></img>
-                      <p>{card["address"]}</p>
+                      <p>{card["properties"]["address"]}</p>
                     </div>
 
                     <div style={{display:"flex", gap:"10px"}}>
                       <div className='card-tag'>
-                        <img src={food}></img>
-                        <p> {card["type"]}</p>
+                        <img width={"16px"} src={book}></img>
+                        <p> {card["variety"]}</p>
                       </div>
-                      {/* {(card["features"]["Средний счет"] == undefined) ? <div></div> : 
-                      <div className='card-tag'>
-                        <img src={check}></img>
-                        <p> Средний чек {card["features"]["Средний счет"]}</p>
-                      </div>
-                      } */}
                     </div>
-                    {/* {(card["features"]["Тип кухни"] == undefined) ? <div></div> : 
-                    <div className='card-tag'>
-                      <img src={kitchen}></img>
-                      <p>{card["features"]["Тип кухни"].slice(0, 50)}{(card["features"]["Тип кухни"].length > 50) ? "..." : ""}</p>
-                    </div>
-                    } */}
                   </div>
               
                 </div>
               <div className='button' style={{margin:"15px"}}>
-                <p>{}</p>
+                <p>{(card["variety"] == "Ресторан") ? "Забронировать столик" : (card["variety"] == "Театр" || card["variety"] == "Музей" || card["variety"] == "Развлечения") ? "Купить билет" : "Посмотреть"}</p>
               </div>
             </div>
 
@@ -434,7 +422,7 @@ function TripPage() {
           </div>
           {places.filter(obj => obj["day"] == isOpenDiv && obj["check_in"] == false).length == 0 && routes.filter(obj => obj["day"] == isOpenDiv && obj["check_in"] == false).length == 0 ? <div>
             <p>Здесь пока ничего нет :(</p>
-            <button onClick={() => {navigate('/routes')}}>Добавить маршруты</button>
+            <div className='button' onClick={() => {navigate('/routes')}}>Добавить маршруты</div>
           </div> : <></>}
         </div>
         <div className='main-part'>
@@ -499,7 +487,7 @@ function TripPage() {
               {places.filter(obj => obj["day"] == isOpenDiv && obj["check_in"]).length > 0 ? places.filter(obj => obj["day"] == isOpenDiv  && obj["check_in"]).map((obj) => {const card = obj["obj"]; return (
                   <div className='card-cont'onClick={async event => {navigate(`/routes/`)}} >
                   <div style={{"position": "absolute", "width": "inherit", "height": "inherit", "backgroundColor": "rgba(255, 255, 255, .7)"}}/>
-                  <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][card["properties"]["photos"].length - 2]}")`}}>
+                  <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][0]}")`}}>
                     <div className='img-tags'>
                       <div className='left-img-tags'>
                       <div className='img-tag'>
@@ -523,13 +511,13 @@ function TripPage() {
                   <div className='card-desrciption'>
                     <div className='card-tag'>
                       <img src={mapMarker}></img>
-                      <p>{card["address"]}</p>
+                      <p>{card["properties"]["address"]}</p>
                     </div>
 
                     <div style={{display:"flex", gap:"10px"}}>
                       <div className='card-tag'>
-                        <img src={food}></img>
-                        <p> {card["type"]}</p>
+                        <img src={book}></img>
+                        <p> {card["variety"]}</p>
                       </div>
                       {/* {(card["features"]["Средний счет"] == undefined) ? <div></div> : 
                       <div className='card-tag'>
