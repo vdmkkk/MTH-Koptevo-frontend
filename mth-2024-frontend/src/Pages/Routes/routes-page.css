@@ -47,3 +47,16 @@
   border: 1px solid var(--gray-a7);
   min-width: 100px;
 }
+
+.filter-places {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 12px;
+  grid-row-gap: 24px
+}
+
+.choosen-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap:8px;
+}

@@ -179,12 +179,12 @@ function RoutesPage() {
           </div>
 
 
-          <div >
+          <div style={ (isFiltersOpen) ? {display:"flex", gap:"16px"} : {}}>
           {isFiltersOpen &&(
             <Filter/>
           )}
 
-          <div className='cards-places'>
+          <div className={(isFiltersOpen) ? "filter-places" : 'cards-places'}>
 
             {routes.length > 0 ? routes.map((card, index) => (
             <div className='card-cont'onClick={async event => {navigate(`/routes/${card["id"]}`)}} >
