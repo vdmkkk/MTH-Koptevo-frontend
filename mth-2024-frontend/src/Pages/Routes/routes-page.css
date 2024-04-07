@@ -15,3 +15,48 @@
   margin-inline: 8px;
   color: var(--green);
 }
+
+.filter-button-closed {
+  background-color: var(--gray-f5);
+  border-radius: 12px;
+  height: 48px;
+  color: var(--black);
+  padding-inline: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  transition: .3s ease;
+  min-width: 100px;
+  border: 1px solid var(--gray-a7);
+}
+
+.filter-button-open {
+  background-color: var(--gray-a7);
+  border-radius: 12px;
+  height: 48px;
+  color: var(--black);
+  padding-inline: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  transition: .3s ease;
+  border: 1px solid var(--gray-a7);
+  min-width: 100px;
+}
+
+.filter-places {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 12px;
+  grid-row-gap: 24px
+}
+
+.choosen-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap:8px;
+}

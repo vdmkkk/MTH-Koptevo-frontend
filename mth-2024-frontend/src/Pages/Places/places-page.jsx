@@ -25,42 +25,31 @@ import book from "../../assets/icons/book.svg"
 import clock from "../../assets/icons/clock.svg"
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import Filter from '../../Components/filter.jsx';
 
-
-const tags = [
-  {
-    label:"Кафе",
-    id: 0
-  },
-  {
-    label:"Бары",
-    id: 1
-  },
-  {
-    label:"Рестораны",
-    id: 2
-  },
-  {
-    label:"Харчевни",
-    id: 3
-  }
-]
 
 function PlacesPage() {
   const navigate = useNavigate();
 
   const [sortOption, setSortOption] = useState(labels1[0]);
-  const [tagOption, setTagOption] = useState();
+  const [tagOption, setTagOption] = useState([]);
   const [isOpen, setIsOpen] = useState();
   const [districtsOpen, setDistrictsOpen] = useState(false);
   const [currDistrict, setCurrDistrict] = useState(-1);
   const [bruh, setBruh] = useState([]); // NAMING XDDD
   const [liked, setLiked] = useState([]);
   const [cookies, setCookie] = useCookies(["JWT"]);
+  const [isFiltersOpen, setIsFilterOpen] = useState(false);
 
   const getPlaces = async () => {
     await axios.put(`${process.env.REACT_APP_ZAMAN_API}/place/get_all_with_filter`, {pagination_page: 1}).then((res) => {
-      setBruh(res.data);
+      if (tagOption.length == 0) {
+        setBruh(res.data);
+      } else {
+        console.log("data", tagOption )
+        setBruh(res.data.filter((place) => tagOption.includes(place["variety"])))
+      }
+      
     })
   }
 
@@ -164,7 +153,7 @@ function PlacesPage() {
           <div className='buttons-cont'>
             
             <Dropdown id={1} label={"Рекомендованные"} labels={labels1} selectedOption={sortOption} setSelectedOption={setSortOption} />
-            <Dropdown id={2} label={"Теги"} labels={tags} selectedOption={tagOption} setSelectedOption={setTagOption}  />
+            <div className={isFiltersOpen ? "filter-button-open" : "filter-button-closed"} onClick={() => setIsFilterOpen(!isFiltersOpen)}><p>Фильтр</p></div>
             
             <div onClick={() => setDistrictsOpen(true)} className='dropdown' style={districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? {} : {"backgroundColor": "#FFCF08"}}>
               <p>{districts.filter(dist => dist["id"] == currDistrict)[0] == undefined ? "Выбрать район" : districts.filter(dist => dist["id"] == currDistrict)[0]["name"]}</p>
@@ -177,7 +166,12 @@ function PlacesPage() {
           </div>
 
 
-          <div className='cards-places'>
+          <div style={ (isFiltersOpen) ? {display:"flex", gap:"16px"} : {}}>
+          {isFiltersOpen &&(
+            <Filter getPlaces={getPlaces} selectedOption={tagOption} setSelectedOption={setTagOption}/>
+          )}
+
+          <div className={(isFiltersOpen) ? "filter-places" : 'cards-places'}>
 
             {bruh.length > 0 ? bruh.map((card, index) => (
             <div className='card-cont'onClick={async event => {navigate(`/places/${card["id"]}`)}} >
@@ -250,7 +244,7 @@ function PlacesPage() {
           )) : <div/>}
 
           </div>
-
+        </div>
         </div>
         <Footer/>
     </div>

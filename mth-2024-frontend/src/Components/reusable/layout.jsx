@@ -28,6 +28,7 @@ function Layout() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["JWT"]);
   const [user, setUser] = useState("Войти")
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   useEffect(() => {
     if (cookies.JWT != null) {
@@ -51,7 +52,7 @@ function Layout() {
         <div className='centre-part-header'>
           <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
             <img src={burgerMenu} className='icons'></img>
-            <p>Меню</p>
+            <p className='menu-layout' onClick={() => setIsOpenMenu(!isOpenMenu)}>Меню</p>
           </div>
           <div  style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
             <img src={bonus} className='icons'></img>
@@ -61,7 +62,7 @@ function Layout() {
       </div>
 
       <div className='right-part-header'>
-        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => window.open("https://russpass.ru/mostourism")}>
           <img src={mosturizm} className='icons'></img>
           <p>Проекты Мостуризма</p>
         </div>
@@ -76,6 +77,43 @@ function Layout() {
         <img src={flag} className='icons' style={{cursor:"pointer"}}></img>
       </div>
       </div>
+
+      {isOpenMenu &&(
+        <div className='menu-popup'>
+          <div className='menu-col' style={{marginLeft:"108px"}}>
+              <h2>Куда поехать</h2>
+              <p>Жилье</p>
+              <p>Направления</p>
+              <p>Туры</p>
+          </div>
+
+          <div className='menu-col'>
+              <h2>Что посмотреть</h2>
+              <p>Места и события</p>
+              <p>Маршруты и экскурсии</p>
+              <p>Рестораны и кафе</p>
+              <p>Видеоматериалы</p>
+          </div>
+
+          <div className='menu-col'>
+              <h2>Как добраться</h2>
+              <p>Авиабилеты</p>
+              <p>Ж/Д билеты</p>
+              <p>Речные прогулки</p>
+              <p>Мультимаршруты</p>
+              <p>Аэроэкспресс</p>
+              <p>Карта Тройка</p>
+          </div>
+
+          <div className='menu-col'>
+              <h2>Может пригодиться</h2>
+              <p>Карта</p>
+              <p>Поиск</p>
+              <p>Поддержка</p>
+          </div>
+        </div>
+
+    )}
     </div>
   );
 }

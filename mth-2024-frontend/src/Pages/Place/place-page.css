@@ -30,8 +30,11 @@
 
 .place-buttons {
   display: flex;
+  width: 50%;
   gap: 12px;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .place-photos {

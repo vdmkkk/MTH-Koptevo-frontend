@@ -157,10 +157,6 @@ function PlacePage() {
                 <div onClick={() => {setCompanionsOpen(true)}} className='button'> <p>Найти попутчика</p></div>
                 <div className='button-short' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
                 <div className='button-short' style={{backgroundColor:"var(--green)", color:"white", cursor:"default"}}><p>8.8</p></div>
-                <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-start", minWidth:"100px"}}>
-                  <p style={{marginBottom:"0px"}}>На основе</p>
-                  <p style={{marginTop:"0px"}}>40 оценок</p>
-                </div>
               </div>
           </div>
 
