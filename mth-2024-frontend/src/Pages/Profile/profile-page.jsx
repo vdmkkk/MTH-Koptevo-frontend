@@ -9,14 +9,19 @@ import medal3 from "../../assets/img/kandinsky-download-2.png"
 import medal4 from "../../assets/img/kandinsky-download-3.png"
 import medal5 from "../../assets/img/kandinsky-download-4.png"
 import medal6 from "../../assets/img/kandinsky-download-5.png"
+import mapMarker from "../../assets/icons/marker-pin-01.svg"
+import book from "../../assets/icons/book.svg"
 import spb from "../../assets/img/spb.jpg"
 import labels1 from "../../data/sort.json"
 import cities from "../../data/cities.json"
+import whiteheart from "../../assets/icons/white-heart.svg"
+import heart from "../../assets/icons/red-heart.svg"
 import Dropdown from '../../Components/reusable/dropdown';
 import sea from "../../assets/img/sea.jpg"
 import sibir from "../../assets/img/sibir.jpg"
 import surgut from "../../assets/img/surgut.jpg"
 import greenClose from "../../assets/icons/green-close.svg"
+import coin from "../../assets/icons/Bonus-icon.svg"
 import arrowDown from "../../assets/icons/arrow-down.svg"
 import { useCookies } from "react-cookie";
 import { Navigate } from 'react-router-dom';
@@ -58,6 +63,8 @@ function ProfilePage() {
   const [cookies, setCookie] = useCookies(["JWT"]);
   const [user, setUser] = useState(null);
   const [trips, setTrips] = useState(null);
+  const [likedPlaces, setLikedPlaces] = useState([]);
+  const [likedRoutes, setLikedRoutes] = useState([]);
   // useEffect(() => {
   //   if (cookies.JWT == null) {
   //     navigate('/login');
@@ -69,6 +76,7 @@ function ProfilePage() {
         console.log("user", res.data)
         setUser(res.data);
         getTrips();
+        getLiked();
       })
     }
   }, [])
@@ -77,6 +85,15 @@ function ProfilePage() {
     await axios.get(`${process.env.REACT_APP_ZAMAN_API}/trip/by_user_id?id=${params.id}`).then(res => {
       setTrips(res.data);
       console.log('trips', res.data);
+    })
+  } 
+  
+
+  const getLiked = async () => {
+    await  axios.get(`${process.env.REACT_APP_ZAMAN_API}/favourite/by_user_id?id=${cookies.JWT}`).then((res) => {
+      setLikedPlaces(res.data["places"]);
+      setLikedRoutes(res.data["routes"]);
+      console.log('liked', res.data["places"]);
     })
   }
 
@@ -87,12 +104,16 @@ function ProfilePage() {
       {redirectLogin && <Navigate replace to="/login" />}
       <Layout/>
       <div className='main-part'>
-        <div onClick={() => handleLogOut()} className='logout-button'> <p>ВЫЙТИ</p></div>
+        <div onClick={() => handleLogOut()} className='logout-button'>
+          <img src={arrowDown} style={{transform:"rotate(90deg)"}}></img>
+           <p>ВЫЙТИ</p>
+        </div>
         <h2 style={{textAlign:"left", fontWeight:"500"}}>Профиль</h2>
         <div className='two-blocks-flex'>
             <div className='user-info'>
                 <div className='top'>
-                    <img src={user["properties"]["photo"]}></img>
+                    <div style={{overflow:"hidden", borderRadius:"100px", width:"139px", height:"139px"}}><img src={user["properties"]["photo"]}></img></div>
+                    
                     <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", justifyContent:"center", gap:"8px"}}>
                         <h1>Василий Иванов</h1>
                         <p style={{color:"var(--gray-75)", marginTop:"0px", marginBottom:"0px"}}>@{user['login']}</p>
@@ -154,9 +175,108 @@ function ProfilePage() {
         </div>
 
         {(isOpenDiv == 1) ?
-        <div className='dropdown-cont'>
-          <Dropdown id={1} label={"Любые"} labels={labels1} selectedOption={sortOption} setSelectedOption={setSortOption} ></Dropdown>
-          <Dropdown id={2} label={"Москва"} labels={cities} selectedOption={sortCity} setSelectedOption={setSortCity} ></Dropdown>
+        <div>
+          <div className='dropdown-cont'>
+            <Dropdown id={1} label={"Любые"} labels={labels1} selectedOption={sortOption} setSelectedOption={setSortOption} ></Dropdown>
+            <Dropdown id={2} label={"Москва"} labels={cities} selectedOption={sortCity} setSelectedOption={setSortCity} ></Dropdown>
+          </div>
+          <div style={{height:"24px"}}></div>
+          <h2 style={{textAlign:"left", fontWeight:"500"}}>Места</h2>
+          <div className='cards-places'>
+          {likedPlaces.map((card) => (
+                  <div className='card-cont'onClick={async event => {navigate(`/routes/`)}} >
+                  <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][0]}")`}}>
+                    <div className='img-tags'>
+                      <div className='left-img-tags'>
+                      <div className='img-tag'>
+                        <img src={coin}></img>
+                      </div>
+                    </div>
+                    <div className='like-tag'>
+                      <img src={heart}></img>
+                    </div>
+                  </div>
+                  <div className='img-slider'>
+                    <div className='img-slide-chosen'></div>
+                    <div className='img-slide'></div>
+                    <div className='img-slide'></div>
+                    <div className='img-slide'></div>
+                  </div>
+                </div>
+                <div className='card-info'>
+                  <p className='card-place-name' >{card["name"]} </p>
+                  <div style={{height:"8px"}}></div>
+                  <div className='card-desrciption'>
+                    <div className='card-tag'>
+                      <img src={mapMarker}></img>
+                      <p>{card["properties"]["address"]}</p>
+                    </div>
+
+                    <div style={{display:"flex", gap:"10px"}}>
+                      <div className='card-tag'>
+                        <img width={"16px"} src={book}></img>
+                        <p> {card["variety"]}</p>
+                      </div>
+                    </div>
+                  </div>
+              
+                </div>
+              <div className='button' style={{margin:"15px"}}>
+                <p>{(card["variety"] == "Ресторан") ? "Забронировать столик" : (card["variety"] == "Театр" || card["variety"] == "Музей" || card["variety"] == "Развлечения") ? "Купить билет" : "Посмотреть"}</p>
+              </div>
+            </div>
+
+              ))}
+          </div>
+
+
+          <h2 style={{textAlign:"left", fontWeight:"500"}}>Маршруты</h2>
+          <div className='cards-places'>
+          {likedRoutes.map((card) => (
+                  <div className='card-cont'onClick={async event => {navigate(`/routes/`)}} >
+                  <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][0]}")`}}>
+                    <div className='img-tags'>
+                      <div className='left-img-tags'>
+                      <div className='img-tag'>
+                        <img src={coin}></img>
+                      </div>
+                    </div>
+                    <div className='like-tag'>
+                      <img src={whiteheart}></img>
+                    </div>
+                  </div>
+                  <div className='img-slider'>
+                    <div className='img-slide-chosen'></div>
+                    <div className='img-slide'></div>
+                    <div className='img-slide'></div>
+                    <div className='img-slide'></div>
+                  </div>
+                </div>
+                <div className='card-info'>
+                  <p className='card-place-name' >{card["name"]} </p>
+                  <div style={{height:"8px"}}></div>
+                  <div className='card-desrciption'>
+                    {/* <div className='card-tag'>
+                      <img src={mapMarker}></img>
+                      <p>{card["properties"]["address"]}</p>
+                    </div> */}
+
+                    <div style={{display:"flex", gap:"10px"}}>
+                      <div className='card-tag'>
+                        <img width={"16px"} src={book}></img>
+                        <p> {card["variety"]}</p>
+                      </div>
+                    </div>
+                  </div>
+              
+                </div>
+              <div className='button' style={{margin:"15px"}}>
+                <p>{(card["variety"] == "Ресторан") ? "Забронировать столик" : (card["variety"] == "Театр" || card["variety"] == "Музей" || card["variety"] == "Развлечения") ? "Купить билет" : "Посмотреть"}</p>
+              </div>
+            </div>
+
+              ))}
+          </div>
         </div>
         : <div></div>}
 

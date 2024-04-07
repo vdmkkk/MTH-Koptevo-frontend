@@ -25,7 +25,7 @@
           cursor: pointer;
           min-width: 139px;
           min-height: 139px;
-          border-radius: 100px;
+          /* border-radius: 100px; */
           object-fit: cover;
       }
       p {
@@ -203,4 +203,5 @@
 
 .logout-button {
   cursor: pointer;
+  display: flex;
 }
