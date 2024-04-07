@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <OnboardingPage/>
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     element: <ProfilePage/>
   },
   {
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     element: <RoutePage/>
   },
   {
-    path: "/trip",
+    path: "/trip/:id",
     element: <TripPage/>
   },
   {

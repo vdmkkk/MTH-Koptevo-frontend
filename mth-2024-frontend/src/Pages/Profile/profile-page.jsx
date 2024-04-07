@@ -20,10 +20,27 @@ import greenClose from "../../assets/icons/green-close.svg"
 import arrowDown from "../../assets/icons/arrow-down.svg"
 import { useCookies } from "react-cookie";
 import { Navigate } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import axios from 'axios';
+
+function formatDate(date) {
+  // Get the day and month from the date object
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
+
+  // Format day and month to ensure they are two digits
+  const formattedDay = day.toString().padStart(2, '0');
+  const formattedMonth = month.toString().padStart(2, '0');
+
+  // Construct and return the formatted date string
+  return `${formattedDay}.${formattedMonth}`;
+}
 
 
 
 function ProfilePage() {
+
+  const params = useParams();
 
   function handleLogOut() {
     document.cookie = "JWT=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -39,13 +56,31 @@ function ProfilePage() {
   const [redirectMain, setRedirectMain] = useState(false)
   const [redirectLogin, setRedirectLogin] = useState(false)
   const [cookies, setCookie] = useCookies(["JWT"]);
-
+  const [user, setUser] = useState(null);
+  const [trips, setTrips] = useState(null);
+  // useEffect(() => {
+  //   if (cookies.JWT == null) {
+  //     navigate('/login');
+  //   }
+  // }, [])
   useEffect(() => {
-    if (cookies.JWT == null) {
-      navigate('/login');
+    if (cookies.JWT != null) {
+      axios.get(`${process.env.REACT_APP_ZAMAN_API}/user/properties?id=${params.id}`).then(res => {
+        console.log("user", res.data)
+        setUser(res.data);
+        getTrips();
+      })
     }
   }, [])
 
+  const getTrips = async () => {
+    await axios.get(`${process.env.REACT_APP_ZAMAN_API}/trip/by_user_id?id=${params.id}`).then(res => {
+      setTrips(res.data);
+      console.log('trips', res.data);
+    })
+  }
+
+  if (user)
   return (
     <div className="App">
       {redirectMain && <Navigate replace to="/" />}
@@ -57,26 +92,22 @@ function ProfilePage() {
         <div className='two-blocks-flex'>
             <div className='user-info'>
                 <div className='top'>
-                    <img src={"https://sun9-56.userapi.com/impg/A9hjhHDaEecs5meDOEk5FnL1wHKTFQC3ZNSdkQ/f1ZskUqwzS8.jpg?size=972x2160&quality=95&sign=031dae7aa9fa7da6da72abef63221b6a&type=album"}></img>
+                    <img src={user["properties"]["photo"]}></img>
                     <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", justifyContent:"center", gap:"8px"}}>
                         <h1>Василий Иванов</h1>
-                        <p style={{color:"var(--gray-75)", marginTop:"0px", marginBottom:"0px"}}>@vdmk</p>
-
+                        <p style={{color:"var(--gray-75)", marginTop:"0px", marginBottom:"0px"}}>@{user['login']}</p>
                         <div className='profile-tags' style={{marginTop:"8px"}}>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Пермь</p></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Местный</p></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Вечерние прогулки</p></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Путешествия</p></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Выставки</p></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Активный отдых</p></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Большие компании</p></div>
+                          <div className='tag' > <p style={{fontSize:"12px"}}>{user["properties"]["city"]}</p></div>
+                          {user["properties"]["tags"].map(tag => {return(
+                            <div className='tag' > <p style={{fontSize:"12px"}}>{tag}</p></div>
+                          )})}
                         </div>
 
                     </div>
                 </div>
                 <div style={{backgroundColor:"var(--gray-f5)", padding:"1px 16px 1px 16px", borderRadius:"12px", marginTop:"16px"}}>
                     <p style={{ fontSize:"20px", color:"var(--gray-75)", fontWeight:"600", marginBottom:"0px"}}>Cтатус:</p>
-                    <p style={{ fontSize:"20px", fontWeight:"600", marginTop:"0px"}}>Культурный гуру - вы посетили больше музеев, чем 90% пользователей в перми</p>
+                    <p style={{ fontSize:"20px", fontWeight:"600", marginTop:"0px"}}>{user["properties"]["status"]}</p>
                 </div>
             </div>  
 
@@ -95,20 +126,23 @@ function ProfilePage() {
             
 
         </div>
+        {user["current_trip_start_date"] ? 
+        trips ? 
         <div className='big-button' style={{backgroundImage:`url(${spb})`}} >
           <div style={{margin:"20px", display:"flex", justifyContent:"space-between", height:"-webkit-fill-available"}}>
               <div>
-                <h2>Отпуск 2024</h2>
-                <p>Москва</p>
-                <p>21 марта - 1 апреля</p>
+                <h2>{trips[0]["properties"]["name"]}</h2>
+                <p>{trips[0]["properties"]["city"]}</p>
+                <p>{formatDate(new Date(trips[0]["date_start"]))} - {formatDate(new Date(trips[0]["date_end"]))}</p>
                 <p>Текущая поездка</p>
               </div>
 
               <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", gap:"200px", width:"30%", alignItems:"end", justifyContent: "flex-end"}}>
-                <div className='white-button' style={{marginRight:"0px"}}><p>Перейти к поездке</p></div>
+                <div className='white-button' style={{marginRight:"0px"}} onClick={() => navigate(`/trip/${trips[0]["id"]}`)}><p>Перейти к поездке</p></div>
               </div>
           </div>
-        </div>
+        </div> : <></>
+        : <div>Сейчас нет поездок :(</div> }
 
         <div style={{height:"25px"}}></div>
 
@@ -211,7 +245,7 @@ function ProfilePage() {
         <div className='two-blocks-flex' style={{gap:"40px"}}>
             <div className='about-filed-cont'>
               <h2 style={{textAlign:"left", fontWeight:"500"}}>О себе</h2>
-              <textarea type='text' className='about-filed' placeholder='Меня зовут Вася, я из города Пермь. Люблю гулять в большой компании и активный отдых'></textarea>
+              <textarea disabled={true} type='text' className='about-filed' value={user["properties"]["form"]}></textarea>
             </div>
             <div className='about-filed-cont'>
               <h2 style={{textAlign:"left", fontWeight:"500"}}>Теги</h2>
@@ -219,13 +253,11 @@ function ProfilePage() {
                 <p style={{textAlign:"left"}}>Добавьте подходящие вам категории</p>
                 <div className='profile-tags' style={{marginTop:"8px", backgroundColor:"#EBEBEB", padding:"10px", borderRadius:"12px"}}>
                           <img className={(isTagsOpen == true) ? 'tag-arrow-opened' : 'tag-arrow'}  src={arrowDown} onClick={() => setIsTagsOpen(!isTagsOpen)}></img>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Пермь</p> <img src={greenClose}></img></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Местный</p><img src={greenClose}></img></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Вечерние прогулки</p><img src={greenClose}></img></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Путешествия</p><img src={greenClose}></img></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Выставки</p><img src={greenClose}></img></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Активный отдых</p><img src={greenClose}></img></div>
-                          <div className='tag' > <p style={{fontSize:"12px"}}>Большие компании</p><img src={greenClose}></img></div>
+                          {user["properties"]["tags"].map(tag => {
+                            return (
+                              <div className='tag' > <p style={{fontSize:"12px"}}>{tag}</p> <img src={greenClose}></img></div>
+                            )
+                          })}
                   </div>
                   <div style={{display:"flex", gap:"4px"}}>
                     <p style={{textAlign:"left"}}>Например:</p>

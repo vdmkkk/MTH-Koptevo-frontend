@@ -35,7 +35,9 @@ import MapPlace from '../../Components/Map-Place/Map-Place.js'
 import axios from 'axios';
 import Notes from '../../Components/Notes/Notes';
 import Companions from '../../Components/Companions/Companions.js';
+import LinkTrip from '../../Components/LinkTrip/LinkTrip.js';
 
+import { useCookies } from "react-cookie";
 
 function PlacePage() {
   const id  = useParams();
@@ -44,6 +46,7 @@ function PlacePage() {
   console.log(place)
 
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["JWT"]);
 
   const [sortOption, setSortOption] = useState(sort[0]);
   const [tagOption, setTagOption] = useState();
@@ -51,6 +54,8 @@ function PlacePage() {
 
   const [notesOpen, setNotesOpen] = useState(false);
   const [companionsOpen, setCompanionsOpen] = useState(false);
+  const [linkOpen, setLinkOpen] = useState(false);
+  const [tripName, setTripName] = useState(null);
 
   const getPlace = async () => {
     await axios.get(`${process.env.REACT_APP_ZAMAN_API}/place/by_id?id=${id.placeID}`).then((res) => {
@@ -59,9 +64,25 @@ function PlacePage() {
     })
   }
 
+  const getTrip = async () => {
+    await axios.get(`${process.env.REACT_APP_ZAMAN_API}/trip/by_user_id?id=${cookies.JWT}`).then(res => {
+      res.data.forEach(obj => {
+        if (obj["places"]) {
+          if (obj["places"].filter(place => place["id"] == id.placeID)[0]) {
+            setTripName({id: obj["id"], name: obj["properties"]["name"]})
+          }
+        }
+      })
+    })
+  }
+
   useEffect(() => {
     getPlace();
   }, []);
+
+  useEffect(() => {
+    getTrip();
+  }, [linkOpen])
 
   useEffect(() => {
     if (notesOpen) {
@@ -74,6 +95,28 @@ function PlacePage() {
     };
   }, [notesOpen]);
 
+  useEffect(() => {
+    if (companionsOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [companionsOpen]);
+
+  useEffect(() => {
+    if (linkOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [linkOpen]);
+
   if (Object.keys(place).length > 0)
   return (
     <div className="App">
@@ -81,6 +124,7 @@ function PlacePage() {
         </Layout>
         <Notes open={notesOpen} setOpen={setNotesOpen} placeId={id.placeID}/>
         <Companions open={companionsOpen} setOpen={setCompanionsOpen} mode={"place"} defautDate={{from: -1, to: -1}} placeId={id.placeID}/>
+        <LinkTrip open={linkOpen} setOpen={setLinkOpen} mode={"place"} entityId={id.placeID}/>
         <div className='main-part'>
           <div style={{display:"flex", justifyContent:"space-between", marginBottom:"25px", alignItems:"baseline"}}>
               <div className='place-info'>
@@ -108,6 +152,7 @@ function PlacePage() {
               <div className='place-buttons'>
                 <div onClick={() => {setNotesOpen(true)}} className='button' style={{backgroundColor:"var(--gray-f5)"}}><p>Открыть заметки</p></div>
                 <div className='button'><p>Перейти к билетам</p></div>
+                <div onClick={() => tripName ? navigate(`/trip/${tripName["id"]}`) : setLinkOpen(true)} className='button'><p>{tripName ? tripName["name"] : "Добавить в поездку"}</p></div>
                 <div onClick={() => {setCompanionsOpen(true)}} className='button'> <p>Найти попутчика</p></div>
                 <div className='button' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
                 <div className='button' style={{backgroundColor:"var(--green)", color:"white"}}><p>8.8</p></div>

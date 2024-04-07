@@ -11,7 +11,7 @@ import check from "../../assets/icons/coins-03.svg"
 import kitchen from "../../assets/icons/kitchen.svg"
 import cardImg from "../../assets/img/card-img.png"
 import whiteheart from "../../assets/icons/white-heart.svg"
-import heart from "../../assets/icons/heart.svg"
+import heart from "../../assets/icons/red-heart.svg"
 import coin from "../../assets/icons/black-coin.svg"
 import bruh from "../../data/places.json"
 import {useNavigate} from "react-router"
@@ -22,6 +22,7 @@ import MapDistrictsPopup from '../../Components/Map-Districts-Popup/Map-District
 import close from '../../assets/icons/close.svg'
 import './routes-page.css';
 import axios from 'axios';
+import { useCookies } from "react-cookie";
 
 const tags = [
   {
@@ -53,6 +54,9 @@ function RoutesPage() {
 
   const [districtsOpen, setDistrictsOpen] = useState(false);
   const [currDistrict, setCurrDistrict] = useState(-1);
+  const [liked, setLiked] = useState([]);
+  const [cookies, setCookie] = useCookies(["JWT"]);
+
 
   useEffect(() => {
     if (districtsOpen) {
@@ -81,6 +85,54 @@ function RoutesPage() {
             setDistricts(res.data);
         })
     }, [])
+
+    const handleLike = async (placeId, e) => {
+      e.stopPropagation();
+      if (cookies.JWT) {
+        const data = {
+          "user_id": parseInt(cookies.JWT),
+          "entity_id": parseInt(placeId)
+        }
+        await axios.post(`${process.env.REACT_APP_ZAMAN_API}/favourite/like_route`, data).then(res => {if (res.status == 200){
+          setLiked([...liked, placeId])
+        }})
+      }
+      
+    }
+
+    useEffect(() => {
+      if (cookies.JWT) {
+        axios.get(`${process.env.REACT_APP_ZAMAN_API}/favourite/by_user_id?id=${cookies.JWT}`).then((res) => {
+          var newLiked = [];
+          res.data["routes"].forEach(place => {
+            newLiked.push(place["id"]);
+          });
+          setLiked(newLiked);
+        })
+      }
+    }, [])
+  
+    const handleUnLike = async (placeId, e) => {
+      e.stopPropagation();
+      if (cookies.JWT) {
+        const data = {
+          "user_id": parseInt(cookies.JWT),
+          "entity_id": parseInt(placeId)
+        }
+        const headers = {
+          'accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+        const config = {
+          data: data,
+          headers: headers
+        }
+        console.log('???', data);
+        await axios.delete(`${process.env.REACT_APP_ZAMAN_API}/favourite/like_route`, config).then(res => {if (res.status == 200) {
+          setLiked(liked.filter(obj => obj !== placeId));
+        }})
+      }
+    }
 
   return (
     <div style={{"overflow": districtsOpen ? "hidden" : "auto"}} className="App">
@@ -143,8 +195,8 @@ function RoutesPage() {
                           <p style={{color:"var(--black)"}}>Скидка</p>
                         </div>
                       </div>
-                      <div className='like-tag'>
-                        <img src={whiteheart}></img>
+                      <div onClick={(e) => liked.includes(card["id"]) ? handleUnLike(card["id"], e) : handleLike(card["id"], e)} className='like-tag'>
+                        <img src={liked.includes(card["id"]) ? heart : whiteheart}></img>
                       </div>
                   </div>
                   <div className='img-slider'>

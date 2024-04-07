@@ -12,7 +12,7 @@ import check from "../../assets/icons/coins-03.svg"
 import kitchen from "../../assets/icons/kitchen.svg"
 import cardImg from "../../assets/img/card-img.png"
 import whiteheart from "../../assets/icons/white-heart.svg"
-import heart from "../../assets/icons/heart.svg"
+import heart from "../../assets/icons/red-heart.svg"
 import coin from "../../assets/icons/black-coin.svg"
 // import bruh from "../../data/places.json"
 import {useNavigate} from "react-router"
@@ -55,12 +55,11 @@ function PlacesPage() {
   const [districtsOpen, setDistrictsOpen] = useState(false);
   const [currDistrict, setCurrDistrict] = useState(-1);
   const [bruh, setBruh] = useState([]); // NAMING XDDD
-  const [liked, setLiked] = useState();
+  const [liked, setLiked] = useState([]);
   const [cookies, setCookie] = useCookies(["JWT"]);
 
   const getPlaces = async () => {
     await axios.put(`${process.env.REACT_APP_ZAMAN_API}/place/get_all_with_filter`, {pagination_page: 1}).then((res) => {
-      console.log("lol", res.data);
       setBruh(res.data);
     })
   }
@@ -91,18 +90,52 @@ function PlacesPage() {
   useEffect(() => {
     if (cookies.JWT) {
       axios.get(`${process.env.REACT_APP_ZAMAN_API}/favourite/by_user_id?id=${cookies.JWT}`).then((res) => {
-        res.data["places"].forEach(place => {});
+        var newLiked = [];
+        res.data["places"].forEach(place => {
+          newLiked.push(place["id"]);
+        });
+        setLiked(newLiked);
       })
     }
   }, [])
 
-  const handleLike = async (placeId) => {
-    const data = {
-      "user_id": parseInt(cookies.JWT),
-      "entity_id": parseInt(placeId)
+  const handleLike = async (placeId, e) => {
+    e.stopPropagation();
+    if (cookies.JWT) {
+      const data = {
+        "user_id": parseInt(cookies.JWT),
+        "entity_id": parseInt(placeId)
+      }
+      await axios.post(`${process.env.REACT_APP_ZAMAN_API}/favourite/like_place`, data).then(res => {if (res.status == 200){
+        setLiked([...liked, placeId])
+      }})
     }
-    await axios.post(`${process.env.REACT_APP_ZAMAN_API}/favourite/like_place`, data).then(res => {if (res.status !== 200) console.log('unlucko')})
+    
   }
+
+  const handleUnLike = async (placeId, e) => {
+    e.stopPropagation();
+    if (cookies.JWT) {
+      const data = {
+        "user_id": parseInt(cookies.JWT),
+        "entity_id": parseInt(placeId)
+      }
+      const headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      const config = {
+        data: data,
+        headers: headers
+      }
+      console.log('???', data);
+      await axios.delete(`${process.env.REACT_APP_ZAMAN_API}/favourite/like_place`, config).then(res => {if (res.status == 200) {
+        setLiked(liked.filter(obj => obj !== placeId));
+      }})
+    }
+  }
+
+  useEffect(() => {}, [liked])
   
   return (
     <div style={{"overflow": districtsOpen ? "hidden" : "auto"}} className="App">
@@ -148,7 +181,6 @@ function PlacesPage() {
 
             {bruh.length > 0 ? bruh.map((card, index) => (
             <div className='card-cont'onClick={async event => {navigate(`/places/${card["id"]}`)}} >
-              {console.log("bruh", card)}
               <div className='card-img' style={{backgroundImage:`url("${card["properties"]["photos"][card["properties"]["photos"].length - 1]}")`}}>
                   <div className='img-tags'>
                       <div className='left-img-tags'>
@@ -163,8 +195,8 @@ function PlacesPage() {
                           <p style={{color:"var(--black)"}}>Скидка</p>
                         </div>
                       </div>
-                      <div onClick={() => handleLike(card["id"])} className='like-tag'>
-                        <img src={whiteheart}></img>
+                      <div onClick={(e) => liked.includes(card["id"]) ? handleUnLike(card["id"], e) : handleLike(card["id"], e)} className='like-tag'>
+                        <img src={liked.includes(card["id"]) ? heart : whiteheart}></img>
                       </div>
                   </div>
                   <div className='img-slider'>

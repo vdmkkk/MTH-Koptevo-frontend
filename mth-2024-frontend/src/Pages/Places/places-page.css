@@ -195,6 +195,7 @@
   backdrop-filter: blur(2px);
   background-color: rgba(30,30,30,.4);
   transition: 0.3s ease;
+  z-index: 1500;
 }
 
 .like-tag:hover {

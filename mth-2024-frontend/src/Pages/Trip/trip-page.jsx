@@ -16,11 +16,13 @@ import {useNavigate} from "react-router"
 import moscow from "../../assets/img/moscow.jpg"
 import calendar from "../../assets/icons/calendar.svg"
 import bonus from "../../assets/icons/Bonus-icon.svg"
-
+import {useParams} from 'react-router-dom';
+import axios from 'axios';
 import { useState } from 'react';
 
 
 function TripPage() {
+  const params = useParams();
   const navigate = useNavigate();
   const [isOpenDiv, setIsOpenDiv] = useState(2);
   const card = bruh[0];
