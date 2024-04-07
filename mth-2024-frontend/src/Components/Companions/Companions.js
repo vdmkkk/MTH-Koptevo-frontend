@@ -85,9 +85,10 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
                     setTableId(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["id"]);
                     setDateFrom(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_from"]);
                     setDateTo(res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["date_to"]);
-                    axios.get(`${process.env.REACT_APP_ZAMAN_API}/user/properties?id=${res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["id"]}`).then((res) => {
-                        setLogin(res.data["login"])
-                    })
+                    // axios.get(`${process.env.REACT_APP_ZAMAN_API}/user/properties?id=${res.data.filter(obj => obj["user_id"] == cookies.JWT)[0]["id"]}`).then((res) => {
+                    //     setLogin(res.data["login"])
+                    // })
+                    setLogin(":)")
                 }
                 setCompanions(res.data);
             }
