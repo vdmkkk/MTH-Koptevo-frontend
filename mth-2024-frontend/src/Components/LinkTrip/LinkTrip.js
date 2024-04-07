@@ -65,12 +65,16 @@ function LinkTrip({open, setOpen, mode, entityId}) {
                 </div>
                 :
                 <div>
-                    <Dropdown id={0} labels={labels} label={"Выберите поездку"} selectedOption={trip} setSelectedOption={setTrip}/>
-                    {trip ? <Calendar value={date} onChange={(e) => setDate(e.value)} minDate={new Date(trips.filter(obj => obj["id"] == trip.id)[0]["date_start"])} maxDate={new Date(trips.filter(obj => obj["id"] == trip.id)[0]["date_end"])}/> : <></>}
+                    <Dropdown id={0} labels={labels} label={"Выберите поездку"} selectedOption={trip} setSelectedOption={setTrip} width={"200px"}/>
+                    {trip ? 
+                    <div style={{backgroundColor:"var(--gray-f5)", width:"100%", height:"fit-content"}}>
+                    <Calendar value={date} onChange={(e) => setDate(e.value)} minDate={new Date(trips.filter(obj => obj["id"] == trip.id)[0]["date_start"])} maxDate={new Date(trips.filter(obj => obj["id"] == trip.id)[0]["date_end"])} /> 
+                    </div>
+                    : <></>}
                 </div>
                 }
                 <div className="button"> <p onClick={() => handleAdd()}>Добавить в поездку</p></div>
-                <img onClick={() => setOpen(false)} src={close} style={{cursor:"pointer"}}/>
+                <img onClick={() => setOpen(false)} src={close} style={{cursor:"pointer", width:"20px", marginTop:"15px"}}/>
             </div>
         </div>
     )

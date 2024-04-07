@@ -1,6 +1,7 @@
 .linkTrip {
     background-color: #f5f5f5;
     width: 40vw;
+    height: 450px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -9,4 +10,27 @@
     padding: 20px;
     border-radius: 28px;
     min-width: fit-content;
+    align-items: flex-start;
+}
+
+.linkTrip {
+
+    .p-datepicker .p-component .p-ripple-disabled .p-connected-overlay-enter-done {
+        background-color: black;
+    }
+
+    .p-inputtext {
+            // background-color: var(--black);
+            border-radius: 8px;
+            padding-left: 16px;
+            outline: none;
+            border: 0px;
+            margin-top: 16px;
+            width: 300px;
+    }
+
+}
+
+span[class="p-disabled"] {
+    color: var(--yellow);
 }
