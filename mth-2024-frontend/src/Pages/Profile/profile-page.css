@@ -24,7 +24,7 @@
       img {
           cursor: pointer;
           min-width: 139px;
-          height: 139px;
+          min-height: 139px;
           border-radius: 100px;
           object-fit: cover;
       }
