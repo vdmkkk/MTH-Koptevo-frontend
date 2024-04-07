@@ -125,7 +125,7 @@ function TripPage() {
       <Layout/>
         <div className='main-part'>
           <div className='two-blocks-flex'>
-            <div style={{display:"flex", flexDirection:"column", gap:"18px", width:"25%"}}>
+            <div className='trip-header'>
               <div style={{display:"flex", gap: "8px"}}>
                 <h2 style={{color:"var(--gray-a7)", fontWeight:"500"}}>Поездка</h2>
                 <h2 style={{fontWeight:"500"}}>Отпуск 2024</h2>

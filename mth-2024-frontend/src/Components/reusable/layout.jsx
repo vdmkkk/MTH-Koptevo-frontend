@@ -62,15 +62,15 @@ function Layout() {
       </div>
 
       <div className='right-part-header'>
-        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => window.open("https://russpass.ru/mostourism")}>
+        <div className='l-o-down' style={{ alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => window.open("https://russpass.ru/mostourism")}>
           <img src={mosturizm} className='icons'></img>
           <p>Проекты Мостуризма</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}}>
+        <div  className='l-o-down' style={{alignItems:"center", gap:"8px", cursor:"pointer"}}>
           <img src={heart} className='icons'></img>
           <p>Мои планы</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => checkCookie(navigate, cookies)}>
+        <div className='user-l-o' style={{display:"flex", alignItems:"center", gap:"8px", cursor:"pointer"}} onClick={() => checkCookie(navigate, cookies)}>
           <img src={userIcon} className='icons'></img>
           <p>{user}</p>
         </div>

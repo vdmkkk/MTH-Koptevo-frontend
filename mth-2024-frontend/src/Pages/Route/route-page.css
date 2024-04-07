@@ -39,6 +39,7 @@
 
 .two-blocks-flex {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 25px;
   gap:10px;

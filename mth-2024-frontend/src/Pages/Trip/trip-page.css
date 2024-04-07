@@ -58,3 +58,10 @@
 /* .gray-button:hover .quiz-label {
   color: white;
 } */
+.trip-header {
+  display: flex;
+  flex-direction: column;
+  gap:18px;
+  width: 30%;
+}
+

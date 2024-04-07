@@ -69,6 +69,14 @@ p {
   padding-bottom: 5px;
 }
 
+.l-o-down {
+  display: flex;
+}
+
+.user-l-o {
+  display: flex;
+}
+
 @media (max-width: 459px) {
   .header-content {
     padding-inline: 16px;
@@ -77,9 +85,17 @@ p {
   .centre-part-header {
     display: none;
   }
-  .right-part-header {
+  /* .right-part-header {
+    display: none;
+  } */
+
+  .l-o-down {
     display: none;
   }
+  .right-part-header {
+    gap:10px;
+  }
+  
 
 }
 

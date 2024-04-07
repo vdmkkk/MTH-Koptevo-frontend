@@ -95,7 +95,7 @@
 .profile-divisions {
   display: flex;
   gap: 16px;
-
+  flex-wrap: wrap;
   p {
     font-family: Proto Grotesk;
     font-size: 20px;
@@ -115,6 +115,7 @@
 .dropdown-cont {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .history {
@@ -204,4 +205,10 @@
 .logout-button {
   cursor: pointer;
   display: flex;
+}
+
+@media (max-width: 459px) {
+  .achievements {
+    width: 100%;
+  }
 }
