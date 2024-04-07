@@ -9,6 +9,7 @@ import axios from "axios";
 
 function formatDate(date) {
     // Get the day and month from the date object
+    date.setDate(date.getDate() + 1);
     const day = date.getDate();
     const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
   
@@ -122,11 +123,20 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
             </div>
             : // зареган
             <div className={open ? "notes notes-open" : "notes notes-closed"}>
-                <div onClick={() => setOpen(false)} className="close"><img src={close} style={{"transform": "rotate(180deg)"}}/></div>
+                 <div>
+                    <div onClick={() => setOpen(false)} className="close" style={{justifyContent:"flex-start", gap:"16px"}}>
+                        <img src={close} style={{"transform": "rotate(180deg)"}}/>
+                        <h1>Попутчики</h1>
+                    </div>
+                    
+                </div>
+                {/* <div onClick={() => setOpen(false)} className="close"><img src={close} style={{"transform": "rotate(180deg)"}}/></div> */}
                 {participating ? companions ? (companions.length > 0 ? 
                 <div>
-                <p>Ищем с {formatDate(new Date(dateFrom))} по {formatDate(new Date(dateTo))}</p>
-                <button onClick={() => {handleLogOut()}}>перестать поиск</button>
+                <div style={{display:"flex", justifyContent:"space-between", marginInline:"32px", alignItems:"center"}}>
+                <p style={{marginTop:"0px", marginBottom:"0px", textAlign:"left"}}>Ищем с {formatDate(new Date(dateFrom))} по {formatDate(new Date(dateTo))}</p>
+                <div className="gray-button" style={{border:"1px solid var(--gray-a7)"}} onClick={() => {handleLogOut()}}><p style={{fontSize:"12px"}}>ПРЕКРАТИТЬ ПОИСК</p></div>
+                </div>
                 {companions.map(user => {
                     if (user["id"] !== tableId)
                     return(
@@ -134,26 +144,37 @@ function Companions({open, setOpen, mode, defaultDate, placeId}) {
                         <div className="comp-info">
                             <img src={user["user_properties"]["photo"]}/>
                             <div>
-                                <p>{login}</p>
-                                <p>из г. {user["user_properties"]["city"]}</p>
-                                <p>{user["user_properties"]["form"]}</p>
+                                <h2 style={{textAlign:"left", marginBottom:"0px", marginTop:"0px", fontFamily:"Proto Grotesk", fontSize:"20px", fontWeight:"500"}}>{login}</h2>
+                                <p style={{textAlign:"left", marginTop:"0px", fontSize:"12px", fontWeight:"300"}}>из г. {user["user_properties"]["city"]}</p>
+                                <p style={{textAlign:"left", fontSize:"12px", fontWeight:"300", lineHeight:"14px"}}>{user["user_properties"]["form"]}</p>
                             </div>
                         </div>
                         <div>
+                        <div className="routes-tags">
                             {user["user_properties"]["tags"].map((tag) => {
                                 return(
-                                    <div><p>{tag}</p></div>
+                                    
+                                    <div className="tag"><p>{tag}</p></div>
+                                    
                                 )
                             })}
+                            </div>
                         </div>
                     </div>
                     )
                 })}
                 </div>
-                : <p>Никого не нашли :(</p>) : <></> : 
+                : 
                 <div>
-                    <Calendar value={dates} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection />
-                    <button className="comp-button" disabled={!seeActive} onClick={() => register()}/>
+                <p>Никого не нашли :(</p>
+                <div className="gray-button" style={{border:"1px solid var(--gray-a7)"}} onClick={() => {handleLogOut()}}><p style={{fontSize:"12px"}}>ПРЕКРАТИТЬ ПОИСК</p></div>
+                </div>)
+                : <></> : 
+                <div style={{display:"flex", flexDirection:"column", marginInline:"32px", gap:"16px"}}>
+                    <h2 style={{textAlign:"left", fontSize:"16px", fontWeight:"500"}}>Выберите даты</h2>
+                    <Calendar  value={dates} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput inline  />
+                    {console.log("dates ",dates)}
+                    <div className="button" disabled={!seeActive} onClick={() => register()}> <p style={{fontWeight:"400"}}>Найти попутчиков</p> </div>
                 </div> }
             </div> }
         </div>
