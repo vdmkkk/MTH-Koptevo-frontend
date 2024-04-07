@@ -19,7 +19,7 @@ import axios from 'axios';
 function checkCookie(navigate, cookies) {
   if (cookies.JWT == null) {
     navigate('/login')
-  } else navigate('/profile')
+  } else navigate(`/profile/${cookies.JWT}`)
 }
 
 

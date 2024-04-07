@@ -7,6 +7,23 @@ import { Calendar } from 'primereact/calendar';
 import Dropdown from "../reusable/dropdown";
 import './LinkTrip.scss'
 
+function getDateIntervalLength(jsonDate1, jsonDate2) {
+    const dateStr1 = jsonDate1;
+    const dateStr2 = jsonDate2;
+  
+    const date1 = new Date(dateStr1);
+    const date2 = new Date(dateStr2);
+  
+    const normalizedDate1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    const normalizedDate2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+  
+    const diffInMilliseconds = Math.abs(normalizedDate2 - normalizedDate1);
+  
+    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+  
+    return Math.ceil(diffInDays) + 1; // +1 to include both the start and end dates in the interval
+  }
+
 function LinkTrip({open, setOpen, mode, entityId}) {
     const [cookies, setCookie] = useCookies(["JWT"]);
     const [guest, setGuest] = useState(false)
@@ -31,7 +48,7 @@ function LinkTrip({open, setOpen, mode, entityId}) {
         const data = {
             "entity_id": parseInt(entityId),
             "trip_id": parseInt(trip.id),
-            "day": date ?  new Date(trips.filter(obj => obj["id"] == trip.id)[0]["date_start"]).getDay() - new Date(date).getDate : 0,
+            "day": date ?  getDateIntervalLength(trips.filter(obj => obj["id"] == trip.id)[0]["date_start"], new Date(date).toJSON()) : 0,
             "position": 0
         }
         console.log("wtf", data);
