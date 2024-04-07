@@ -152,7 +152,7 @@ function PlacePage() {
 
               <div className='place-buttons'>
                 <div onClick={() => {setNotesOpen(true)}} className='button' style={{backgroundColor:"var(--gray-f5)"}}><p>Открыть заметки</p></div>
-                <div className='button'><p>Перейти к билетам</p></div>
+                <div className='button' onClick={() => window.open("https://russpass.ru/portal")}><p>Перейти к билетам</p></div>
                 <div onClick={() => tripName ? navigate(`/trip/${tripName["id"]}`) : setLinkOpen(true)} className='button'><p>{tripName ? tripName["name"] : "Добавить в поездку"}</p></div>
                 <div onClick={() => {setCompanionsOpen(true)}} className='button'> <p>Найти попутчика</p></div>
                 <div className='button-short' style={{backgroundColor:"var(--gray-f5)", width:"20px"}}><img src={redHeart} style={{marginRight:"0px", width:"24px"}}></img></div>
